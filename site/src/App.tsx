@@ -48,9 +48,7 @@ export default function App() {
         <section id="get-started" className="doc-section">
           <p className="eyebrow">01 / Get started</p><h2>Installation</h2>
           <p>Platekit is a React 19 component library. No CSS import, framework, or image request is required to render a plate.</p>
-          <div className="notice"><strong>Preview release.</strong> The npm package is not published yet. To try it now, build a package from the repository:</div>
-          <CodeBlock label="terminal">{`git clone https://github.com/jonnii/platekit.git\ncd platekit\nbun install --frozen-lockfile\nbun run build\nnpm pack\n\n# In your React app:\nnpm install /path/to/platekit/platekit-0.1.0.tgz`}</CodeBlock>
-          <p className="small">Building from source uses Bun 1.3.14. Your app only needs React 19.</p>
+          <CodeBlock label="terminal">{`npm install platekit`}</CodeBlock>
           <CodeBlock>{`import { LicensePlate } from "platekit";\n\nexport function Example() {\n  return (\n    <LicensePlate\n      state="NY"\n      plate="ABC1234"\n      style={{ width: 400 }}\n    />\n  );\n}`}</CodeBlock>
         </section>
 

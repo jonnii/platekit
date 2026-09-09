@@ -34,9 +34,7 @@ jobs:
         run: bun run tools/prepare-release.ts
       - run: bun run check
       - run: bun run check:package
-      # NPM_TOKEN bootstraps the first publication. Remove it after enabling OIDC.
       - name: Publish to npm
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_DIST_TAG: ${{ steps.release.outputs.dist-tag }}
         run: npm publish --access public --tag "$NPM_DIST_TAG"

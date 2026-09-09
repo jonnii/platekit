@@ -7,7 +7,7 @@ Publish a GitHub release to publish the library to npm. There is no local publis
 Once the workflow and npm authentication are configured:
 
 1. Open the repository's **Releases → Draft a new release** page.
-2. Choose the code to release, usually `main`, and create a tag such as `v0.1.0` in GitHub.
+2. Choose the code to release, usually `main`, and create a new tag such as `v0.1.1` in GitHub.
 3. Add release notes and click **Publish release**.
 
 The `publish.yml` workflow checks out that release's code, installs the pinned Bun version, sets the package version from the release tag, runs checks, builds the library, verifies its contents, and publishes it to npm. The version change happens only in the runner; you do not need to edit `package.json` or commit a version bump first.
@@ -16,20 +16,20 @@ A draft does not publish anything. A tag push by itself does not publish anythin
 
 Stable releases such as `v0.1.0` publish under npm's `latest` tag. For a prerelease, use a tag such as `v0.2.0-beta.1` and select **Set as a pre-release** in GitHub; the package publishes under `next`. The workflow rejects mismatches between the version and the GitHub prerelease setting. Build metadata in version tags is not supported.
 
-## One-time npm setup
+## Configure trusted publishing
 
-npm requires the package to exist before you can configure a trusted publisher. The initial release can still be published entirely from GitHub Actions:
+The initial `platekit@0.1.0` release was published locally. Subsequent releases use GitHub Actions with OIDC authentication.
 
-1. Sign into npm's website with the account that should own `platekit`.
-2. Create a granular access token that permits creating and publishing the package, with **Read and write** package permissions and **Bypass two-factor authentication** for unattended publishing.
-3. In GitHub, open **Settings → Secrets and variables → Actions** and add a repository secret named `NPM_TOKEN` containing that token.
-4. Publish the first GitHub release, for example `v0.1.0`.
+With an npm account that has write access to `platekit` and two-factor authentication enabled, run:
 
-A name lookup can show that no public package exists, but npm makes the final availability decision when publishing. See [npm's token documentation](https://docs.npmjs.com/creating-and-viewing-access-tokens/) and the [package-existence requirement](https://docs.npmjs.com/cli/v11/commands/npm-trust/#prerequisites).
+```sh
+npx --yes npm@11.19.1 trust github platekit --repo jonnii/platekit --file publish.yml --allow-publish
+npx --yes npm@11.19.1 trust list platekit
+```
 
-## Switch to trusted publishing
+Complete npm's authentication prompt. These commands use a version supporting the current trust configuration flags without upgrading your global npm installation. See [npm trust](https://docs.npmjs.com/cli/v11/commands/npm-trust/).
 
-After the first release, add a trusted publisher in the npm package settings:
+Alternatively, add a trusted publisher in the [npm package settings](https://www.npmjs.com/package/platekit/access):
 
 | Field | Value |
 | --- | --- |
@@ -40,12 +40,12 @@ After the first release, add a trusted publisher in the npm package settings:
 | Environment | Leave empty |
 | Allowed actions | Allow direct `npm publish` |
 
-Remove the `NPM_TOKEN` secret and revoke the bootstrap token. Subsequent GitHub releases use OIDC authentication, with no stored npm token or local login. The workflow has the required `id-token: write` permission and uses Node 24 with an npm version supporting trusted publishing. See [npm trusted publishing](https://docs.npmjs.com/trusted-publishers/).
+The workflow uses OIDC authentication with no stored npm token. It has the required `id-token: write` permission and uses Node 24 with an npm version supporting trusted publishing. No `NPM_TOKEN` secret is needed. See [npm trusted publishing](https://docs.npmjs.com/trusted-publishers/).
+
+Commit and push the workflow before creating the next GitHub release from `main`. Use a new version such as `v0.1.1` to verify publishing through Actions; rerunning the original `v0.1.0` workflow cannot overwrite the package already on npm.
 
 ## Checks and retries
 
 `bun run check` runs tests and typechecks. `bun run check:package` rebuilds the library and verifies the publication boundary and all 51 state exports. Only `dist/`, package metadata, README, and LICENSE are included; development tools, sites, reference images, and fonts are excluded.
 
 If publishing fails before npm accepts the version, fix the configuration and rerun the failed workflow from the Actions tab. Published versions cannot be overwritten. If a version already exists, use a new release tag for changes.
-
-After the first successful release, replace the public site's source-install notice with `npm install platekit`.
