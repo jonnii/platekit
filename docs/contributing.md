@@ -59,3 +59,5 @@ bun --bun vite preview --config site/vite.config.ts --base /platekit/
 ```
 
 Open `http://localhost:4173/platekit/`. Navigation uses page anchors, so no server-side route fallback is needed on Pages. See [Vite's GitHub Pages guide](https://vite.dev/guide/static-deploy.html#github-pages) for the hosting setup.
+
+See [publishing](publishing.md) for package validation, the first npm release, and subsequent releases through GitHub Actions.

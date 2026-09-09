@@ -2,6 +2,10 @@
 
 SVG license plate components for React, covering all 50 US states and Washington, DC.
 
+```sh
+npm install platekit
+```
+
 ```tsx
 import { LicensePlate } from "platekit";
 
@@ -67,7 +71,7 @@ npm pack --dry-run
 
 The package is ESM with TypeScript declarations. Its runtime code lives in `src/`; the public docs site lives in `site/`, the internal React workshop in `workshop/`, shared artwork tools in `tools/artwork/`, and preserved images and provenance in `references/`. Development fonts, reference images, tools, and historical material are excluded from the npm package.
 
-The npm name `platekit` is provisional until registry availability and publishing ownership are confirmed. Nothing is published automatically.
+See [publishing](https://github.com/jonnii/platekit/blob/main/docs/publishing.md) for release checks and npm authentication.
 
 ## License
 

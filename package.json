@@ -39,7 +39,9 @@
     "prepack": "npm run build",
     "check": "bun run typecheck && bun test",
     "dev:workshop": "bun --bun vite --config workshop/vite.config.ts",
-    "build:site": "bun --bun vite build --config site/vite.config.ts"
+    "build:site": "bun --bun vite build --config site/vite.config.ts",
+    "check:package": "bun run build && bun run tools/check-package.ts",
+    "prepublishOnly": "bun run check"
   },
   "peerDependencies": {
     "react": "^19.0.0"
@@ -61,5 +63,20 @@
     "vite": "^8.2.2",
     "zod": "^4.5.4"
   },
-  "packageManager": "bun@1.3.14"
+  "packageManager": "bun@1.3.14",
+  "homepage": "https://jonnii.github.io/platekit/",
+  "bugs": {
+    "url": "https://github.com/jonnii/platekit/issues"
+  },
+  "keywords": [
+    "react",
+    "license-plate",
+    "svg",
+    "components",
+    "typescript"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
 }
