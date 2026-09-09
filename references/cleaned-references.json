@@ -1,0 +1,716 @@
+{
+  "ME": {
+    "source": "https://cdn.shopify.com/s/files/1/0267/1643/8599/products/maine-any-text-custom-license-plate.jpg?v=1588178917",
+    "image": {
+      "w": 1200,
+      "h": 1200
+    },
+    "plate": {
+      "x": 95,
+      "y": 347,
+      "w": 1012,
+      "h": 506
+    },
+    "src": "/plate-references/cleaned/me.webp"
+  },
+  "NY": {
+    "source": "https://dmv.ny.gov/sites/default/files/styles/wysiwyg/public/images/2021-11/excelsior_embossed_plate_3d_master.jpg?itok=KFMjdJB0",
+    "image": {
+      "w": 660,
+      "h": 343
+    },
+    "plate": {
+      "x": 9,
+      "y": 9,
+      "w": 642,
+      "h": 324
+    },
+    "src": "/plate-references/cleaned/ny.webp"
+  },
+  "CA": {
+    "source": "https://signsandtagsonline.com/cdn/shop/products/california-custom-license-plate-1234567890-red-text-white.jpg?v=1736861799&width=1946",
+    "image": {
+      "w": 1200,
+      "h": 1200
+    },
+    "plate": {
+      "x": 97,
+      "y": 348,
+      "w": 1007,
+      "h": 508
+    },
+    "src": "/plate-references/cleaned/ca.webp"
+  },
+  "NJ": {
+    "source": "https://signsandtagsonline.com/cdn/shop/products/g-personalized-new-jersey-state-license-plate.jpg?v=1736863332&width=1946",
+    "image": {
+      "w": 1000,
+      "h": 776
+    },
+    "plate": {
+      "x": 99,
+      "y": 185,
+      "w": 805,
+      "h": 408
+    },
+    "src": "/plate-references/cleaned/nj.webp"
+  },
+  "PA": {
+    "source": "https://cdn.shopify.com/s/files/1/0267/1643/8599/products/pennsylvania-state-auto-tag-any-text.jpg?v=1588190239&width=1946",
+    "image": {
+      "w": 1200,
+      "h": 1200
+    },
+    "plate": {
+      "x": 95,
+      "y": 347,
+      "w": 1011,
+      "h": 505
+    },
+    "src": "/plate-references/cleaned/pa.webp"
+  },
+  "MA": {
+    "source": "https://cdn.shopify.com/s/files/1/0267/1643/8599/products/w-custom-massachusetts-license-plate.jpg?v=1575473284&width=1946",
+    "image": {
+      "w": 1200,
+      "h": 1200
+    },
+    "plate": {
+      "x": 95,
+      "y": 347,
+      "w": 1011,
+      "h": 505
+    },
+    "src": "/plate-references/cleaned/ma.webp"
+  },
+  "CT": {
+    "source": "https://cdn.shopify.com/s/files/1/0267/1643/8599/products/connecticut-any-text-license-plate.jpg?v=1588160969&width=1946",
+    "image": {
+      "w": 1200,
+      "h": 1200
+    },
+    "plate": {
+      "x": 95,
+      "y": 347,
+      "w": 1011,
+      "h": 505
+    },
+    "src": "/plate-references/cleaned/ct.webp"
+  },
+  "VT": {
+    "source": "https://cdn.shopify.com/s/files/1/0267/1643/8599/products/vermont-custom-license-plate.jpg?v=1588872449&width=1946",
+    "image": {
+      "w": 1200,
+      "h": 1200
+    },
+    "plate": {
+      "x": 94,
+      "y": 346,
+      "w": 1011,
+      "h": 505
+    },
+    "src": "/plate-references/cleaned/vt.webp"
+  },
+  "NH": {
+    "source": "https://cdn.shopify.com/s/files/1/0267/1643/8599/files/custom-text-new-hampshire-novelty-flat-license-plate.jpg?v=1718202049&width=1946",
+    "image": {
+      "w": 1200,
+      "h": 1200
+    },
+    "plate": {
+      "x": 94,
+      "y": 346,
+      "w": 1011,
+      "h": 505
+    },
+    "src": "/plate-references/cleaned/nh.webp"
+  },
+  "RI": {
+    "source": "https://cdn.shopify.com/s/files/1/0267/1643/8599/products/rhode-island-custom-license-plate-any-text.jpg?v=1588871005&width=1946",
+    "image": {
+      "w": 1200,
+      "h": 1200
+    },
+    "plate": {
+      "x": 94,
+      "y": 346,
+      "w": 1011,
+      "h": 505
+    },
+    "src": "/plate-references/cleaned/ri.webp"
+  },
+  "IL": {
+    "source": "https://signsandtagsonline.com/cdn/shop/products/illinois-lincoln-custom-text-license-plate.jpg?v=1649959516&width=1946",
+    "image": {
+      "w": 1200,
+      "h": 1200
+    },
+    "plate": {
+      "x": 96,
+      "y": 348,
+      "w": 1008,
+      "h": 504
+    },
+    "src": "/plate-references/cleaned/il.webp"
+  },
+  "OH": {
+    "source": "https://signsandtagsonline.com/cdn/shop/files/custom-text-new-ohio-license-plate-any-text.jpg?v=1690472426&width=1946",
+    "image": {
+      "w": 1200,
+      "h": 1200
+    },
+    "plate": {
+      "x": 96,
+      "y": 348,
+      "w": 1008,
+      "h": 504
+    },
+    "src": "/plate-references/cleaned/oh.webp"
+  },
+  "GA": {
+    "source": "https://signsandtagsonline.com/cdn/shop/files/custom-text-georgia-peach-state-novelty-license-plate.jpg?v=1700498500&width=1946",
+    "image": {
+      "w": 1200,
+      "h": 1200
+    },
+    "plate": {
+      "x": 96,
+      "y": 348,
+      "w": 1008,
+      "h": 504
+    },
+    "src": "/plate-references/cleaned/ga.webp"
+  },
+  "MD": {
+    "source": "https://signsandtagsonline.com/cdn/shop/products/custom-maryland-state-license-plate.jpg?v=1588179681&width=1946",
+    "image": {
+      "w": 1200,
+      "h": 1200
+    },
+    "plate": {
+      "x": 94,
+      "y": 347,
+      "w": 1012,
+      "h": 506
+    },
+    "src": "/plate-references/cleaned/md.webp"
+  },
+  "MI": {
+    "source": "https://signsandtagsonline.com/cdn/shop/products/custom-michigan-state-license-plate.jpg?v=1588090258&width=1946",
+    "image": {
+      "w": 1200,
+      "h": 1200
+    },
+    "plate": {
+      "x": 94,
+      "y": 347,
+      "w": 1012,
+      "h": 506
+    },
+    "src": "/plate-references/cleaned/mi.webp"
+  },
+  "FL": {
+    "source": "https://florida-license-plate.com/cdn/shop/files/2019-2024-florida-license-plate-sunshine-state.png?v=1713875604&width=1946",
+    "image": {
+      "w": 1771,
+      "h": 900
+    },
+    "plate": {
+      "x": 12,
+      "y": 13,
+      "w": 1745,
+      "h": 879
+    },
+    "src": "/plate-references/cleaned/fl.webp"
+  },
+  "LA": {
+    "source": "https://signsandtagsonline.com/cdn/shop/products/louisiana-customized-license-plate.jpg?width=1946",
+    "image": {
+      "w": 1200,
+      "h": 1200
+    },
+    "plate": {
+      "x": 95,
+      "y": 347,
+      "w": 1010,
+      "h": 507
+    },
+    "src": "/plate-references/cleaned/la.webp"
+  },
+  "MO": {
+    "source": "https://signsandtagsonline.com/cdn/shop/products/missouri-any-text-license-plate.jpg?width=1946",
+    "image": {
+      "w": 1200,
+      "h": 1200
+    },
+    "plate": {
+      "x": 95,
+      "y": 347,
+      "w": 1010,
+      "h": 507
+    },
+    "src": "/plate-references/cleaned/mo.webp"
+  },
+  "MT": {
+    "source": "https://signsandtagsonline.com/cdn/shop/products/montana-any-text-license-plate2.jpg?width=1946",
+    "image": {
+      "w": 1200,
+      "h": 1200
+    },
+    "plate": {
+      "x": 95,
+      "y": 347,
+      "w": 1010,
+      "h": 507
+    },
+    "src": "/plate-references/cleaned/mt.webp"
+  },
+  "AL": {
+    "source": "https://cdn.shopify.com/s/files/1/0267/1643/8599/files/custom-text-alabama-novelty-license-plate-1.jpg?v=1690476081",
+    "image": {
+      "w": 1200,
+      "h": 1200
+    },
+    "plate": {
+      "x": 95,
+      "y": 347,
+      "w": 1012,
+      "h": 506
+    },
+    "src": "/plate-references/cleaned/al.webp"
+  },
+  "AK": {
+    "source": "https://cdn.shopify.com/s/files/1/0267/1643/8599/products/personalized-alaska-license-plate.jpg?v=1588159105",
+    "image": {
+      "w": 1200,
+      "h": 1200
+    },
+    "plate": {
+      "x": 95,
+      "y": 347,
+      "w": 1012,
+      "h": 506
+    },
+    "src": "/plate-references/cleaned/ak.webp"
+  },
+  "AZ": {
+    "source": "https://cdn.shopify.com/s/files/1/0267/1643/8599/products/61UoA24pjML._SL1200.jpg?v=1588097759",
+    "image": {
+      "w": 1200,
+      "h": 1200
+    },
+    "plate": {
+      "x": 95,
+      "y": 347,
+      "w": 1012,
+      "h": 506
+    },
+    "src": "/plate-references/cleaned/az.webp"
+  },
+  "AR": {
+    "source": "https://cdn.shopify.com/s/files/1/0267/1643/8599/products/arkansas-custom-text-license-plate.jpg?v=1588159643",
+    "image": {
+      "w": 1200,
+      "h": 1200
+    },
+    "plate": {
+      "x": 95,
+      "y": 347,
+      "w": 1012,
+      "h": 506
+    },
+    "src": "/plate-references/cleaned/ar.webp"
+  },
+  "CO": {
+    "source": "https://cdn.shopify.com/s/files/1/0267/1643/8599/products/colorado-any-text-license-plate.jpg?v=1588160079",
+    "image": {
+      "w": 1200,
+      "h": 1200
+    },
+    "plate": {
+      "x": 95,
+      "y": 347,
+      "w": 1012,
+      "h": 506
+    },
+    "src": "/plate-references/cleaned/co.webp"
+  },
+  "DE": {
+    "source": "https://cdn.shopify.com/s/files/1/0267/1643/8599/products/delaware-any-text-custom-license-plate.jpg?v=1588161734",
+    "image": {
+      "w": 1200,
+      "h": 1200
+    },
+    "plate": {
+      "x": 95,
+      "y": 347,
+      "w": 1012,
+      "h": 506
+    },
+    "src": "/plate-references/cleaned/de.webp"
+  },
+  "DC": {
+    "source": "https://cdn.shopify.com/s/files/1/0267/1643/8599/products/dc-customized-license-plate.jpg?v=1594300420",
+    "image": {
+      "w": 1200,
+      "h": 1200
+    },
+    "plate": {
+      "x": 95,
+      "y": 347,
+      "w": 1012,
+      "h": 506
+    },
+    "src": "/plate-references/cleaned/dc.webp"
+  },
+  "TX": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/b/b9/Texas_Passenger_Car_License_Plate_2020.png",
+    "image": {
+      "w": 1328,
+      "h": 671
+    },
+    "plate": {
+      "x": 6,
+      "y": 6,
+      "w": 1316,
+      "h": 658
+    },
+    "src": "/plate-references/cleaned/tx.webp"
+  },
+  "NV": {
+    "source": "https://signsandtagsonline.com/cdn/shop/products/nevada-customized-state-license-plate.jpg?width=1946",
+    "image": {
+      "w": 1200,
+      "h": 1200
+    },
+    "plate": {
+      "x": 95,
+      "y": 347,
+      "w": 1010,
+      "h": 507
+    },
+    "src": "/plate-references/cleaned/nv.webp"
+  },
+  "HI": {
+    "source": "https://cdn.shopify.com/s/files/1/0267/1643/8599/products/hawaii-any-text-custom-license-plate.jpg?v=1588173008",
+    "image": {
+      "w": 1200,
+      "h": 1200
+    },
+    "plate": {
+      "x": 95,
+      "y": 347,
+      "w": 1012,
+      "h": 506
+    },
+    "src": "/plate-references/cleaned/hi.webp"
+  },
+  "ID": {
+    "source": "https://cdn.shopify.com/s/files/1/0267/1643/8599/products/scenic-idaho-custom-text-license-plate.jpg?v=1588173886",
+    "image": {
+      "w": 1200,
+      "h": 1200
+    },
+    "plate": {
+      "x": 95,
+      "y": 347,
+      "w": 1012,
+      "h": 506
+    },
+    "src": "/plate-references/cleaned/id.webp"
+  },
+  "IN": {
+    "source": "https://cdn.shopify.com/s/files/1/0267/1643/8599/products/customized-indiana-state-license-plate.jpg?v=1588176156",
+    "image": {
+      "w": 1200,
+      "h": 1200
+    },
+    "plate": {
+      "x": 95,
+      "y": 347,
+      "w": 1012,
+      "h": 506
+    },
+    "src": "/plate-references/cleaned/in.webp"
+  },
+  "IA": {
+    "source": "https://cdn.shopify.com/s/files/1/0267/1643/8599/products/iowa-state-custom-license-plate-any-text.jpg?v=1588883957",
+    "image": {
+      "w": 1200,
+      "h": 1200
+    },
+    "plate": {
+      "x": 95,
+      "y": 347,
+      "w": 1012,
+      "h": 506
+    },
+    "src": "/plate-references/cleaned/ia.webp"
+  },
+  "KS": {
+    "source": "https://www.ksrevenue.gov/img/newplate.png",
+    "image": {
+      "w": 1643,
+      "h": 833
+    },
+    "plate": {
+      "x": 1,
+      "y": 3,
+      "w": 1640,
+      "h": 824
+    },
+    "src": "/plate-references/cleaned/ks.webp"
+  },
+  "KY": {
+    "source": "https://cdn.shopify.com/s/files/1/0267/1643/8599/products/custom-text-kentucky-bluegrass-state-novelty-licesnse-plate.jpg?v=1617136296",
+    "image": {
+      "w": 1200,
+      "h": 1200
+    },
+    "plate": {
+      "x": 95,
+      "y": 347,
+      "w": 1012,
+      "h": 506
+    },
+    "src": "/plate-references/cleaned/ky.webp"
+  },
+  "MN": {
+    "source": "https://cdn.shopify.com/s/files/1/0267/1643/8599/products/minnesota-customized-license-plate.jpg?v=1588180106",
+    "image": {
+      "w": 1200,
+      "h": 1200
+    },
+    "plate": {
+      "x": 95,
+      "y": 347,
+      "w": 1012,
+      "h": 506
+    },
+    "src": "/plate-references/cleaned/mn.webp"
+  },
+  "MS": {
+    "source": "https://cdn.shopify.com/s/files/1/0267/1643/8599/files/custom-text-mississippi-2024-present-flower-novelty-license-plate.jpg?v=1723032727",
+    "image": {
+      "w": 1200,
+      "h": 1200
+    },
+    "plate": {
+      "x": 95,
+      "y": 347,
+      "w": 1012,
+      "h": 506
+    },
+    "src": "/plate-references/cleaned/ms.webp"
+  },
+  "NE": {
+    "source": "https://cdn.shopify.com/s/files/1/0267/1643/8599/files/custom-text-nebraska-novelty-license-plate-1.jpg?v=1714485289",
+    "image": {
+      "w": 1200,
+      "h": 1200
+    },
+    "plate": {
+      "x": 95,
+      "y": 347,
+      "w": 1012,
+      "h": 506
+    },
+    "src": "/plate-references/cleaned/ne.webp"
+  },
+  "NM": {
+    "source": "https://cdn.shopify.com/s/files/1/0267/1643/8599/files/custom-text-new-mexico-centennial-blue-nvelty-license-plate-1.jpg?v=1690566169",
+    "image": {
+      "w": 1200,
+      "h": 1200
+    },
+    "plate": {
+      "x": 95,
+      "y": 347,
+      "w": 1012,
+      "h": 506
+    },
+    "src": "/plate-references/cleaned/nm.webp"
+  },
+  "NC": {
+    "source": "https://cdn.shopify.com/s/files/1/0267/1643/8599/files/personalized-text-north-carolina-first-in-flight-licesne-plate.jpg?v=1683838709",
+    "image": {
+      "w": 1200,
+      "h": 1200
+    },
+    "plate": {
+      "x": 95,
+      "y": 347,
+      "w": 1012,
+      "h": 506
+    },
+    "src": "/plate-references/cleaned/nc.webp"
+  },
+  "ND": {
+    "source": "https://cdn.shopify.com/s/files/1/0267/1643/8599/products/custom-text-north-dakota-peace-garden-state-license-plate.jpg?v=1617234167",
+    "image": {
+      "w": 1200,
+      "h": 1200
+    },
+    "plate": {
+      "x": 95,
+      "y": 347,
+      "w": 1012,
+      "h": 506
+    },
+    "src": "/plate-references/cleaned/nd.webp"
+  },
+  "OK": {
+    "source": "https://oklahoma.gov/ltgovpinnell/newsroom/2024/august/lt--governor-pinnell-and-service-oklahoma-announce-new-license-p/_jcr_content/responsivegrid/image_1418973381.coreimg.png/1723150079989/plate-final.png",
+    "image": {
+      "w": 1024,
+      "h": 519
+    },
+    "plate": {
+      "x": 5,
+      "y": 5,
+      "w": 1014,
+      "h": 509
+    },
+    "src": "/plate-references/cleaned/ok.webp"
+  },
+  "OR": {
+    "source": "https://cdn.shopify.com/s/files/1/0267/1643/8599/products/oregon-custom-license-plate.jpg?v=1588190058",
+    "image": {
+      "w": 1200,
+      "h": 1200
+    },
+    "plate": {
+      "x": 95,
+      "y": 347,
+      "w": 1012,
+      "h": 506
+    },
+    "src": "/plate-references/cleaned/or.webp"
+  },
+  "SC": {
+    "source": "https://dmv.sc.gov/sites/scdmv/files/inline-images/RP4%20Plate.png",
+    "image": {
+      "w": 1065,
+      "h": 538
+    },
+    "plate": {
+      "x": 11,
+      "y": 12,
+      "w": 1040,
+      "h": 516
+    },
+    "src": "/plate-references/cleaned/sc.webp"
+  },
+  "SD": {
+    "source": "https://cdn.shopify.com/s/files/1/0267/1643/8599/products/south-dakota-custom-state-license-plate.jpg?v=1588870851",
+    "image": {
+      "w": 1200,
+      "h": 1200
+    },
+    "plate": {
+      "x": 95,
+      "y": 347,
+      "w": 1012,
+      "h": 506
+    },
+    "src": "/plate-references/cleaned/sd.webp"
+  },
+  "TN": {
+    "source": "https://cdn.shopify.com/s/files/1/0267/1643/8599/files/custom-text-new-tennessee-license-plate-any-text2.jpg?v=1690207980",
+    "image": {
+      "w": 1200,
+      "h": 1200
+    },
+    "plate": {
+      "x": 95,
+      "y": 347,
+      "w": 1012,
+      "h": 506
+    },
+    "src": "/plate-references/cleaned/tn.webp"
+  },
+  "UT": {
+    "source": "https://cdn.shopify.com/s/files/1/0267/1643/8599/products/utah-state-license-plate-any-text.jpg?v=1588872211",
+    "image": {
+      "w": 1200,
+      "h": 1200
+    },
+    "plate": {
+      "x": 95,
+      "y": 347,
+      "w": 1012,
+      "h": 506
+    },
+    "src": "/plate-references/cleaned/ut.webp"
+  },
+  "VA": {
+    "source": "https://signsandtagsonline.com/cdn/shop/files/40001-VA-2.jpg?v=1781701743&width=1946",
+    "image": {
+      "w": 1500,
+      "h": 1500
+    },
+    "plate": {
+      "x": 118,
+      "y": 433,
+      "w": 1264,
+      "h": 632
+    },
+    "src": "/plate-references/cleaned/va.webp"
+  },
+  "WA": {
+    "source": "https://cdn.shopify.com/s/files/1/0267/1643/8599/files/custom-text-washington-state-replica-license-plate.jpg?v=1683902177",
+    "image": {
+      "w": 1200,
+      "h": 1200
+    },
+    "plate": {
+      "x": 95,
+      "y": 347,
+      "w": 1012,
+      "h": 506
+    },
+    "src": "/plate-references/cleaned/wa.webp"
+  },
+  "WV": {
+    "source": "https://cdn.shopify.com/s/files/1/0267/1643/8599/products/wes-virginia-custom-license-plate.jpg?v=1589303125",
+    "image": {
+      "w": 1200,
+      "h": 1200
+    },
+    "plate": {
+      "x": 95,
+      "y": 347,
+      "w": 1012,
+      "h": 506
+    },
+    "src": "/plate-references/cleaned/wv.webp"
+  },
+  "WI": {
+    "source": "https://cdn.shopify.com/s/files/1/0267/1643/8599/products/wisconsin-custom-license-plate-any-text.jpg?v=1588875276",
+    "image": {
+      "w": 1200,
+      "h": 1200
+    },
+    "plate": {
+      "x": 95,
+      "y": 347,
+      "w": 1012,
+      "h": 506
+    },
+    "src": "/plate-references/cleaned/wi.webp"
+  },
+  "WY": {
+    "source": "https://dot.state.wy.us/files/live/sites/wydot/files/shared/Motor%20Vehicle%20Services/2025%20Plate%20images/2025-4-DIGIT-PASS.jpg",
+    "image": {
+      "w": 846,
+      "h": 430
+    },
+    "plate": {
+      "x": 7,
+      "y": 6,
+      "w": 832,
+      "h": 418
+    },
+    "src": "/plate-references/cleaned/wy.webp"
+  }
+}

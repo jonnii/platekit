@@ -1,0 +1,39 @@
+<svg width="520" height="270" viewBox="0 0 520 270" xmlns="http://www.w3.org/2000/svg" fill="none">
+  <!-- Base -->
+  <rect x="5" y="5" width="510" height="260" rx="24" fill="#ffffff" stroke="#0b2a66" stroke-width="6"/>
+  <!-- Inner stroke to simulate double border -->
+  <rect x="12" y="12" width="496" height="246" rx="18" stroke="#0b2a66" stroke-width="3"/>
+  <!-- Screw caps (background only) -->
+  <circle cx="36" cy="24" r="8" fill="#000" opacity="0.12"/>
+  <circle cx="484" cy="24" r="8" fill="#000" opacity="0.12"/>
+  <circle cx="36" cy="246" r="8" fill="#000" opacity="0.12"/>
+  <circle cx="484" cy="246" r="8" fill="#000" opacity="0.12"/>
+  <!-- Gold bars -->
+  <g transform="translate(36,34)">
+    <rect width="448" height="8" rx="4" fill="#f4a21e"/>
+    <rect y="12" width="448" height="8" rx="4" fill="#f4a21e"/>
+  </g>
+  <!-- Skyline bottom -->
+  <g transform="translate(24,208)">
+    <!-- Niagara Falls left block -->
+    <path d="M0 36h120c16 0 28-12 28-24V0H0z" fill="#0b2a66"/>
+    <rect x="8" y="0" width="6" height="36" fill="#fff" opacity="0.5"/>
+    <rect x="18" y="0" width="5" height="36" fill="#fff" opacity="0.4"/>
+    <rect x="26" y="0" width="6" height="36" fill="#fff" opacity="0.5"/>
+    <rect x="38" y="0" width="5" height="36" fill="#fff" opacity="0.4"/>
+    <rect x="48" y="0" width="6" height="36" fill="#fff" opacity="0.5"/>
+  </g>
+  <g transform="translate(300,210)" fill="#0b2a66">
+    <rect x="12" y="16" width="18" height="18"/>
+    <rect x="38" y="8" width="22" height="26"/>
+    <rect x="66" y="0" width="18" height="34"/>
+    <rect x="90" y="14" width="26" height="20"/>
+    <!-- Statue of Liberty simplified -->
+    <path d="M146 2l6-10 3 2-5 10z"/>
+    <rect x="142" y="6" width="14" height="12"/>
+    <rect x="148" y="18" width="3.5" height="16"/>
+    <rect x="138" y="34" width="23" height="3"/>
+  </g>
+</svg>
+
+

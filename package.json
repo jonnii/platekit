@@ -1,0 +1,65 @@
+{
+  "name": "platekit",
+  "version": "0.1.0",
+  "description": "SVG license plate components for React, covering all 50 US states and DC.",
+  "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonnii/platekit.git"
+  },
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./plates/*": {
+      "types": "./dist/plates/*.d.ts",
+      "import": "./dist/plates/*.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "dev": "bun --bun vite --config site/vite.config.ts",
+    "build": "bun run tools/build.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.dev.json",
+    "test": "bun test",
+    "prepare-plate-reference": "bun run tools/artwork/cli/prepare-reference.ts",
+    "compare-plate": "bun run tools/artwork/cli/compare.ts",
+    "compare-plate:check": "bun run tools/artwork/cli/check-regression.ts",
+    "compare-plates": "bun run tools/artwork/cli/compare-all.ts",
+    "capture-plates": "bun run tools/artwork/cli/capture.ts",
+    "audit-plates": "bun run tools/artwork/cli/audit.ts",
+    "prepack": "npm run build",
+    "check": "bun run typecheck && bun test",
+    "dev:workshop": "bun --bun vite --config workshop/vite.config.ts",
+    "build:site": "bun --bun vite build --config site/vite.config.ts"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/pngjs": "^6.0.5",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^6.1.1",
+    "bun-types": "^1.3.14",
+    "pixelmatch": "^7.2.0",
+    "pngjs": "^7.0.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "sharp": "~0.35.4",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^6.0.3",
+    "vite": "^8.2.2",
+    "zod": "^4.5.4"
+  },
+  "packageManager": "bun@1.3.14"
+}

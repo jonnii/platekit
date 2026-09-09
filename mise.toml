@@ -1,0 +1,61 @@
+[tools]
+bun = "1.3.14"
+node = "24"
+
+[tasks.install]
+description = "Install dependencies"
+run = "bun install --frozen-lockfile"
+
+[tasks.dev]
+description = "Public documentation at http://localhost:3001"
+depends = ["install"]
+run = "bun run dev"
+
+[tasks."dev:workshop"]
+description = "Internal plate workshop at http://localhost:3002"
+depends = ["install"]
+run = "bun run dev:workshop"
+
+[tasks."build:site"]
+description = "Build the public documentation site"
+run = "bun run build:site"
+
+[tasks.build]
+description = "Build the npm package"
+run = "bun run build"
+
+[tasks.test]
+description = "Run the plate tests"
+run = "bun test"
+
+[tasks.typecheck]
+description = "Check TypeScript types"
+run = "bun run typecheck"
+
+[tasks.compare-plates]
+description = "Refresh artwork scores for all plates"
+run = "bun run compare-plates"
+
+[tasks.prepare-plate-reference]
+description = "Crop an original reference; pass --state=GA and optionally --src=..."
+run = "bun run prepare-plate-reference"
+
+[tasks.compare-plate]
+description = "Score one plate; pass --state=GA --reference=..."
+run = "bun run compare-plate"
+
+[tasks."compare-plate:check"]
+description = "Check before/after regression reports; pass --baseline=... --candidate=..."
+run = "bun run compare-plate:check"
+
+[tasks.capture-plates]
+description = "Capture the running comparison page in Chrome; pass --states=GA"
+run = "bun run capture-plates"
+
+[tasks.audit-plates]
+description = "Measure SVG complexity; pass --output-dir=... and optionally --states=GA"
+run = "bun run audit-plates"
+
+[tasks.check]
+description = "Typecheck the package and development tools, then run tests"
+run = "bun run check"

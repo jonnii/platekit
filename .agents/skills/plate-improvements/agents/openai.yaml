@@ -1,0 +1,3 @@
+interface:
+  display_name: "Plate Improvements"
+  short_description: "Refine state plate SVGs against real references"
