@@ -8,11 +8,12 @@ npm install platekit
 
 ```tsx
 import { LicensePlate } from "platekit";
+import "platekit/fonts.css";
 
 <LicensePlate plate="ABC1234" state="NY" className="my-plate" />
 ```
 
-Requires React 19. Plates scale to their container width. The documentation previews use the workshop's fonts; configure the [font variables](#fonts) for lettering in your app. No Next.js or Tailwind dependency, CSS import, network request, or bundled font is required.
+Requires React 19. Plates scale to their container width. Import the optional [font defaults](#fonts) to match the documentation previews. No Next.js or Tailwind dependency is required; without the stylesheet, plates use system font fallbacks.
 
 ## API
 
@@ -30,17 +31,25 @@ import NewYorkPlate from "platekit/plates/NewYorkPlate";
 
 ## Fonts
 
-The artwork uses text as well as vector paths. Supply fonts through these inherited CSS variables to customize lettering:
+The artwork uses text as well as vector paths. Import the optional stylesheet once in your app's entry point or global layout:
 
-| Variable | Purpose | Default |
-| --- | --- | --- |
-| `--font-plate-ny` | Registration numbers | sans-serif |
-| `--font-plate-script` | Script headings | cursive |
-| `--font-plate-place` | State headings | Georgia, serif |
-| `--font-plate-motto` | Motto lettering | Georgia, serif |
-| `--font-geist-sans` | Sans-serif text | Arial, sans-serif |
+```tsx
+import "platekit/fonts.css";
+```
 
-Fonts are consumer-supplied. The originating app uses Zurich Extra Condensed, Yellowtail, Playfair Display, Sanchez, and Geist. This package does not redistribute those font files. Default fonts vary by platform and will not exactly match the originating app; load your chosen fonts before visual comparisons or screenshots.
+This loads the same defaults as the documentation and workshop. The font files ship with the package; your bundler serves them from your app, with no Google Fonts dependency. Browsers load the faces used on the page. `font-display: swap` keeps text visible while fonts load; wait for `document.fonts.ready` before capturing screenshots.
+
+To manage fonts yourself, omit that import, load your chosen faces, and set these inherited CSS variables on a parent element. Overrides also work with the default stylesheet:
+
+| Variable | Purpose | With stylesheet | Without stylesheet |
+| --- | --- | --- | --- |
+| `--font-plate-ny` | Registration numbers (all states) | Bebas Neue | sans-serif |
+| `--font-plate-script` | Script headings | Yellowtail | cursive |
+| `--font-plate-place` | State headings | Playfair Display | Georgia, serif |
+| `--font-plate-motto` | Motto lettering | Sanchez | Georgia, serif |
+| `--font-geist-sans` | Sans-serif text | Geist | Arial, sans-serif |
+
+Bebas Neue replaces the earlier previews' Zurich Extra Condensed, for which we could not establish font-file redistribution rights. The bundled fonts retain their own SIL OFL 1.1 or Apache 2.0 licenses. Full attribution, licenses, and pinned source checksums ship in `dist/fonts/`; see [font notices](src/fonts/NOTICE.md).
 
 ## Development
 
@@ -57,7 +66,7 @@ The docs can deploy to GitHub Pages using the included workflow. See [GitHub Pag
 
 Run `bun run dev:workshop` (or `mise run dev:workshop`) separately for the internal artwork workshop at http://localhost:3002/compare. It includes reference pairs, scoring jobs, close-ups, registration samples, a contact sheet, and a font probe.
 
-Both sites support React Fast Refresh and CSS hot updates. `PORT` overrides the port for either command. The public site uses the same preview fonts as the workshop, with its own serial font asset, and has no comparison API or reference photographs.
+Both sites support React Fast Refresh and CSS hot updates. `PORT` overrides the port for either command. Both import the library's font stylesheet. The public site has no comparison API or reference photographs.
 
 - [Contributing and repository structure](docs/contributing.md)
 - [Artwork comparison and improvement workflow](docs/artwork-workflow.md)
@@ -69,10 +78,10 @@ bun run build
 npm pack --dry-run
 ```
 
-The package is ESM with TypeScript declarations. Its runtime code lives in `src/`; the public docs site lives in `site/`, the internal React workshop in `workshop/`, shared artwork tools in `tools/artwork/`, and preserved images and provenance in `references/`. Development fonts, reference images, tools, and historical material are excluded from the npm package.
+The package is ESM with TypeScript declarations. Its runtime code and redistributable fonts live in `src/`; the public docs site lives in `site/`, the internal React workshop in `workshop/`, shared artwork tools in `tools/artwork/`, and preserved images and provenance in `references/`. Reference images, tools, and historical material are excluded from the npm package.
 
 See [publishing](https://github.com/jonnii/platekit/blob/main/docs/publishing.md) for release checks and npm authentication.
 
 ## License
 
-MIT. See [LICENSE](LICENSE).
+Source code: MIT. See [LICENSE](LICENSE). Bundled fonts retain their separate licenses; see [font notices](src/fonts/NOTICE.md).

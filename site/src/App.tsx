@@ -49,7 +49,7 @@ export default function App() {
           <p className="eyebrow">01 / Get started</p><h2>Installation</h2>
           <p>Platekit is a React 19 component library. No CSS import, framework, or image request is required to render a plate.</p>
           <CodeBlock label="terminal">{`npm install platekit`}</CodeBlock>
-          <CodeBlock>{`import { LicensePlate } from "platekit";\n\nexport function Example() {\n  return (\n    <LicensePlate\n      state="NY"\n      plate="ABC1234"\n      style={{ width: 400 }}\n    />\n  );\n}`}</CodeBlock>
+          <CodeBlock>{`import { LicensePlate } from "platekit";\nimport "platekit/fonts.css";\n\nexport function Example() {\n  return (\n    <LicensePlate\n      state="NY"\n      plate="ABC1234"\n      style={{ width: 400 }}\n    />\n  );\n}`}</CodeBlock>
         </section>
 
         <section id="playground" className="doc-section">
@@ -63,7 +63,7 @@ export default function App() {
             <div className="playground-preview"><LicensePlate state={state} plate={plate} /></div>
             <CodeBlock>{example}</CodeBlock>
           </div>
-          <p className="small">These examples use our preview fonts. See <a href="#fonts">Fonts</a> to configure lettering in your app.</p>
+          <p className="small">Import <code>platekit/fonts.css</code> to use the same lettering as these examples. See <a href="#fonts">Fonts</a> for customization.</p>
         </section>
 
         <section id="usage" className="doc-section">
@@ -95,8 +95,10 @@ export default function App() {
 
         <section id="fonts" className="doc-section">
           <p className="eyebrow">05 / Typography</p><h2>Fonts</h2>
-          <p>Platekit combines vector artwork and SVG text. Fonts are supplied by your app, so there are no bundled font files or automatic font downloads. The defaults depend on your platform.</p>
-          <p>This site uses Zurich Extra Condensed for registrations, Yellowtail for script lettering, Playfair Display for state headings, Sanchez for mottos, and Geist for sans-serif lettering. These fonts are not included in the npm package.</p>
+          <p>Import the optional font stylesheet once in your app to match these previews. The fonts ship with Platekit and are served by your app.</p>
+          <CodeBlock label="tsx">{`import "platekit/fonts.css";`}</CodeBlock>
+          <p>The defaults are Bebas Neue for registrations, Yellowtail for script lettering, Playfair Display for state headings, Sanchez for mottos, and Geist for sans-serif lettering. The fonts retain their own open-source licenses; <a href="https://github.com/jonnii/platekit/blob/main/src/fonts/NOTICE.md">attribution and full license texts</a> are included in the package.</p>
+          <p>Without the stylesheet, plates use the platform fallbacks below. You can also supply your own fonts through these variables.</p>
           <div className="table-scroll"><table><thead><tr><th>CSS variable</th><th>Used for</th><th>Fallback</th></tr></thead><tbody>{variables.map(([variable, use, fallback]) => <tr key={variable}><th><code>{variable}</code></th><td>{use}</td><td>{fallback}</td></tr>)}</tbody></table></div>
           <p>Load your chosen font with your app’s normal font setup, then set the variables on a parent element:</p>
           <CodeBlock label="css">{`.profile-plate {\n  --font-plate-ny: "Your Registration Font", sans-serif;\n  --font-plate-script: "Your Script Font", cursive;\n  --font-plate-place: Georgia, serif;\n}`}</CodeBlock>

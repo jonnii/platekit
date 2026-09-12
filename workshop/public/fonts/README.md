@@ -1,5 +1,5 @@
-# Local preview fonts
+# Preview fonts
 
-`serial.otf` is the originating app's `Zurich Extra Condensed Regular.otf`, preserved for the development preview. The stylesheet also recognizes a locally installed copy under its original family name. This development asset is excluded from the npm package; its provenance is separate from Platekit's MIT source code license.
+The workshop imports `src/fonts.css`, the same optional stylesheet provided to library consumers. Its unmodified font assets, license texts, and provenance are in `src/fonts/`. Bebas Neue supplies the registration lettering. The old Zurich asset has been removed because font-file redistribution rights could not be established.
 
-The development pages load Geist, Playfair Display, Sanchez and Yellowtail from Google Fonts. The font probe loads additional candidates. An internet connection is needed for those faces; fallback fonts remain available offline. Browser captures record the font-loading status. A completed capture with fallback fonts is not proof of typography fidelity.
+Default fonts are served locally and work without Google Fonts. The font probe may load additional candidates from Google Fonts. Browser captures record font-loading status; a capture with fallback fonts does not establish typography fidelity.

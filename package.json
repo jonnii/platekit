@@ -8,7 +8,7 @@
     "type": "git",
     "url": "git+https://github.com/jonnii/platekit.git"
   },
-  "sideEffects": false,
+  "sideEffects": ["**/*.css"],
   "files": [
     "dist"
   ],
@@ -23,7 +23,8 @@
       "types": "./dist/plates/*.d.ts",
       "import": "./dist/plates/*.js"
     },
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./fonts.css": "./dist/fonts.css"
   },
   "scripts": {
     "dev": "bun --bun vite --config site/vite.config.ts",

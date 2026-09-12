@@ -1,0 +1,56 @@
+{
+  "repository": "https://github.com/google/fonts",
+  "revision": "809e4d8b8d7e9364a914909bb777679606c178b8",
+  "files": [
+    {
+      "path": "geist/Geist[wght].ttf",
+      "upstream": "ofl/geist/Geist[wght].ttf",
+      "sha256": "73894e0448cae90a92b6c2f8732b7bb9acb7b94c418bff559dad4a18e1de9659"
+    },
+    {
+      "path": "geist/OFL.txt",
+      "upstream": "ofl/geist/OFL.txt",
+      "sha256": "1781d2806a07d91c4edf4740b88449fab7d0eadad53f7c351b94cd4d4eb8c00f"
+    },
+    {
+      "path": "playfair-display/PlayfairDisplay[wght].ttf",
+      "upstream": "ofl/playfairdisplay/PlayfairDisplay[wght].ttf",
+      "sha256": "c40f2293766a503bc70cce9e512ef844a4ccb7cbcde792fe2ea31d191917d8d6"
+    },
+    {
+      "path": "playfair-display/OFL.txt",
+      "upstream": "ofl/playfairdisplay/OFL.txt",
+      "sha256": "566be814f8e96e93dfa16101331557eb6b5467e9e03f627c0910fe93ca12300e"
+    },
+    {
+      "path": "sanchez/Sanchez-Regular.ttf",
+      "upstream": "ofl/sanchez/Sanchez-Regular.ttf",
+      "sha256": "759e73bad0b78e84555215fd9a68637cf445d41d29e0e9834f5ee9dc43fa7684"
+    },
+    {
+      "path": "sanchez/OFL.txt",
+      "upstream": "ofl/sanchez/OFL.txt",
+      "sha256": "5f8ff4a3f951c104e99245bdb952be08c73369222048bbf19fa3bf7170d10949"
+    },
+    {
+      "path": "yellowtail/Yellowtail-Regular.ttf",
+      "upstream": "apache/yellowtail/Yellowtail-Regular.ttf",
+      "sha256": "3e06841b13000975f3cc38aa84e326e601a4378a4c52d50b5e9fee3598c5d236"
+    },
+    {
+      "path": "yellowtail/LICENSE.txt",
+      "upstream": "apache/yellowtail/LICENSE.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "bebas-neue/BebasNeue-Regular.ttf",
+      "upstream": "ofl/bebasneue/BebasNeue-Regular.ttf",
+      "sha256": "08e4623805102d819f58601e46e345648846075e363b2ceb23313c2d1c83ec73"
+    },
+    {
+      "path": "bebas-neue/OFL.txt",
+      "upstream": "ofl/bebasneue/OFL.txt",
+      "sha256": "72082f6cb4d04be2ecf7cc7d9e1e7d73787f0af8a5a278a47cade70c16b78341"
+    }
+  ]
+}

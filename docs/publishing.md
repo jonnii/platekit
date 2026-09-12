@@ -46,6 +46,6 @@ Commit and push the workflow before creating the next GitHub release from `main`
 
 ## Checks and retries
 
-`bun run check` runs tests and typechecks. `bun run check:package` rebuilds the library and verifies the publication boundary and all 51 state exports. Only `dist/`, package metadata, README, and LICENSE are included; development tools, sites, reference images, and fonts are excluded.
+`bun run check` runs tests and typechecks. `bun run check:package` rebuilds the library and verifies the publication boundary, all 51 state exports, and font assets/licenses against the pinned checksums. Only `dist/`, package metadata, README, and LICENSE are included. The optional font stylesheet and redistributable fonts ship under `dist/` with their own attribution and licenses; development tools, sites, reference images, and unverified font assets are excluded.
 
 If publishing fails before npm accepts the version, fix the configuration and rerun the failed workflow from the Actions tab. Published versions cannot be overwritten. If a version already exists, use a new release tag for changes.

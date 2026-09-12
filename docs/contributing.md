@@ -35,7 +35,7 @@ bun run build
 npm pack --dry-run
 ```
 
-`check` typechecks the package and development tools, then runs tests. `build` cleans and emits the ESM library and declarations. Only `dist/`, package metadata, README, and LICENSE belong in the tarball. Fonts, reference images, workshop code, tooling, and historical reports stay in the repository.
+`check` typechecks the package and development tools, then runs tests. `build` cleans and emits the ESM library, declarations, optional font stylesheet, and redistributable font assets with their licenses and provenance. Only `dist/`, package metadata, README, and LICENSE belong in the tarball. `bun run check:package` verifies asset URLs, checksums, and publication contents. Reference images, workshop code, tooling, and historical reports stay in the repository.
 
 For UI changes, inspect the running workshop and check interactions and font loading. `tests/library/renderStability.test.tsx` tests server output under floating-point drift; it does not perform browser hydration. For artwork changes, follow [the artwork workflow](artwork-workflow.md), preserving current working-tree artwork and fixed scoring inputs.
 

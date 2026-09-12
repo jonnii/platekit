@@ -1,19 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap");
 
-@font-face {
-  font-family: "Platekit Serial";
-  src: local("Zurich Extra Condensed"), local("ZurichBT-ExtraCondensed"), url("./assets/serial.otf") format("opentype");
-  font-display: swap;
-}
-
-.hero-plates, .playground-preview, .state-preview {
-  --font-geist-sans: "Geist", Arial, sans-serif;
-  --font-plate-place: "Playfair Display", Georgia, serif;
-  --font-plate-script: "Yellowtail", cursive;
-  --font-plate-motto: "Sanchez", Georgia, serif;
-  --font-plate-ny: "Platekit Serial", "Arial Narrow", sans-serif;
-  font-synthesis: initial;
-}
+.hero-plates, .playground-preview, .state-preview { font-synthesis: initial; }
 
 :root { font-family: "DM Sans", sans-serif; color: #252c27; background: #f7f6f2; font-synthesis: none; -webkit-font-smoothing: antialiased; }
 * { box-sizing: border-box; }

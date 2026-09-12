@@ -20,7 +20,7 @@ export default function App() {
       <a href="/contact-sheet">Contact sheet</a>
       <a href="/font-probe">Font probe</a>
     </nav>
-    <p className="px-8 pt-3 text-xs text-zinc-500">Preview lettering uses a local serial font and Google Fonts. Configure your app’s fonts to reproduce it.</p>
+    <p className="px-8 pt-3 text-xs text-zinc-500">Preview lettering uses Platekit’s bundled fonts. Import <code>platekit/fonts.css</code> in your app to reproduce it.</p>
     {route === "/" ? <Gallery initialPlate={plate} />
       : route === "/compare" ? <ComparePage state={state} plate={plate} />
       : route === "/contact-sheet" ? <ContactSheetPage />

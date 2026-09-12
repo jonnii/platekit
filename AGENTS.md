@@ -14,6 +14,6 @@ Run commands from this repository root. `mise run dev` starts the public documen
 
 ## Verification and package boundary
 
-`mise run check` runs tests and typechecks both package code and development tools. `mise run build` builds the public ESM package. `npm pack --dry-run` verifies publication contents. Only `dist/`, package metadata, README, and LICENSE should be published; the development server, reference images, fonts, skills, and historical reports stay in the repository.
+`mise run check` runs tests and typechecks both package code and development tools. `mise run build` builds the public ESM package and optional font stylesheet. `bun run check:package` verifies publication contents and font checksums/licenses. Only `dist/`, package metadata, README, and LICENSE should be published; redistributable fonts and their notices are included under `dist/fonts/`. The development server, reference images, unverified fonts, skills, and historical reports stay in the repository.
 
 Browser artwork and typography checks use `/compare?state=GA`. Confirm fonts loaded; text-free comparator output does not validate lettering. See `docs/contributing.md` for repository boundaries and `docs/artwork-workflow.md` for commands and `docs/history/plate-comparisons.md` for historical design decisions.
