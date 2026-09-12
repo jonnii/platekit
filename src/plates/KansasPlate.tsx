@@ -1,5 +1,6 @@
 "use client";
 
+import PlateSvg, { PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import type { PlateProps } from "../types.js";
 
@@ -12,13 +13,13 @@ export default function KansasPlate({ plate, state = "Kansas", className, style,
   const serialSize = Math.min(270, 1890 / Math.max(7, cleaned.length));
   return (
     <div className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }} aria-label={`License plate ${plate} from ${state}`} {...rest}>
-      <svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid meet" style={{ width: "100%", height: "auto" }}>
+      <PlateSvg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid meet" style={{ width: "100%", height: "auto" }}>
         <title>{`Kansas license plate: ${plate}`}</title>
         <defs>
           <linearGradient id={`ks-sky-${id}`} x1="0" y1="0" x2="0" y2="500" gradientUnits="userSpaceOnUse">
             <stop stopColor="#7bafbf" /><stop offset=".46" stopColor="#dfe1e4" /><stop offset=".53" stopColor="#e7e5df" /><stop offset=".83" stopColor="#f4cd71" /><stop offset="1" stopColor="#f7c960" />
           </linearGradient>
-          <clipPath id={`ks-clip-${id}`}><rect width="1000" height="500" rx="49" /></clipPath>
+          <clipPath id={`ks-clip-${id}`}><rect {...PLATE_OUTLINE} /></clipPath>
         </defs>
         <g clipPath={`url(#ks-clip-${id})`}>
           <rect width="1000" height="500" fill={INK} />
@@ -47,7 +48,7 @@ export default function KansasPlate({ plate, state = "Kansas", className, style,
           <text x="558" y={383 - (270 - serialSize) * .35} textAnchor="middle" fill="#030404" fontFamily="var(--font-plate-ny, sans-serif)" fontSize={serialSize} textLength={Math.min(724, cleaned.length * 104)} lengthAdjust="spacingAndGlyphs">{cleaned}</text>
           <text x="511" y="467" textAnchor="middle" fill={INK} fontFamily="var(--font-plate-script, cursive), cursive" fontSize="84" textLength="326" lengthAdjust="spacingAndGlyphs">to the stars</text>
         </g>
-      </svg>
+      </PlateSvg>
     </div>
   );
 }

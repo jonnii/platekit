@@ -1,5 +1,6 @@
 "use client";
 
+import PlateSvg, { PLATE_INSET_RADIUS, PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import { PlateProps } from "../types.js";
 
@@ -54,7 +55,7 @@ export default function GeorgiaPlate({ plate, state = "Georgia", className, styl
   return (
     <div className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }}
       aria-label={`License plate ${plate} from ${state}`} {...rest}>
-      <svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" role="img"
+      <PlateSvg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" role="img"
         preserveAspectRatio="xMidYMid meet" style={{ width: "100%", height: "auto" }}>
         <title>{`Georgia license plate: ${plate}`}</title>
         <defs>
@@ -109,11 +110,11 @@ export default function GeorgiaPlate({ plate, state = "Georgia", className, styl
             <stop offset="1" stopColor="#123b2f" />
           </linearGradient>
           <clipPath id={`gaPlateClip-${id}`}>
-            <rect x="18" y="18" width="964" height="464" rx="20" />
+            <rect x="18" y="18" width="964" height="464" rx={PLATE_INSET_RADIUS} />
           </clipPath>
         </defs>
 
-        <rect x="1" y="1" width="998" height="498" rx="36" fill={`url(#gaRim-${id})`} stroke="#d5d9d2" strokeWidth="2" />
+        <rect {...PLATE_OUTLINE} fill={`url(#gaRim-${id})`} stroke="#d5d9d2" strokeWidth="2" />
         <g clipPath={`url(#gaPlateClip-${id})`}>
           <rect width="1000" height="500" fill={`url(#gaSky-${id})`} />
 
@@ -209,7 +210,7 @@ export default function GeorgiaPlate({ plate, state = "Georgia", className, styl
             {cleaned}
           </text>
         </g>
-        <rect x="18" y="18" width="964" height="464" rx="20" fill="none" stroke="#ffffff" strokeWidth="1.5" opacity="0.75" />
+        <rect x="18" y="18" width="964" height="464" rx={PLATE_INSET_RADIUS} fill="none" stroke="#ffffff" strokeWidth="1.5" opacity="0.75" />
         <g>
           {[198, 806].flatMap((x) => [46, 447].map((y) => (
             <g key={`${x}-${y}`}>
@@ -218,7 +219,7 @@ export default function GeorgiaPlate({ plate, state = "Georgia", className, styl
             </g>
           )))}
         </g>
-      </svg>
+      </PlateSvg>
     </div>
   );
 }

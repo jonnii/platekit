@@ -1,5 +1,6 @@
 "use client";
 
+import PlateSvg, { PLATE_INSET_RADIUS, PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import { PlateProps } from "../types.js";
 
@@ -14,7 +15,7 @@ export default function NewJerseyPlate({ plate, state = "New Jersey", className,
       className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }}
       aria-label={`License plate ${plate} from ${state}`} {...rest}
     >
-      <svg
+      <PlateSvg
         viewBox="0 0 1000 500"
         xmlns="http://www.w3.org/2000/svg"
         role="img"
@@ -60,9 +61,9 @@ export default function NewJerseyPlate({ plate, state = "New Jersey", className,
 
         <g>
           {/* No drawn border — the real plate's edge is just the pressed rim. */}
-          <rect width="1000" height="500" rx="30" fill="#868c8b" />
-          <rect x="3" y="3" width="994" height="494" rx="28" fill="#fff" />
-          <rect x="12" y="12" width="976" height="476" rx="20" fill={`url(#${id}-njBg)`} />
+          <rect {...PLATE_OUTLINE} fill="#868c8b" />
+          <rect x="3" y="3" width="994" height="494" rx={PLATE_OUTLINE.rx} fill="#fff" />
+          <rect x="12" y="12" width="976" height="476" rx={PLATE_INSET_RADIUS} fill={`url(#${id}-njBg)`} />
         </g>
 
         {[154, 761].flatMap(x => [38, 434].map(y => <rect key={`${x}-${y}`} x={x} y={y} width="85" height="22" rx="10" fill="#474947" stroke="#8d8d7e" strokeWidth="1.5" />))}
@@ -140,7 +141,7 @@ export default function NewJerseyPlate({ plate, state = "New Jersey", className,
         >
           Garden State
         </text>
-      </svg>
+      </PlateSvg>
     </div>
   );
 }

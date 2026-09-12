@@ -1,5 +1,6 @@
 "use client";
 
+import PlateSvg, { PLATE_INSET_RADIUS, PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import { PlateProps } from "../types.js";
 
@@ -34,7 +35,7 @@ export default function NewYorkPlate({ plate, state = "New York", className, sty
       className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }}
       aria-label={`License plate ${plate} from ${state}`} {...rest}
     >
-      <svg
+      <PlateSvg
         viewBox="0 0 1000 500"
         xmlns="http://www.w3.org/2000/svg"
         role="img"
@@ -74,7 +75,7 @@ export default function NewYorkPlate({ plate, state = "New York", className, sty
             <feDropShadow dx="-1" dy="-1" stdDeviation="0.5" floodColor="#ffffff" floodOpacity="0.9" />
           </filter>
           <clipPath id={`plateClip-${id}`}>
-            <rect x="24" y="24" width="952" height="454" rx="40" />
+            <rect x="24" y="24" width="952" height="454" rx={PLATE_INSET_RADIUS} />
           </clipPath>
           {/* State outline and Long Island, in a shared 100 × 78 coordinate space. */}
           <symbol id={`nyState-${id}`} viewBox="0 0 100 78">
@@ -87,8 +88,8 @@ export default function NewYorkPlate({ plate, state = "New York", className, sty
 
         {/* Rolled aluminum edge around the inset printed face. */}
         <g id={`canvas-${id}`}>
-          <rect x="1" y="1" width="998" height="498" rx="60" fill={`url(#rim-${id})`} stroke="#363e40" strokeWidth="1.5" />
-          <rect x="8" y="8" width="984" height="484" rx="49" fill={`url(#plateSheen-${id})`} stroke="#ffffff" strokeWidth="3" />
+          <rect {...PLATE_OUTLINE} fill={`url(#rim-${id})`} stroke="#363e40" strokeWidth="1.5" />
+          <rect x="8" y="8" width="984" height="484" rx={PLATE_OUTLINE.rx} fill={`url(#plateSheen-${id})`} stroke="#ffffff" strokeWidth="3" />
         </g>
         <g clipPath={`url(#plateClip-${id})`}>
           <g id={`accent-top-${id}`} fill={navy}>
@@ -204,7 +205,7 @@ export default function NewYorkPlate({ plate, state = "New York", className, sty
           </text>
         </g>
 
-        <rect x="24" y="24" width="952" height="454" rx="40" fill="none" stroke={navy} strokeWidth="3" />
+        <rect x="24" y="24" width="952" height="454" rx={PLATE_INSET_RADIUS} fill="none" stroke={navy} strokeWidth="3" />
         {/* Recessed mounting slots, above the artwork just like the stamped plate. */}
         <g id={`mounts-${id}`}>
           {[208, 794].flatMap((x) => [57, 444].map((y) => (
@@ -214,7 +215,7 @@ export default function NewYorkPlate({ plate, state = "New York", className, sty
             </g>
           )))}
         </g>
-      </svg>
+      </PlateSvg>
     </div>
   );
 }

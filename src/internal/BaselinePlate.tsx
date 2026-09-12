@@ -1,5 +1,6 @@
 "use client";
 
+import PlateSvg, { PLATE_INSET_RADIUS, PLATE_OUTLINE } from "./PlateSvg.js";
 import { useId, type ReactNode } from "react";
 import type { PlateProps } from "../types.js";
 
@@ -75,7 +76,7 @@ export default function BaselinePlate({
   const textWidth = Math.min(serialWidth, cleaned.length * 122);
   return (
     <div className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }} aria-label={`License plate ${plate} from ${state ?? name}`} {...rest}>
-      <svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid meet" style={{ width: "100%", height: "auto" }}>
+      <PlateSvg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid meet" style={{ width: "100%", height: "auto" }}>
         <title>{`${name} license plate: ${plate}`}</title>
         <defs>
           <linearGradient id={`${id}-bg`} x2="0" y2="1">
@@ -84,15 +85,15 @@ export default function BaselinePlate({
           <linearGradient id={`${id}-slot`} x2="0" y2="1"><stop stopColor="#929697" /><stop offset=".45" stopColor="#d4d5d3" /><stop offset="1" stopColor="#f8f8f6" /></linearGradient>
           <linearGradient id={`${id}-photo-slot`} x2="0" y2="1"><stop stopColor="#c1c4c2" /><stop offset=".35" stopColor="#f3f3f1" /><stop offset=".75" stopColor="#f8f8f6" /><stop offset="1" stopColor="#bebfbd" /></linearGradient>
           <linearGradient id={`${id}-lower-slot`} x2="0" y2="1"><stop stopColor="#a3a9aa" /><stop offset=".3" stopColor="#c7c9c8" /><stop offset=".55" stopColor="#c3c5c3" /><stop offset=".85" stopColor="#a4aaa9" /><stop offset="1" stopColor="#7e9598" /></linearGradient>
-          <clipPath id={`${id}-clip`}><rect x="5" y="5" width="990" height="490" rx="29" /></clipPath>
+          <clipPath id={`${id}-clip`}><rect {...PLATE_OUTLINE} /></clipPath>
         </defs>
-        {edgeColor && <rect width="1000" height="500" rx="29" fill={edgeColor} />}
+        {edgeColor && <rect {...PLATE_OUTLINE} fill={edgeColor} />}
         <g clipPath={`url(#${id}-clip)`}>
           <rect width="1000" height="500" fill={`url(#${id}-bg)`} />
           {children}
-          {frame && <><rect x="12" y="12" width="976" height="476" rx="23" fill="none" stroke={border ?? "#777"} strokeOpacity={border ? 1 : .25} strokeWidth={border ? 7 : 3} />
-          <rect x="5" y="5" width="990" height="490" rx="29" fill="none" stroke="#fff" strokeOpacity=".5" strokeWidth="5" /></>}
-          {rim && <rect x={rimWidth / 2} y={rimWidth / 2} width={1000 - rimWidth} height={500 - rimWidth} rx="29" fill="none" stroke="#f5f5f2" strokeWidth={rimWidth} />}
+          {frame && <><rect x="12" y="12" width="976" height="476" rx={PLATE_INSET_RADIUS} fill="none" stroke={border ?? "#777"} strokeOpacity={border ? 1 : .25} strokeWidth={border ? 7 : 3} />
+          <rect {...PLATE_OUTLINE} fill="none" stroke="#fff" strokeOpacity=".5" strokeWidth="5" /></>}
+          {rim && <rect x={rimWidth / 2} y={rimWidth / 2} width={1000 - rimWidth} height={500 - rimWidth} rx={PLATE_OUTLINE.rx} fill="none" stroke="#f5f5f2" strokeWidth={rimWidth} />}
           {hardware === "round" ? [211, 791].flatMap((x) => [53, 446].map((y) => <circle key={`${x}-${y}`} cx={x} cy={y} r="13" fill="#fff" stroke="#39444a" strokeWidth="2" />)) : (slotXs ?? [156, 760]).flatMap((x) => (slotYs ?? (hardware === "photo" ? [38, 438] : [32, 438])).map((y, index) => <rect key={`${x}-${y}`} x={x} y={y} width={hardware === "photo" ? 84 : 80} height={hardware === "photo" ? 21 : 19} rx="9" fill={`url(#${id}-${shadedSlots && index === 1 ? "lower-slot" : hardware === "photo" ? "photo-slot" : "slot"})`} stroke="#707575" strokeOpacity=".25" strokeWidth="2" />))}
           <text x={headingX} y={headingY} textAnchor="middle" fill={headingColor} stroke={headingStroke} strokeWidth={headingStroke ? 12 : undefined} paintOrder="stroke" strokeLinejoin="round" fontFamily={headingFont} fontWeight={headingWeight} fontStyle={headingStyle} fontSize={headingSize} textLength={Math.min(headingWidth, heading.length * headingSize * .83)} lengthAdjust="spacingAndGlyphs">{heading}</text>
           <g fill={ink} stroke={serialStroke} strokeWidth={serialStroke ? 3 : undefined} paintOrder="stroke" fontFamily="var(--font-plate-ny, sans-serif)" fontSize={size} textAnchor="middle">
@@ -103,7 +104,7 @@ export default function BaselinePlate({
           </g>
           {footer && <text x="500" y={footerY} textAnchor="middle" fill={footerColor} fontFamily={footerFont} fontWeight={footerWeight} fontStyle={footerStyle} stroke={footerStroke} strokeWidth={footerStroke ? 4 : undefined} paintOrder="stroke" strokeLinejoin="round" fontSize={footerSize} textLength={footerTextLength ?? Math.min(footerWidth, footer.length * footerSize * .64)} lengthAdjust="spacingAndGlyphs">{footer}</text>}
         </g>
-      </svg>
+      </PlateSvg>
     </div>
   );
 }

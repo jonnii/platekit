@@ -1,5 +1,6 @@
 "use client";
 
+import PlateSvg, { PLATE_INSET_RADIUS, PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import type { PlateProps } from "../types.js";
 
@@ -9,10 +10,10 @@ export default function LouisianaPlate({ plate, state = "Louisiana", className, 
   const split = /^[A-Z0-9*]{6}$/.test(cleaned);
   return (
     <div className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }} aria-label={`License plate ${plate} from ${state}`} {...rest}>
-      <svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid meet" style={{ width: "100%", height: "auto" }}>
+      <PlateSvg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid meet" style={{ width: "100%", height: "auto" }}>
         <title>{`Louisiana license plate: ${plate}`}</title>
         <defs>
-          <clipPath id={`laClip-${id}`}><rect x="15" y="12" width="970" height="475" rx="28" /></clipPath>
+          <clipPath id={`laClip-${id}`}><rect x="15" y="12" width="970" height="475" rx={PLATE_INSET_RADIUS} /></clipPath>
           <linearGradient id={`laSky-${id}`} x2="0" y2="1"><stop stopColor="#f0f1ee" /><stop offset="0.34" stopColor="#f0f1eb" /><stop offset="0.67" stopColor="#dedbb0" /><stop offset="0.75" stopColor="#ded5a2" /><stop offset="0.91" stopColor="#c8806c" /><stop offset="1" stopColor="#c2675e" /></linearGradient>
           <linearGradient id={`laBody-${id}`} x1="0" y1="1" x2="0.9" y2="0"><stop stopColor="#655f4d" /><stop offset="0.4" stopColor="#a49e88" /><stop offset="0.8" stopColor="#c7c3ad" /><stop offset="1" stopColor="#8e8b79" /></linearGradient>
           <linearGradient id={`laWood-${id}`} x2="1" y2="0"><stop stopColor="#725046" /><stop offset="0.3" stopColor="#91695b" /><stop offset="0.65" stopColor="#79574c" /><stop offset="1" stopColor="#a07566" /></linearGradient>
@@ -20,7 +21,7 @@ export default function LouisianaPlate({ plate, state = "Louisiana", className, 
           <linearGradient id={`laWell-${id}`} x2="1" y2="1"><stop stopColor="#a29176" /><stop offset="1" stopColor="#e9c3a5" /></linearGradient>
           <clipPath id={`laFeathers-${id}`}><path d="M477 260 C478 289 540 289 586 306 Q633 326 645 372 L666 414 Q644 402 621 407 C566 411 510 386 489 361 C469 337 462 302 477 260 Z" /></clipPath>
         </defs>
-        <rect width="1000" height="500" rx="34" fill="#f4f4ef" />
+        <rect {...PLATE_OUTLINE} fill="#f4f4ef" />
         <g clipPath={`url(#laClip-${id})`}>
           <rect width="1000" height="500" fill={`url(#laSky-${id})`} />
           {/* Weathered piling, its uneven end grain and vertical cracks. */}
@@ -62,8 +63,8 @@ export default function LouisianaPlate({ plate, state = "Louisiana", className, 
           <path d="M489 183 L444 325" fill="none" stroke="#c69872" strokeWidth="2.2" />
           <path d="M487 205 L454 307" fill="none" stroke="#f0ead1" strokeWidth="2" />
         </g>
-        <rect x="14" y="12" width="972" height="475" rx="28" fill="none" stroke="#171b17" strokeWidth="5" />
-        <rect x="18" y="17" width="964" height="465" rx="25" fill="none" stroke="#b9bcb1" strokeWidth="1.3" />
+        <rect x="14" y="12" width="972" height="475" rx={PLATE_INSET_RADIUS} fill="none" stroke="#171b17" strokeWidth="5" />
+        <rect x="18" y="17" width="964" height="465" rx={PLATE_INSET_RADIUS} fill="none" stroke="#b9bcb1" strokeWidth="1.3" />
         <rect x="853" y="380" width="113" height="84" rx="3" fill="none" stroke={`url(#laWell-${id})`} strokeWidth="2" opacity="0.75" />
         {[157, 765].flatMap((x) => [38, 438].map((y) => <rect key={`${x}-${y}`} x={x} y={y} width="83" height="20" rx="10" fill={`url(#laSlot-${id})`} />))}
         <text x="516" y="110" textAnchor="middle" fill="#b41516" fontFamily="var(--font-plate-script, cursive)" fontSize="108" textLength="442" lengthAdjust="spacingAndGlyphs">Louisiana</text>
@@ -75,7 +76,7 @@ export default function LouisianaPlate({ plate, state = "Louisiana", className, 
           </> : <text x="500" y="352" textAnchor="middle" fontSize={Math.min(291, 2050 / Math.max(cleaned.length, 1))} letterSpacing="5">{cleaned}</text>}
         </g>
         <text x="64" y="405" fill="#b21b19" fontFamily="Georgia, serif" fontWeight="700" fontSize="44" textLength="421" lengthAdjust="spacingAndGlyphs">Sportsman’s Paradise</text>
-      </svg>
+      </PlateSvg>
     </div>
   );
 }

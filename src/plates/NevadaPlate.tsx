@@ -1,5 +1,6 @@
 "use client";
 
+import PlateSvg, { PLATE_INSET_RADIUS, PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import type { PlateProps } from "../types.js";
 
@@ -22,15 +23,15 @@ export default function NevadaPlate({ plate, state = "Nevada", className, style,
     ridge.map((_, i) => [i * 50, 492])];
   return (
     <div className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }} aria-label={`License plate ${plate} from ${state}`} {...rest}>
-      <svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid meet" style={{ width: "100%", height: "auto" }}>
+      <PlateSvg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid meet" style={{ width: "100%", height: "auto" }}>
         <title>{`Nevada license plate: ${plate}`}</title>
         <defs>
-          <clipPath id={`nvClip-${id}`}><rect x="13" y="13" width="974" height="475" rx="24" /></clipPath>
+          <clipPath id={`nvClip-${id}`}><rect x="13" y="13" width="974" height="475" rx={PLATE_INSET_RADIUS} /></clipPath>
           <linearGradient id={`nvSky-${id}`} x2="0" y2="1"><stop stopColor="#66b1c9" /><stop offset="1" stopColor="#83bbca" /></linearGradient>
           <linearGradient id={`nvRim-${id}`} x2="0" y2="1"><stop stopColor="#d1dcdb" /><stop offset="0.2" stopColor="#f8f8f4" /><stop offset="1" stopColor="#adb9b4" /></linearGradient>
           <linearGradient id={`nvSlots-${id}`} x2="0" y2="1"><stop stopColor="#c1ccca" /><stop offset="0.5" stopColor="#f6f7f2" /><stop offset="1" stopColor="#b6c1bc" /></linearGradient>
         </defs>
-        <rect width="1000" height="500" rx="34" fill="#f4f5f2" />
+        <rect {...PLATE_OUTLINE} fill="#f4f5f2" />
         <g clipPath={`url(#nvClip-${id})`}>
           <rect width="1000" height="500" fill={`url(#nvSky-${id})`} />
           {rows.slice(0, -1).flatMap((row, band) => row.slice(0, -1).flatMap((point, i) => {
@@ -49,7 +50,7 @@ export default function NevadaPlate({ plate, state = "Nevada", className, style,
           <path d="M878 330 L904 322 L937 330 L915 358 L942 370 L913 391 L893 419 L875 387 L844 368 Z" fill="#eddd8a" />
           <path d="M909 454 L943 418 L987 421 L987 490 L907 490 L895 470 Z" fill="#b7642d" />
         </g>
-        <rect x="13" y="13" width="974" height="475" rx="24" fill="none" stroke={`url(#nvRim-${id})`} strokeWidth="3" />
+        <rect x="13" y="13" width="974" height="475" rx={PLATE_INSET_RADIUS} fill="none" stroke={`url(#nvRim-${id})`} strokeWidth="3" />
         <rect x="852" y="29" width="118" height="89" rx="2" fill="none" stroke="#c0dae0" strokeWidth="1.5" opacity="0.7" />
         {[157, 765].flatMap((x) => [38, 438].map((y) => <rect key={`${x}-${y}`} x={x} y={y} width="83" height="20" rx="10" fill={`url(#nvSlots-${id})`} />))}
         <text x="500" y="114" textAnchor="middle" fill="#080b0c" fontFamily="var(--font-plate-motto, Georgia, serif), Georgia, serif" fontWeight="900" fontSize="110" textLength="500" lengthAdjust="spacingAndGlyphs" stroke="#080b0c" strokeWidth="3">NEVADA</text>
@@ -61,7 +62,7 @@ export default function NevadaPlate({ plate, state = "Nevada", className, style,
           </> : <text x="500" y="376" textAnchor="middle" fontSize={Math.min(305, 2050 / Math.max(cleaned.length, 1))} textLength={Math.min(880, cleaned.length * 122)} lengthAdjust="spacingAndGlyphs">{cleaned}</text>}
         </g>
         <text x="500" y="466" textAnchor="middle" fill="#080a08" fontFamily="var(--font-plate-motto, Georgia, serif), Georgia, serif" fontWeight="800" fontSize="58" textLength="510" lengthAdjust="spacingAndGlyphs">Home Means Nevada</text>
-      </svg>
+      </PlateSvg>
     </div>
   );
 }

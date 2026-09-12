@@ -1,5 +1,6 @@
 "use client";
 
+import PlateSvg, { PLATE_INSET_RADIUS, PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import { PlateProps } from "../types.js";
 
@@ -15,7 +16,7 @@ export default function TexasPlate({ plate, state = "Texas", className, style, .
   return (
     <div className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }}
       aria-label={`License plate ${plate} from ${state}`} {...rest}>
-      <svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" role="img"
+      <PlateSvg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" role="img"
         preserveAspectRatio="xMidYMid meet" style={{ width: "100%", height: "auto" }}>
         <title>{`Texas license plate: ${plate}`}</title>
         <defs>
@@ -29,10 +30,10 @@ export default function TexasPlate({ plate, state = "Texas", className, style, .
           <linearGradient id={`txSlot-${id}`} x2="0" y2="1">
             <stop stopColor="#bfc1bd" /><stop offset="0.3" stopColor="#fafaf8" /><stop offset="1" stopColor="#ffffff" />
           </linearGradient>
-          <clipPath id={`txClip-${id}`}><rect x="7" y="7" width="986" height="486" rx="30" /></clipPath>
+          <clipPath id={`txClip-${id}`}><rect x="7" y="7" width="986" height="486" rx={PLATE_OUTLINE.rx} /></clipPath>
         </defs>
-        <rect width="1000" height="500" rx="34" fill="#f3f3f0" />
-        <rect x="12" y="15" width="976" height="470" rx="28" fill="#f5f5f2" stroke={`url(#txRim-${id})`} strokeWidth="9" />
+        <rect {...PLATE_OUTLINE} fill="#f3f3f0" />
+        <rect x="12" y="15" width="976" height="470" rx={PLATE_INSET_RADIUS} fill="#f5f5f2" stroke={`url(#txRim-${id})`} strokeWidth="9" />
         {/* The two security threads run vertically through the reflective sheet. */}
         <g clipPath={`url(#txClip-${id})`} fill="none" stroke="#dbdcd8" strokeWidth="1.5" opacity="0.5">
           {[285, 715].map((x) => <path key={x} d={`M${x} 18 C${x - 28} 65 ${x + 25} 95 ${x} 142 S${x - 25} 222 ${x} 269 S${x + 25} 345 ${x} 391 S${x - 24} 454 ${x} 486`} />)}
@@ -57,7 +58,7 @@ export default function TexasPlate({ plate, state = "Texas", className, style, .
         </g>
         <text x="495" y="464" textAnchor="middle" fill={INK} fontFamily={SANS}
           fontWeight={900} fontSize="45" textLength="464" lengthAdjust="spacingAndGlyphs">The Lone Star State</text>
-      </svg>
+      </PlateSvg>
     </div>
   );
 }

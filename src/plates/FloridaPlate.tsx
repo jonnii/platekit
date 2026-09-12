@@ -1,5 +1,6 @@
 "use client";
 
+import PlateSvg, { PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import { PlateProps } from "../types.js";
 
@@ -76,7 +77,7 @@ export default function FloridaPlate({ plate, state = "Florida", className, styl
       className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }}
       aria-label={`License plate ${plate} from ${state}`} {...rest}
     >
-      <svg
+      <PlateSvg
         viewBox="0 0 1000 500"
         xmlns="http://www.w3.org/2000/svg"
         role="img"
@@ -98,8 +99,8 @@ export default function FloridaPlate({ plate, state = "Florida", className, styl
             <feDropShadow dx="0" dy="2.2" stdDeviation="0.55" floodColor="#747b71" floodOpacity="0.55" />
           </filter>
         </defs>
-        <rect width="1000" height="500" rx="30" fill="#fff" />
-        <rect x="7" y="6" width="986" height="487" rx="29" fill="none" stroke={`url(#flRim-${id})`} strokeWidth="2.4" />
+        <rect {...PLATE_OUTLINE} fill="#fff" />
+        <rect x="7" y="6" width="986" height="487" rx={PLATE_OUTLINE.rx} fill="none" stroke={`url(#flRim-${id})`} strokeWidth="2.4" />
         <rect x="842" y="19" width="130" height="91" rx="6" fill="#fff" stroke={`url(#flRim-${id})`} strokeWidth="2.6" />
         {[202, 799].flatMap((x) => [55, 442].map((y) => (
           <circle key={`${x}-${y}`} cx={x} cy={y} r="13" fill="#fff" stroke={`url(#flRim-${id})`} strokeWidth="1.4" />
@@ -209,7 +210,7 @@ export default function FloridaPlate({ plate, state = "Florida", className, styl
         >
           SUNSHINE STATE
         </text>
-      </svg>
+      </PlateSvg>
     </div>
   );
 }

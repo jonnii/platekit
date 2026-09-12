@@ -1,5 +1,6 @@
 "use client";
 
+import { PLATE_INSET_RADIUS, PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import BaselinePlate from "../internal/BaselinePlate.js";
 import type { PlateProps } from "../types.js";
@@ -26,8 +27,8 @@ export default function MississippiPlate(props: PlateProps) {
       frame={false}
     >
       <defs><linearGradient id={`${id}-pressed-rim`} x2="0" y2="1"><stop stopColor="#fafbf8" /><stop offset=".75" stopColor="#f8f9f6" /><stop offset=".94" stopColor="#e2e3df" /><stop offset="1" stopColor="#a4a7a2" /></linearGradient></defs>
-      <rect x="16" y="16" width="968" height="468" rx="28" fill="none" stroke={`url(#${id}-pressed-rim)`} strokeWidth="15" />
-      <rect x="4" y="4" width="992" height="492" rx="34" fill="none" stroke="#efefeb" strokeWidth="6" />
+      <rect x="16" y="16" width="968" height="468" rx={PLATE_INSET_RADIUS} fill="none" stroke={`url(#${id}-pressed-rim)`} strokeWidth="15" />
+      <rect x="4" y="4" width="992" height="492" rx={PLATE_OUTLINE.rx} fill="none" stroke="#efefeb" strokeWidth="6" />
       <g fill="none" stroke="#182c54" strokeWidth="4" strokeLinecap="round">
         <path d="M470 77 C428 52 384 79 398 105 C410 129 455 119 450 92 C444 69 471 58 500 84 C533 114 504 143 469 133 C446 126 456 98 475 95 M528 75 C552 54 588 69 592 94 C598 125 552 132 543 110 C532 86 558 76 562 94" />
       </g>

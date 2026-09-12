@@ -1,5 +1,6 @@
 "use client";
 
+import PlateSvg, { PLATE_INSET_RADIUS, PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import { PlateProps } from "../types.js";
 
@@ -16,7 +17,7 @@ export default function MissouriPlate({ plate, state = "Missouri", className, st
   return (
     <div className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }}
       aria-label={`License plate ${plate} from ${state}`} {...rest}>
-      <svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" role="img"
+      <PlateSvg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" role="img"
         preserveAspectRatio="xMidYMid meet" style={{ width: "100%", height: "auto" }}>
         <title>{`Missouri license plate: ${plate}`}</title>
         <defs>
@@ -37,9 +38,9 @@ export default function MissouriPlate({ plate, state = "Missouri", className, st
           <linearGradient id={`moBreast-${id}`} x1="0" y1="0" x2="0.5" y2="1">
             <stop stopColor="#945427" /><stop offset="0.5" stopColor="#b47842" /><stop offset="0.8" stopColor="#c79767" /><stop offset="1" stopColor="#e5d8c5" />
           </linearGradient>
-          <clipPath id={`moClip-${id}`}><rect x="13" y="13" width="974" height="475" rx="24" /></clipPath>
+          <clipPath id={`moClip-${id}`}><rect x="13" y="13" width="974" height="475" rx={PLATE_INSET_RADIUS} /></clipPath>
         </defs>
-        <rect width="1000" height="500" rx="33" fill="#e5e5e3" />
+        <rect {...PLATE_OUTLINE} fill="#e5e5e3" />
         <g clipPath={`url(#moClip-${id})`}>
           <rect width="1000" height="500" fill={`url(#moSky-${id})`} />
           {/* Missouri's straight western edge and the Mississippi's eastern bends. */}
@@ -89,7 +90,7 @@ export default function MissouriPlate({ plate, state = "Missouri", className, st
             </g>)}
           </g>
         </g>
-        <rect x="13" y="13" width="974" height="475" rx="24" fill="none" stroke={`url(#moRim-${id})`} strokeWidth="4" />
+        <rect x="13" y="13" width="974" height="475" rx={PLATE_INSET_RADIUS} fill="none" stroke={`url(#moRim-${id})`} strokeWidth="4" />
         {[157, 764].flatMap((x) => [38, 437].map((y) =>
           <rect key={`${x}-${y}`} x={x} y={y} width="83" height="20" rx="10" fill={`url(#moSlot-${id})`} />))}
         <text x="500" y="84" textAnchor="middle" fill="#354e76" fontFamily={SANS}
@@ -103,7 +104,7 @@ export default function MissouriPlate({ plate, state = "Missouri", className, st
           </> : <text x="500" y={373 - (330 - size) * 0.35} textAnchor="middle"
             textLength={Math.min(900, cleaned.length * 126) || undefined} lengthAdjust="spacingAndGlyphs">{cleaned}</text>}
         </g>
-      </svg>
+      </PlateSvg>
     </div>
   );
 }

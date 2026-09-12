@@ -1,5 +1,6 @@
 "use client";
 
+import PlateSvg, { PLATE_INSET_RADIUS, PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import { PlateProps } from "../types.js";
 
@@ -37,7 +38,7 @@ export default function OhioPlate({ plate, state = "Ohio", className, style, ...
   return (
     <div className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }}
       aria-label={`License plate ${plate} from ${state}`} {...rest}>
-      <svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" role="img"
+      <PlateSvg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" role="img"
         preserveAspectRatio="xMidYMid meet" style={{ width: "100%", height: "auto" }}>
         <title>{`Ohio license plate: ${plate}`}</title>
         <defs>
@@ -54,7 +55,7 @@ export default function OhioPlate({ plate, state = "Ohio", className, style, ...
           <linearGradient id={`ohLowerSlot-${id}`} x1="0" y1="0" x2="1" y2="0.6">
             <stop offset="0" stopColor="#c6c6c3" /><stop offset="0.45" stopColor="#b7b8b5" /><stop offset="1" stopColor="#879493" />
           </linearGradient>
-          <clipPath id={`ohClip-${id}`}><rect x="14" y="14" width="972" height="472" rx="23" /></clipPath>
+          <clipPath id={`ohClip-${id}`}><rect x="14" y="14" width="972" height="472" rx={PLATE_INSET_RADIUS} /></clipPath>
           <clipPath id={`ohHills-${id}`}>
             <path d="M14 261 Q46 249 89 265 Q150 268 193 260 Q221 253 248 267 Q291 251 335 270 Q382 267 420 282 L459 291 Q515 260 561 268 Q602 250 645 259 Q690 241 725 250 Q759 241 795 258 Q850 249 896 257 Q951 251 986 270 V375 H14 Z" />
           </clipPath>
@@ -64,7 +65,7 @@ export default function OhioPlate({ plate, state = "Ohio", className, style, ...
             <path d="M10 31 L10 20 M5 34 L2 23 M15 34 L18 23" fill="none" stroke="#f7e0a1" strokeWidth="0.8" />
           </symbol>
         </defs>
-        <rect x="1" y="1" width="998" height="498" rx="37" fill="#f9faf5" stroke="#d3d8d0" strokeWidth="2" />
+        <rect {...PLATE_OUTLINE} fill="#f9faf5" stroke="#d3d8d0" strokeWidth="2" />
         <g clipPath={`url(#ohClip-${id})`}>
           <rect width="1000" height="500" fill={`url(#ohSky-${id})`} />
           {/* Pale sky facets widen behind the white rays toward the horizon. */}
@@ -168,12 +169,12 @@ export default function OhioPlate({ plate, state = "Ohio", className, style, ...
         <text x="500" y="400" textAnchor="middle" fill={SERIAL} fontFamily="var(--font-plate-ny, sans-serif)"
           fontSize={Math.min(331, 2317 / Math.max(cleaned.length, 1))}
           textLength={cleaned.length ? Math.min(886, cleaned.length * 126) : undefined} lengthAdjust="spacingAndGlyphs">{cleaned}</text>
-        <rect x="13" y="13" width="974" height="474" rx="24" fill="none" stroke={RIBBON} strokeWidth="3.5" />
+        <rect x="13" y="13" width="974" height="474" rx={PLATE_INSET_RADIUS} fill="none" stroke={RIBBON} strokeWidth="3.5" />
         {[199, 805].flatMap((x) => [47, 447].map((y) => (
           <rect key={`${x}-${y}`} x={x - 41} y={y - 10} width="82" height="20" rx="10"
             fill={`url(#${y === 47 ? "ohSlot" : "ohLowerSlot"}-${id})`} stroke={y === 47 ? "#d7d9d3" : "#929c97"} strokeWidth="1" />
         )))}
-      </svg>
+      </PlateSvg>
     </div>
   );
 }
