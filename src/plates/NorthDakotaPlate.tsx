@@ -1,5 +1,6 @@
 "use client";
 
+import PlateSvg, { PLATE_INSET_RADIUS, PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import type { PlateProps } from "../types.js";
 
@@ -11,7 +12,7 @@ export default function NorthDakotaPlate({ plate, state = "North Dakota", classN
   const size = Math.min(281, 1967 / Math.max(7, cleaned.length));
   return (
     <div className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }} aria-label={`License plate ${plate} from ${state}`} {...rest}>
-      <svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid meet" style={{ width: "100%", height: "auto" }}>
+      <PlateSvg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid meet" style={{ width: "100%", height: "auto" }}>
         <title>{`North Dakota license plate: ${plate}`}</title>
         <defs>
           <linearGradient id={`nd-sky-${id}`} x2="0" y2="1">
@@ -23,12 +24,12 @@ export default function NorthDakotaPlate({ plate, state = "North Dakota", classN
           <linearGradient id={`nd-rim-${id}`} x2=".15" y2="1"><stop stopColor="#f4eee5" /><stop offset=".5" stopColor="#d6c7b6" /><stop offset="1" stopColor="#f3ebe0" /></linearGradient>
           <linearGradient id={`nd-slot-${id}`} x2="0" y2="1"><stop stopColor="#b3b3ab" /><stop offset=".45" stopColor="#eeeae1" /><stop offset="1" stopColor="#b4bfc0" /></linearGradient>
           <linearGradient id={`nd-fur-${id}`} x1=".2" y1="0" x2=".5" y2="1"><stop stopColor="#ad691b" /><stop offset=".45" stopColor="#87501b" /><stop offset="1" stopColor="#382718" /></linearGradient>
-          <clipPath id={`nd-clip-${id}`}><rect x="21" y="20" width="958" height="460" rx="24" /></clipPath>
+          <clipPath id={`nd-clip-${id}`}><rect x="21" y="20" width="958" height="460" rx={PLATE_INSET_RADIUS} /></clipPath>
           <path id={`nd-bison-${id}`} d="M822 370 Q820 354 837 353 Q850 350 875 359 L901 368 Q929 373 948 385 Q966 395 963 416 L958 434 955 457 950 478 936 479 940 463 935 441 Q915 444 902 438 L886 439 875 432 866 449 864 478 848 480 849 454 839 449 838 477 826 478 824 446 813 434 808 420 811 395Z" />
           <clipPath id={`nd-fur-clip-${id}`}><use href={`#nd-bison-${id}`} /></clipPath>
         </defs>
-        <rect x="2" y="2" width="996" height="496" rx="31" fill={paint("rim")} stroke="#d6d0c8" strokeWidth="2" />
-        <rect x="12" y="12" width="976" height="476" rx="27" fill="none" stroke="#fff7eb" strokeWidth="3" />
+        <rect {...PLATE_OUTLINE} fill={paint("rim")} stroke="#d6d0c8" strokeWidth="2" />
+        <rect x="12" y="12" width="976" height="476" rx={PLATE_INSET_RADIUS} fill="none" stroke="#fff7eb" strokeWidth="3" />
         <g clipPath={paint("clip")}>
           <rect width="1000" height="500" fill={paint("sky")} />
           <rect width="1000" height="500" fill={paint("sunrise")} />
@@ -86,7 +87,7 @@ export default function NorthDakotaPlate({ plate, state = "North Dakota", classN
           <text x="158" y="470" textAnchor="middle" fill="#efe9dc" fontFamily='Rockwell, Georgia, serif' fontWeight="900" fontSize="24" textLength="220" lengthAdjust="spacingAndGlyphs">PEACE GARDEN STATE</text>
         </g>
         {[158, 760].flatMap((x) => [38, 439].map((y) => <rect key={`${x}-${y}`} x={x} y={y} width="82" height="20" rx="9" fill={paint("slot")} />))}
-      </svg>
+      </PlateSvg>
     </div>
   );
 }

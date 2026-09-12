@@ -1,5 +1,6 @@
 "use client";
 
+import { PLATE_INSET_RADIUS } from "../internal/PlateSvg.js";
 import BaselinePlate from "../internal/BaselinePlate.js";
 import type { PlateProps } from "../types.js";
 
@@ -23,7 +24,7 @@ export default function WyomingPlate(props: PlateProps) {
       footerSize={27}
       footerY={477}
     >
-      <rect x="14" y="14" width="972" height="472" rx="21" fill="none" stroke="#ba2045" strokeWidth="28" /><path d="M30 442 H970 V466 H30Z" fill="#fff" />
+      <rect x="14" y="14" width="972" height="472" rx={PLATE_INSET_RADIUS} fill="none" stroke="#ba2045" strokeWidth="28" /><path d="M30 442 H970 V466 H30Z" fill="#fff" />
       <rect x="34" y="42" width="932" height="419" fill="none" stroke="#fff" strokeWidth="9" />
       <path d="M258 136 Q287 126 329 146 L345 130 Q376 102 429 94 Q484 86 518 114 Q564 111 585 120 Q618 122 674 132 Q715 143 739 171 Q758 195 757 242 L740 281 Q732 314 717 325 L721 350 Q717 372 714 399 L711 414 693 418 692 406 700 389 697 359 683 330 650 318 607 324 589 319 558 306 526 311 508 337 502 360 498 400 475 417 454 416 454 402 462 393 451 356 431 335 417 325 396 328 378 319 351 313 328 317 315 303 293 294 280 278 270 250 267 222 254 204 249 172Z" fill="#bbbdbd" />
       <g transform="translate(-63 -12)">

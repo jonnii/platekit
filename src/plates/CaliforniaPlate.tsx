@@ -1,5 +1,6 @@
 "use client";
 
+import PlateSvg, { PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import { PlateProps } from "../types.js";
 
@@ -17,7 +18,7 @@ export default function CaliforniaPlate({ plate, state = "California", className
       className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }}
       aria-label={`License plate ${plate} from ${state}`} {...rest}
     >
-      <svg
+      <PlateSvg
         viewBox="0 0 1000 500"
         xmlns="http://www.w3.org/2000/svg"
         role="img"
@@ -34,7 +35,7 @@ export default function CaliforniaPlate({ plate, state = "California", className
             <stop stopColor="#a1a3a0" /><stop offset="0.45" stopColor="#e6e7e4" /><stop offset="0.7" stopColor="#e6e7e4" /><stop offset="1" stopColor="#aeb0ac" />
           </linearGradient>
         </defs>
-        <rect x="0" y="0" width="1000" height="500" rx="30" fill="#fff" />
+        <rect {...PLATE_OUTLINE} fill="#fff" />
         <path d="M1 30 Q1 1 30 1 H970 Q999 1 999 30 M1 470 Q1 499 30 499 H970 Q999 499 999 470" fill="none" stroke={`url(#caRim-${id})`} strokeWidth="2.5" />
         {[156, 765].flatMap((x) => [37, 435].map((y) => (
           <rect key={`${x}-${y}`} x={x} y={y} width="83" height="20" rx="10" fill={`url(#caSlot-${id})`} stroke="#b8bab7" strokeWidth="1" />
@@ -101,7 +102,7 @@ export default function CaliforniaPlate({ plate, state = "California", className
         >
           dmv.ca.gov
         </text>
-      </svg>
+      </PlateSvg>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import PlateSvg, { PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import { PlateProps } from "../types.js";
 
@@ -19,7 +20,7 @@ export default function IllinoisPlate({ plate, state = "Illinois", className, st
       className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }}
       aria-label={`License plate ${plate} from ${state}`} {...rest}
     >
-      <svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" role="img"
+      <PlateSvg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" role="img"
         preserveAspectRatio="xMidYMid meet" style={{ width: "100%", height: "auto" }}>
         <title>{`Illinois license plate: ${plate}`}</title>
         <defs>
@@ -45,9 +46,9 @@ export default function IllinoisPlate({ plate, state = "Illinois", className, st
             <stop offset="58%" stopColor="#dededc" />
             <stop offset="100%" stopColor="#989c9c" />
           </radialGradient>
-          <clipPath id={clip}><rect x="5" y="5" width="990" height="490" rx="30" /></clipPath>
+          <clipPath id={clip}><rect {...PLATE_OUTLINE} /></clipPath>
         </defs>
-        <rect width="1000" height="500" rx="30" fill="#fafbf9" />
+        <rect {...PLATE_OUTLINE} fill="#fafbf9" />
         <g clipPath={`url(#${clip})`}>
           <rect width="1000" height="500" fill={`url(#${sky})`} />
 
@@ -113,8 +114,8 @@ export default function IllinoisPlate({ plate, state = "Illinois", className, st
             <path d="M3 341L20 330M29 335L40 325M52 332L66 323M77 312L84 301M17 305L17 315" stroke="#6f756d" strokeWidth="3" />
           </g>
 
-          <rect x="5" y="5" width="990" height="490" rx="30" fill="none" stroke="#fafbf9" strokeWidth="12" />
-          <rect x="2" y="2" width="996" height="496" rx="33" fill="none" stroke="#d2d6d5" strokeWidth="2" />
+          <rect {...PLATE_OUTLINE} fill="none" stroke="#fafbf9" strokeWidth="12" />
+          <rect {...PLATE_OUTLINE} fill="none" stroke="#d2d6d5" strokeWidth="2" />
           {[38, 437].map((y) => [156, 765].map((x) => (
             <rect key={`${x}-${y}`} x={x} y={y} width="84" height="21" rx="10.5"
               fill={`url(#${slot})`} stroke="#c0c4c2" strokeWidth="1" />
@@ -137,7 +138,7 @@ export default function IllinoisPlate({ plate, state = "Illinois", className, st
           style={{ fontVariant: "small-caps" }} textLength="438" lengthAdjust="spacingAndGlyphs">
           Land of Lincoln
         </text>
-      </svg>
+      </PlateSvg>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import { PLATE_INSET_RADIUS } from "../internal/PlateSvg.js";
 import BaselinePlate, { PLATE_SANS } from "../internal/BaselinePlate.js";
 import type { PlateProps } from "../types.js";
 
@@ -20,7 +21,7 @@ export default function IowaPlate(props: PlateProps) {
       headingSize={90}
       headingY={128}
     >
-      <rect x="28" y="28" width="944" height="445" rx="25" fill="#426837" />
+      <rect x="28" y="28" width="944" height="445" rx={PLATE_INSET_RADIUS} fill="#426837" />
       <path d="M53 28 H947 Q972 28 972 53 V246 H28 V53 Q28 28 53 28Z" fill="#8bc4d1" />
       <path d="M63 46 H937 Q954 46 954 63 V146 H46 V63 Q46 46 63 46Z" fill="#25829e" />
       

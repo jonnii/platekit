@@ -1,5 +1,6 @@
 "use client";
 
+import PlateSvg, { PLATE_INSET_RADIUS, PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import type { PlateProps } from "../types.js";
 
@@ -11,7 +12,7 @@ export default function AlabamaPlate({ plate, state = "Alabama", className, styl
   const size = Math.min(316, 2212 / Math.max(7, cleaned.length));
   return (
     <div className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }} aria-label={`License plate ${plate} from ${state}`} {...rest}>
-      <svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid meet" style={{ width: "100%", height: "auto" }}>
+      <PlateSvg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid meet" style={{ width: "100%", height: "auto" }}>
         <title>{`Alabama license plate: ${plate}`}</title>
         <defs>
           <linearGradient id={`al-sky-${id}`} x2="0" y2="1">
@@ -24,9 +25,9 @@ export default function AlabamaPlate({ plate, state = "Alabama", className, styl
           <radialGradient id={`al-glow-${id}`}><stop stopColor="#fff9d9" /><stop offset=".35" stopColor="#f8d3c4" /><stop offset="1" stopColor="#eca6ab" stopOpacity="0" /></radialGradient>
           <linearGradient id={`al-rim-${id}`} x2=".15" y2="1"><stop stopColor="#f4f4f0" /><stop offset=".5" stopColor="#e0e5e8" /><stop offset="1" stopColor="#f1f2f4" /></linearGradient>
           <linearGradient id={`al-slot-${id}`} x2="0" y2="1"><stop stopColor="#91989c" /><stop offset=".5" stopColor="#dadbd8" /><stop offset="1" stopColor="#f5f5ed" /></linearGradient>
-          <clipPath id={`al-clip-${id}`}><rect x="20" y="20" width="960" height="460" rx="16" /></clipPath>
+          <clipPath id={`al-clip-${id}`}><rect x="20" y="20" width="960" height="460" rx={PLATE_INSET_RADIUS} /></clipPath>
         </defs>
-        <rect x="2" y="2" width="996" height="496" rx="31" fill={paint("rim")} stroke="#cbd0d3" strokeWidth="3" />
+        <rect {...PLATE_OUTLINE} fill={paint("rim")} stroke="#cbd0d3" strokeWidth="3" />
         <g clipPath={paint("clip")}>
           <rect width="1000" height="500" fill={paint("sky")} />
           <path d="M15 34 Q120 16 191 38 T383 37 L441 54 Q328 89 235 80 T20 73Z M20 160 Q130 182 262 174 Q187 193 76 189 L20 179Z M20 223 Q124 238 256 223 L251 235 Q98 249 20 235Z" fill="#d9bc5f" opacity=".34" />
@@ -74,7 +75,7 @@ export default function AlabamaPlate({ plate, state = "Alabama", className, styl
         <text x="500" y="98" textAnchor="middle" fill="#285498" fontFamily='Baskerville, "Times New Roman", serif' fontSize="98" textLength="474" lengthAdjust="spacingAndGlyphs">ALABAMA</text>
         <text x="500" y={375 - (316 - size) * .35} fill="#080a08" fontFamily="var(--font-plate-ny, sans-serif)" fontSize={size} textAnchor="middle" textLength={Math.min(886, cleaned.length * 122)} lengthAdjust="spacingAndGlyphs">{cleaned}</text>
         <text x="505" y="460" fill="#fff" fontFamily="Arial, sans-serif" fontSize="33" fontStyle="italic" textAnchor="middle" textLength="310" lengthAdjust="spacingAndGlyphs">www.alabama.travel</text>
-      </svg>
+      </PlateSvg>
     </div>
   );
 }

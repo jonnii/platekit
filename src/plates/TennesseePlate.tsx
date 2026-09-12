@@ -1,5 +1,6 @@
 "use client";
 
+import { PLATE_INSET_RADIUS, PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import BaselinePlate, { Star, PLATE_SANS } from "../internal/BaselinePlate.js";
 import type { PlateProps } from "../types.js";
 
@@ -30,9 +31,9 @@ export default function TennesseePlate(props: PlateProps) {
       hardware="photo"
       shadedSlots={true}
     >
-      <rect width="1000" height="500" rx="38" fill="#f5f5f2" />
-      <rect x="23" y="23" width="954" height="454" rx="32" fill="#172652" stroke="#8993a4" strokeWidth="6" />
-      <rect x="31" y="31" width="938" height="438" rx="22" fill="none" stroke="#f5f5f2" strokeWidth="5" />
+      <rect {...PLATE_OUTLINE} fill="#f5f5f2" />
+      <rect x="23" y="23" width="954" height="454" rx={PLATE_INSET_RADIUS} fill="#172652" stroke="#8993a4" strokeWidth="6" />
+      <rect x="31" y="31" width="938" height="438" rx={PLATE_INSET_RADIUS} fill="none" stroke="#f5f5f2" strokeWidth="5" />
       <path d="M315 29 Q311 46 300 54 L294 70 286 82 278 90 274 105 Q264 117 276 121 H658 Q665 121 670 110 L681 98 692 91 701 74 711 64 722 57 730 40 730 29Z" fill="none" stroke="#fff" strokeWidth="3" />
       <circle cx="437" cy="264" r="57" fill="none" stroke="#e43358" strokeWidth="7" />
       <circle cx="437" cy="264" r="53" fill="none" stroke="#fff" strokeWidth="4" />

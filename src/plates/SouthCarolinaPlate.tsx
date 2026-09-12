@@ -1,5 +1,6 @@
 "use client";
 
+import { PLATE_INSET_RADIUS } from "../internal/PlateSvg.js";
 import BaselinePlate, { PLATE_SERIF, Star } from "../internal/BaselinePlate.js";
 import type { PlateProps } from "../types.js";
 
@@ -25,7 +26,7 @@ export default function SouthCarolinaPlate(props: PlateProps) {
       rim={true}
       rimWidth={10}
     >
-      <rect x="12" y="12" width="976" height="476" rx="22" fill="none" stroke="#a4edf0" strokeWidth="3" />
+      <rect x="12" y="12" width="976" height="476" rx={PLATE_INSET_RADIUS} fill="none" stroke="#a4edf0" strokeWidth="3" />
       <path d="M24 20 H976" stroke="#205c97" strokeWidth="7" />
       <rect x="836" y="386" width="120" height="80" rx="4" fill="none" stroke="#171717" strokeWidth="2" />
       <path d="M21 108 H982" stroke="#c83436" strokeWidth="8" />

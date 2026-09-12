@@ -1,5 +1,6 @@
 "use client";
 
+import PlateSvg, { PLATE_INSET_RADIUS, PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import { PlateProps } from "../types.js";
 
@@ -17,7 +18,7 @@ export default function MichiganPlate({ plate, state = "Michigan", className, st
       className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }}
       aria-label={`License plate ${plate} from ${state}`} {...rest}
     >
-      <svg
+      <PlateSvg
         viewBox="0 0 1000 500"
         xmlns="http://www.w3.org/2000/svg"
         role="img"
@@ -26,17 +27,17 @@ export default function MichiganPlate({ plate, state = "Michigan", className, st
       >
         <title>{`Michigan license plate: ${plate}`}</title>
         <defs>
-          <clipPath id={`miClip-${id}`}><rect x="18" y="19" width="964" height="465" rx="21" /></clipPath>
+          <clipPath id={`miClip-${id}`}><rect x="18" y="19" width="964" height="465" rx={PLATE_INSET_RADIUS} /></clipPath>
           <linearGradient id={`miRim-${id}`} x2="0" y2="1"><stop stopColor="#9eaaa8" /><stop offset="0.5" stopColor="#f6f7f2" /><stop offset="1" stopColor="#9bacae" /></linearGradient>
           <linearGradient id={`miSlot-${id}`} x2="0" y2="1"><stop stopColor="#9aa39a" /><stop offset="0.5" stopColor="#e4e8de" /><stop offset="1" stopColor="#a7ada1" /></linearGradient>
           <filter id={`miEmboss-${id}`} x="-5%" y="-5%" width="110%" height="115%"><feDropShadow dx="1" dy="1.8" stdDeviation="0.5" floodColor="#b4b7a4" /></filter>
         </defs>
-        <rect width="1000" height="500" rx="34" fill="#f6f6f3" />
-        <rect x="18" y="19" width="964" height="465" rx="21" fill="#f4f5f2" />
+        <rect {...PLATE_OUTLINE} fill="#f6f6f3" />
+        <rect x="18" y="19" width="964" height="465" rx={PLATE_INSET_RADIUS} fill="#f4f5f2" />
         <g clipPath={`url(#miClip-${id})`}>
           <path d="M17 390 C160 423 295 424 403 417 C594 410 810 374 983 390 V489 H17 Z" fill={BLUE} />
         </g>
-        <rect x="18" y="19" width="964" height="465" rx="21" fill="none" stroke={`url(#miRim-${id})`} strokeWidth="2.7" />
+        <rect x="18" y="19" width="964" height="465" rx={PLATE_INSET_RADIUS} fill="none" stroke={`url(#miRim-${id})`} strokeWidth="2.7" />
         {[158, 765].flatMap((x) => [38, 438].map((y) => <rect key={`${x}-${y}`} x={x} y={y} width="83" height="21" rx="10" fill={`url(#miSlot-${id})`} stroke="#afb7ad" strokeWidth="1" />))}
 
         {/* Wordmark: PURE, the script M, then ICHIGAN. The three are positioned
@@ -100,7 +101,7 @@ export default function MichiganPlate({ plate, state = "Michigan", className, st
         >
           michigan.org
         </text>
-      </svg>
+      </PlateSvg>
     </div>
   );
 }

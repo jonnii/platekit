@@ -1,5 +1,6 @@
 "use client";
 
+import PlateSvg, { PLATE_INSET_RADIUS, PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import { PlateProps } from "../types.js";
 
@@ -94,11 +95,11 @@ export default function MarylandPlate({ plate, state = "Maryland", className, st
   return (
     <div className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }}
       aria-label={`License plate ${plate} from ${state}`} {...rest}>
-      <svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" role="img"
+      <PlateSvg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" role="img"
         preserveAspectRatio="xMidYMid meet" style={{ width: "100%", height: "auto" }}>
         <title>{`Maryland license plate: ${plate}`}</title>
         <defs>
-          <clipPath id={`mdFace-${id}`}><rect x="13" y="13" width="974" height="474" rx="26" /></clipPath>
+          <clipPath id={`mdFace-${id}`}><rect x="13" y="13" width="974" height="474" rx={PLATE_INSET_RADIUS} /></clipPath>
           <linearGradient id={`mdRim-${id}`} x1="0" y1="0" x2="0" y2="1">
             <stop offset="0" stopColor="#fafbf8" /><stop offset="0.5" stopColor="#e3e6df" /><stop offset="1" stopColor="#fafbf8" />
           </linearGradient>
@@ -128,7 +129,7 @@ export default function MarylandPlate({ plate, state = "Maryland", className, st
             <feDropShadow dx="-1" dy="-1" stdDeviation="0.6" floodColor="#ffffff" floodOpacity="0.85" />
           </filter>
         </defs>
-        <rect x="1" y="1" width="998" height="498" rx="30" fill={`url(#mdRim-${id})`} stroke="#d9ded4" strokeWidth="2" />
+        <rect {...PLATE_OUTLINE} fill={`url(#mdRim-${id})`} stroke="#d9ded4" strokeWidth="2" />
         <g clipPath={`url(#mdFace-${id})`}>
           <rect width="1000" height="500" fill={WHITE} />
           {/* Maryland's four quarters, counterchanged consistently through each fold. */}
@@ -150,12 +151,12 @@ export default function MarylandPlate({ plate, state = "Maryland", className, st
         <text x="500" y="374" textAnchor="middle" fill="#060907" fontFamily="var(--font-plate-ny, sans-serif)"
           fontSize={Math.min(334, 2338 / Math.max(cleaned.length, 1))} textLength={cleaned.length ? Math.min(890, cleaned.length * 127) : undefined}
           lengthAdjust="spacingAndGlyphs" filter={`url(#mdEmboss-${id})`}>{cleaned}</text>
-        <rect x="13" y="13" width="974" height="474" rx="26" fill="none" stroke="#ffffff" strokeWidth="2" opacity="0.7" />
+        <rect x="13" y="13" width="974" height="474" rx={PLATE_INSET_RADIUS} fill="none" stroke="#ffffff" strokeWidth="2" opacity="0.7" />
         {[199, 805].flatMap((x) => [47, 447].map((y) => (
           <rect key={`${x}-${y}`} x={x - 41} y={y - 10} width="82" height="20" rx="10"
             fill={`url(#mdSlot-${id})`} stroke="#c5cbc0" strokeWidth="1.5" />
         )))}
-      </svg>
+      </PlateSvg>
     </div>
   );
 }

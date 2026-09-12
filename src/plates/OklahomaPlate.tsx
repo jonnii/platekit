@@ -1,5 +1,6 @@
 "use client";
 
+import { PLATE_INSET_RADIUS } from "../internal/PlateSvg.js";
 import BaselinePlate, { Star, PLATE_SANS } from "../internal/BaselinePlate.js";
 import type { PlateProps } from "../types.js";
 
@@ -27,7 +28,7 @@ export default function OklahomaPlate(props: PlateProps) {
       separatorWidth={230}
       border="#1a2459"
     >
-      <rect x="27" y="27" width="946" height="449" rx="20" stroke="#1b2455" strokeWidth="9" fill="none" />
+      <rect x="27" y="27" width="946" height="449" rx={PLATE_INSET_RADIUS} stroke="#1b2455" strokeWidth="9" fill="none" />
       <rect x="42" y="38" width="100" height="47" rx="5" fill="#fff" />
       <rect x="861" y="38" width="99" height="47" rx="5" fill="#fff" />
       <path d="M0 450 H1000 V500 H0Z" fill="#1c2456" />
