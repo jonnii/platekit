@@ -63,7 +63,7 @@ export default function App() {
             <div className="playground-preview"><LicensePlate state={state} plate={plate} /></div>
             <CodeBlock>{example}</CodeBlock>
           </div>
-          <p className="small">These examples use the package’s default font fallbacks. See <a href="#fonts">Fonts</a> to customize the lettering.</p>
+          <p className="small">These examples use our preview fonts. See <a href="#fonts">Fonts</a> to configure lettering in your app.</p>
         </section>
 
         <section id="usage" className="doc-section">
@@ -96,6 +96,7 @@ export default function App() {
         <section id="fonts" className="doc-section">
           <p className="eyebrow">05 / Typography</p><h2>Fonts</h2>
           <p>Platekit combines vector artwork and SVG text. Fonts are supplied by your app, so there are no bundled font files or automatic font downloads. The defaults depend on your platform.</p>
+          <p>This site uses Zurich Extra Condensed for registrations, Yellowtail for script lettering, Playfair Display for state headings, Sanchez for mottos, and Geist for sans-serif lettering. These fonts are not included in the npm package.</p>
           <div className="table-scroll"><table><thead><tr><th>CSS variable</th><th>Used for</th><th>Fallback</th></tr></thead><tbody>{variables.map(([variable, use, fallback]) => <tr key={variable}><th><code>{variable}</code></th><td>{use}</td><td>{fallback}</td></tr>)}</tbody></table></div>
           <p>Load your chosen font with your app’s normal font setup, then set the variables on a parent element:</p>
           <CodeBlock label="css">{`.profile-plate {\n  --font-plate-ny: "Your Registration Font", sans-serif;\n  --font-plate-script: "Your Script Font", cursive;\n  --font-plate-place: Georgia, serif;\n}`}</CodeBlock>

@@ -12,7 +12,7 @@ import { LicensePlate } from "platekit";
 <LicensePlate plate="ABC1234" state="NY" className="my-plate" />
 ```
 
-Requires React 19. Plates scale to their container width. The documentation previews use platform fallbacks; configure the [font variables](#fonts) to customize lettering. No Next.js or Tailwind dependency, CSS import, network request, or bundled font is required.
+Requires React 19. Plates scale to their container width. The documentation previews use the workshop's fonts; configure the [font variables](#fonts) for lettering in your app. No Next.js or Tailwind dependency, CSS import, network request, or bundled font is required.
 
 ## API
 
@@ -57,7 +57,7 @@ The docs can deploy to GitHub Pages using the included workflow. See [GitHub Pag
 
 Run `bun run dev:workshop` (or `mise run dev:workshop`) separately for the internal artwork workshop at http://localhost:3002/compare. It includes reference pairs, scoring jobs, close-ups, registration samples, a contact sheet, and a font probe.
 
-Both sites support React Fast Refresh and CSS hot updates. `PORT` overrides the port for either command. The public site has no comparison API, reference photographs, or development fonts.
+Both sites support React Fast Refresh and CSS hot updates. `PORT` overrides the port for either command. The public site uses the same preview fonts as the workshop, with its own serial font asset, and has no comparison API or reference photographs.
 
 - [Contributing and repository structure](docs/contributing.md)
 - [Artwork comparison and improvement workflow](docs/artwork-workflow.md)
