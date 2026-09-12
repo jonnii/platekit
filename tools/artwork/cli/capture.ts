@@ -18,6 +18,7 @@ const targets = fontProbe ? FONT_PROBES.filter((probe) => probeIds[0] === "all" 
   : states.map((state) => ({ state, name: state, route: `/compare?state=${state}` }));
 const selector = fontProbe ? "#font-probe-detail" : "#plate-detail";
 const trialCandidate = option("candidate", "current");
+const fontMasks = args.includes("--font-masks");
 const mountingHoles = option("mounting-holes", "none");
 const stickerAreas = args.includes("--registration-sticker-areas");
 const origin = option("url", "http://localhost:3002");
@@ -126,6 +127,37 @@ async function main() {
         })()`);
         const probeStatus = await evaluate(`({ candidates: Array.from(document.querySelectorAll('[data-candidate]')).map(row => ({id: row.dataset.candidate, status: row.dataset.fontStatus})), targets: Array.from(document.querySelectorAll('[data-trial-font]')).map(row => ({font: row.dataset.trialFont, count: Number(row.dataset.targetCount)})) })`);
         await writeFile(path.join(directory, `${name}-probe.json`), `${JSON.stringify(probeStatus, null, 2)}\n`);
+        if (fontMasks) {
+          const probe = FONT_PROBES.find((entry) => entry.id === name)!;
+          const glyphs = await evaluate(`(() => {
+            const probe = ${JSON.stringify({ text: probe.text, kind: probe.kind })};
+            return Array.from(document.querySelectorAll('[data-candidate]')).filter(row => row.dataset.fontStatus === 'loaded').map(row => {
+              const target = row.querySelector('[data-probe-target]');
+              if (!target) throw new Error('No target for '+row.dataset.candidate);
+              const style = getComputedStyle(target);
+              const samples = probe.kind === 'registration' ? Array.from(probe.text) : [probe.text];
+              const font = style.fontStyle+' '+style.fontWeight+' 240px '+style.fontFamily;
+              const images = samples.map(text => {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d'); ctx.font = font;
+                canvas.width = Math.ceil(ctx.measureText(text).width + 160); canvas.height = 480;
+                ctx.font = font; ctx.fillStyle = 'black'; ctx.fillText(text,80,330);
+                return {text, png:canvas.toDataURL('image/png').split(',')[1]};
+              });
+              const whole = probe.kind === 'registration' ? (() => {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d'); ctx.font = font;
+                canvas.width = Math.ceil(ctx.measureText(probe.text).width + 160); canvas.height = 480;
+                ctx.font = font; ctx.fillStyle = 'black'; ctx.fillText(probe.text,80,330);
+                return canvas.toDataURL('image/png').split(',')[1];
+              })() : undefined;
+              return {id:row.dataset.candidate,font,images,whole};
+            });
+          })()`);
+          await writeFile(path.join(directory, `${name}-glyphs.json`), `${JSON.stringify(glyphs)}\n`);
+          console.log(`${name}: captured loaded browser glyphs`);
+          continue;
+        }
       }
       // The asynchronously loaded priorities table sits above the plate. Wait
       // for it before measuring the screenshot crop so it cannot shift below us.

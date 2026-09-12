@@ -23,10 +23,10 @@ const face = (family: string, weight = 400, remote = true, style?: "italic"): Fo
   id: `${family.toLowerCase().replaceAll(" ", "-")}-${weight}${style ? "-italic" : ""}`,
   family, weight, remote, style,
 });
-const scripts = [face("Yellowtail", 400, false), ...["Kaushan Script", "Satisfy", "Damion", "Courgette", "Grand Hotel"].map((name) => face(name))];
+const scripts = [face("Yellowtail", 400, false), ...["Kaushan Script", "Satisfy", "Damion", "Courgette", "Grand Hotel", "Mr Dafoe", "Lobster"].map((name) => face(name))];
 const serifs = [face("Playfair Display", 700, false), face("Bodoni Moda", 700), face("Libre Bodoni", 700), face("Source Serif 4", 700), face("PT Serif", 700)];
-const italics = [face("Source Serif 4", 700, true, "italic"), face("PT Serif", 700, true, "italic"), face("Libre Bodoni", 700, true, "italic")];
-const slabs = [face("Sanchez", 400, false), face("Bitter", 800), face("Zilla Slab", 700), face("Roboto Slab", 800), face("Aleo", 800)];
+const italics = [face("Source Serif 4", 700, true, "italic"), face("PT Serif", 700, true, "italic"), face("Libre Bodoni", 700, true, "italic"), face("Lora", 700, true, "italic"), face("Merriweather", 700, true, "italic")];
+const slabs = [face("Sanchez", 400, false), face("Bitter", 800), face("Zilla Slab", 700), face("Roboto Slab", 800), face("Aleo", 800), face("Bevan"), face("Alfa Slab One")];
 export const REGISTRATION_CANDIDATES = [face("Bebas Neue", 400, false), face("Barlow Condensed", 500), face("Barlow Condensed", 700), face("Oswald", 500), face("Roboto Condensed", 700), face("Teko", 500), face("Antonio", 600)];
 
 const wordmark = (state: PlateState, suffix: string, text: string, crop: FontProbe["crop"], candidates: FontCandidate[], note: string): FontProbe => ({
@@ -37,14 +37,14 @@ export const WORDMARK_PROBES: FontProbe[] = [
   wordmark("LA", "name", "Louisiana", { x: 270, y: 15, w: 500, h: 110 }, scripts, "Compare the angular L, repeated i strokes and trailing swash. A font alone may not reproduce the custom wordmark."),
   wordmark("SD", "name", "South Dakota", { x: 270, y: 0, w: 470, h: 135 }, scripts, "Compare the large S and D, connected letters and underline. Retain the selected Rushmore base."),
   wordmark("GA", "motto", "Peach State", { x: 45, y: 15, w: 370, h: 130 }, scripts, "Compare with the existing outline applied; the outline changes apparent stroke weight."),
-  wordmark("GA", "name", "GEORGIA", { x: 385, y: 25, w: 560, h: 120 }, serifs.map((font) => ({ ...font, id: `${font.id}-regular`, weight: 400 })), "Compare the G, R leg, horizontal proportions and thin strokes."),
+  wordmark("GA", "name", "GEORGIA", { x: 385, y: 25, w: 560, h: 120 }, [...serifs.map((font) => ({ ...font, id: `${font.id}-regular`, weight: 400 })), face("Cinzel"), face("Marcellus")], "Compare the G, R leg, horizontal proportions and thin strokes. Cinzel and Marcellus test the reference’s inscription-style capitals."),
   wordmark("MD", "name", "aryland", { x: 310, y: 10, w: 400, h: 100 }, italics, "Only ‘aryland’ changes. The custom SVG M stays visible so its join and stroke contrast can be judged."),
   wordmark("MA", "name", "Massachusetts", { x: 235, y: 10, w: 530, h: 100 }, italics, "Compare the italic M, double s and terminal s."),
   wordmark("MA", "motto", "The Spirit of America", { x: 235, y: 405, w: 535, h: 85 }, italics, "Compare italic rhythm and spacing at both display sizes."),
   wordmark("NV", "name", "NEVADA", { x: 240, y: 20, w: 520, h: 110 }, slabs, "Current Sanchez has only a bundled regular face; the plate requests 900. Compare real bold weights with the existing stroke applied."),
   wordmark("NV", "motto", "Home Means Nevada", { x: 225, y: 405, w: 550, h: 80 }, slabs, "Compare slab shape and lowercase weight. Current Sanchez requests an unbundled 800 weight."),
   wordmark("KS", "motto", "to the stars", { x: 330, y: 395, w: 355, h: 90 }, scripts, "Official DOR sample. Compare t crossbars, joins and the final s."),
-  wordmark("NH", "new", "New", { x: 340, y: 355, w: 310, h: 80 }, scripts, "Keep the Hampshire footer visible in full-plate previews; compare the broad N and rising finish."),
+  wordmark("NH", "new", "New", { x: 330, y: 330, w: 330, h: 105 }, scripts, "Compare the broad N and rising finish. Full-plate previews expose the current oversized script’s proximity to the serial; a family swap alone does not fix that layout."),
   wordmark("NH", "hampshire", "HAMPSHIRE", { x: 295, y: 405, w: 415, h: 90 }, serifs, "Compare the tall, narrow serif forms in the split state name."),
   wordmark("NY", "name", "NEW YORK", { x: 240, y: 30, w: 520, h: 105 }, serifs, "Use the preserved DMV sample; compare high contrast, serifs and the E’s middle bar."),
   wordmark("NY", "motto", "EXCELSIOR", { x: 265, y: 395, w: 470, h: 90 }, slabs, "Compare the outlined slab serif with the existing gold fill and navy outline."),

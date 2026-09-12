@@ -32,6 +32,9 @@ The preserved originals and their checksums remain unchanged.
 
 ## Browser and complexity checks
 
+For lettering work, use the [font probe workflow and fixed-reference selections](font-probes.md).
+The workshop covers 15 wordmark/motto probes and registration lettering for all 51 jurisdictions.
+
 ```sh
 bun run capture-plates --states=GA --output-dir=/tmp/ga-browser
 bun run capture-plates --states=FL --mounting-holes=round --registration-sticker-areas --output-dir=/tmp/fl-features-browser

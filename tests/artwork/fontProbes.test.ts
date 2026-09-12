@@ -3,6 +3,7 @@ import { candidateStylesheet, FONT_PROBES, REGISTRATION_PROBES } from "../../too
 import { ARTWORK_STATES } from "../../tools/artwork/metadata";
 import { originalReference } from "../../tools/artwork/reference-assets";
 import { PLATE_REFERENCES } from "../../tools/artwork/references";
+import { FONT_PROBE_SELECTIONS } from "../../tools/artwork/font-selections";
 
 it("provides a registration probe backed by an unchanged original for every jurisdiction", () => {
   expect(REGISTRATION_PROBES.map((probe) => probe.state).sort()).toEqual([...ARTWORK_STATES].sort());
@@ -21,4 +22,13 @@ it("combines weights and styles per remote family without requesting bundled fon
   ])!);
   expect(url.searchParams.getAll("family")).toEqual(["PT Serif:ital,wght@0,400;1,700"]);
   expect(candidateStylesheet([{ id: "local", family: "Yellowtail", weight: 400 }])).toBeUndefined();
+});
+
+it("keeps every measured selection attached to a live probe candidate", () => {
+  for (const [id, selection] of Object.entries(FONT_PROBE_SELECTIONS)) {
+    const probe = FONT_PROBES.find((entry) => entry.id === id);
+    expect(probe).toBeDefined();
+    expect(probe!.candidates.some((candidate) => candidate.id === selection.candidate)).toBe(true);
+    expect(selection.selectedScore).toBeGreaterThan(selection.currentScore + 2);
+  }
 });

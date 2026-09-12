@@ -5,6 +5,8 @@ import { FONT_PROBES, candidateStylesheet, fontReferenceKind, type FontCandidate
 import { PLATE_METADATA } from "../../tools/artwork/metadata";
 import { originalReference } from "../../tools/artwork/reference-assets";
 import { PLATE_REFERENCES } from "../../tools/artwork/references";
+import { fontProbeFinding } from "../../tools/artwork/font-probe-findings";
+import { fontProbeSelection } from "../../tools/artwork/font-selections";
 
 type FontStatus = "loading" | "loaded" | "unavailable";
 type Review = { verdict: "unreviewed" | "shortlisted" | "keep-current" | "needs-reference"; candidate: string; notes: string };
@@ -75,6 +77,7 @@ function TrialPlate({ probe, candidate, sample, ready }: { probe: FontProbe; can
     const canvas = document.createElement("canvas").getContext("2d")!;
     const saved = texts.map((text) => ({ text, style: text.getAttribute("style") }));
     for (const text of texts) {
+      text.dataset.probeTarget = "true";
       if (!candidate) continue;
       const current = getComputedStyle(text);
       const size = Number.parseFloat(current.fontSize);
@@ -96,7 +99,7 @@ function TrialPlate({ probe, candidate, sample, ready }: { probe: FontProbe; can
   }, [probe, candidate, sample, ready]);
   return <div ref={root} data-trial-font={candidate?.id ?? "current"} data-target-count={count}>
     <LicensePlate state={probe.state} plate={sample} />
-    {ready && count === 0 && sample && <p role="alert" className="text-xs text-red-700">No matching lettering found.</p>}
+    {ready && count === 0 && (probe.kind === "wordmark" || sample) && <p role="alert" className="text-xs text-red-700">No matching lettering found.</p>}
   </div>;
 }
 
@@ -107,7 +110,9 @@ function Crop({ crop, children }: { crop: FontProbe["crop"]; children: ReactNode
 }
 
 function ProbeDetail({ probe, review, save }: { probe: FontProbe; review: Review; save: (review: Review) => void }) {
-  const [chosen, setChosen] = useState(probe.candidates.some((font) => font.id === review.candidate) ? review.candidate : "current");
+  const projectSelection = fontProbeSelection(probe.id);
+  const initialCandidate = review.candidate !== "current" ? review.candidate : projectSelection.candidate;
+  const [chosen, setChosen] = useState(probe.candidates.some((font) => font.id === initialCandidate) ? initialCandidate : "current");
   const [sample, setSample] = useState(probe.kind === "registration" ? probe.text : PLATE_METADATA[probe.state].sample);
   const statuses = useCandidateFonts(probe.candidates);
   const selected = probe.candidates.find((font) => font.id === chosen);
@@ -118,6 +123,7 @@ function ProbeDetail({ probe, review, save }: { probe: FontProbe; review: Review
   return <section id="font-probe-detail" className="mt-6 max-w-5xl" data-probe-id={probe.id}>
     <h2 className="text-xl font-semibold">{probe.label}</h2>
     <p className="mt-2 text-sm">{probe.note}</p>
+    <p className="mt-3 max-w-3xl rounded border border-blue-200 bg-blue-50 p-3 text-sm"><strong>Fixed-reference result · September 12:</strong> {fontProbeFinding(probe.id)}</p>
     <p className="mt-2 text-sm text-amber-800">{fontReferenceKind(probe.state)}. <a className="underline" href={reference.src} target="_blank" rel="noreferrer">Source</a>{original && <> · <a className="underline" href={original.src}>Preserved original</a></>}</p>
     <div className="sticky top-0 z-10 mt-4 max-w-[680px] border bg-white p-3 shadow-sm">
       <p className="mb-2 text-xs font-semibold text-emerald-800">Original lettering · fixed reference crop</p>
@@ -134,7 +140,7 @@ function ProbeDetail({ probe, review, save }: { probe: FontProbe; review: Review
             <label className="flex cursor-pointer items-center gap-2"><input type="radio" name="candidate" value={id} checked={chosen === id} disabled={status !== "loaded"} onChange={() => setChosen(id)} />{candidate ? `${candidate.family} ${candidate.weight}${candidate.style ? " italic" : ""}` : "Current implementation"}</label>
             <span className={status === "unavailable" ? "text-red-700" : "text-zinc-500"}>{status === "loaded" ? candidate?.remote ? "Loaded · Google Fonts" : "Loaded · bundled / current fonts" : status === "loading" ? "Loading…" : "Unavailable — no comparison"}</span>
           </div>
-          {status === "loaded" ? <Crop crop={probe.crop}><TrialPlate probe={probe} candidate={candidate} sample={probe.kind === "registration" ? probe.text : PLATE_METADATA[probe.state].sample} ready /></Crop>
+          {status === "loaded" ? <Crop crop={probe.crop}><TrialPlate probe={probe} candidate={candidate} sample={probe.kind === "registration" ? probe.text : ""} ready /></Crop>
             : <div className="bg-zinc-50 p-4 text-xs text-zinc-500">{status === "unavailable" ? "Font could not be loaded. Check your connection and reload to retry." : "Waiting for the actual font face."}</div>}
         </div>;
       })}
@@ -167,7 +173,7 @@ function ProbeDetail({ probe, review, save }: { probe: FontProbe; review: Review
       </select></label>
       <textarea aria-label="Review notes" className="block w-full border p-2 text-sm" rows={3} placeholder="Glyph differences, preferred candidate, remaining reference work…" value={review.notes} onChange={(event) => save({ ...review, candidate: chosen, notes: event.target.value })} />
       <button className="rounded bg-zinc-900 px-3 py-2 text-sm text-white" disabled={!ready} onClick={() => save({ ...review, candidate: chosen })}>Save selected candidate</button>
-      <p className="text-xs text-zinc-500">Saved candidate: {review.candidate}. Notes stay in this browser and can be exported. Saving a review does not change the package fonts.</p>
+      <p className="text-xs text-zinc-500">Saved candidate: {review.candidate}. Your reviews stay in this browser and can be exported. The measured result above is a shared project starting point. Saving a review does not change the package fonts.</p>
     </fieldset>
   </section>;
 }

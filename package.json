@@ -36,6 +36,7 @@
     "compare-plate:check": "bun run tools/artwork/cli/check-regression.ts",
     "compare-plates": "bun run tools/artwork/cli/compare-all.ts",
     "capture-plates": "bun run tools/artwork/cli/capture.ts",
+    "compare-fonts": "bun run tools/artwork/cli/compare-fonts.ts",
     "audit-plates": "bun run tools/artwork/cli/audit.ts",
     "prepack": "npm run build",
     "check": "bun run typecheck && bun test",
