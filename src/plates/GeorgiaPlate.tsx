@@ -1,5 +1,6 @@
 "use client";
 
+import PlateFrame from "../internal/PlateFrame.js";
 import PlateSvg, { PLATE_INSET_RADIUS, PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import { PlateProps } from "../types.js";
@@ -47,13 +48,13 @@ function peach(x: number, y: number, radius: number, rotation: number, id: strin
 }
 
 /** Georgia's illustrated Peach Orchard base, with an unassigned county decal. */
-export default function GeorgiaPlate({ plate, state = "Georgia", className, style, ...rest }: PlateProps) {
+export default function GeorgiaPlate({ plate, state = "Georgia", className, style, registrationStickerAreas = false, ...rest }: PlateProps) {
   const id = useId();
   const cleaned = plate.replace(/[\s\-–—]/g, "").toUpperCase();
   const serialSize = Math.min(310, Math.round(2170 / Math.max(cleaned.length, 1)));
 
   return (
-    <div className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }}
+    <PlateFrame className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }}
       aria-label={`License plate ${plate} from ${state}`} {...rest}>
       <PlateSvg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" role="img"
         preserveAspectRatio="xMidYMid meet" style={{ width: "100%", height: "auto" }}>
@@ -71,11 +72,6 @@ export default function GeorgiaPlate({ plate, state = "Georgia", className, styl
             <stop offset="0" stopColor="#fdfdfb" />
             <stop offset="0.5" stopColor="#f1f2ee" />
             <stop offset="1" stopColor="#e6e9e4" />
-          </linearGradient>
-          <linearGradient id={`gaSlot-${id}`} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor="#b0b5af" />
-            <stop offset="0.45" stopColor="#e6e8e1" />
-            <stop offset="1" stopColor="#c9d0c6" />
           </linearGradient>
           <linearGradient id={`gaField-${id}`} x1="0" y1="0" x2="0.8" y2="1">
             <stop offset="0" stopColor="#77ada5" />
@@ -192,8 +188,8 @@ export default function GeorgiaPlate({ plate, state = "Georgia", className, styl
           <path fill="#dc7950" fillRule="evenodd" opacity="1" d="M89,456 77,469 74,480 80,479 78,478 78,475 85,460Z M19,423 19,430 24,423 37,420 39,423 54,430 49,419 52,417 64,417 78,425 88,435 93,446 93,450 116,439 129,439 144,444 153,454 152,459 146,459 144,461 152,464 157,468 158,472 164,473 167,476 165,479 162,479 170,479 165,472 158,469 159,464 156,463 157,459 153,449 160,437 149,418 147,401 144,393 137,384 128,381 127,378 133,375 146,377 156,384 170,382 157,383 146,376 138,374 124,377 110,376 103,373 89,376 81,374 68,376 52,371 56,374 60,373 66,376 80,376 82,378 105,375 111,378 109,380 103,379 97,381 91,379 82,380 76,383 63,396 58,404 56,414 47,416 44,419 44,422 37,418 31,421 25,420Z M59,404 63,398 79,384 87,382 92,384 88,394 100,387 105,381 116,381 118,384 131,386 136,389 141,397 146,419 155,437 155,442 151,444 142,438 134,436 119,436 110,438 96,445 87,428 73,415 64,413 59,408Z" />
           <path fill="#f3bd9d" fillRule="evenodd" opacity="1" d="M141,464 133,459 121,460 106,467 93,480 88,480 99,478 104,472 113,466 118,467 112,471 108,476 109,478 116,480 138,479 117,480 112,478 127,468Z M25,451 23,465 24,471 23,472 19,467 24,475 32,478 59,480 63,478 64,470 70,467 72,469 72,473 68,477 73,480 73,459 65,440 58,434 51,431 49,432 51,437 50,446 45,446 44,443 33,443Z M58,463 62,471 62,477 59,480 52,480 48,476 54,465Z M34,458 40,458 43,462 43,471 39,475 28,470 28,467 33,462Z M81,402 76,416 92,430 97,441 123,434 127,431 124,414 118,405 109,402 102,402 93,408 91,396 85,398Z M111,418 114,422 114,427 110,431 105,431 103,427 100,427 100,422Z M61,371 68,375 99,372 123,375 132,372 147,373 158,382 170,381 170,371Z" />
           </g>
-          {/* No county is supplied by the app, so the decal stays blank. */}
-          <rect x="250" y="405" width="498" height="59" rx="11" fill="#fffffc" stroke="#d2dfca" strokeWidth="1.5" />
+          {/* No county is supplied by the app, so the optional decal stays blank. */}
+          {registrationStickerAreas && <g data-plate-registration-sticker-area=""><rect x="250" y="405" width="498" height="59" rx="11" fill="#fffffc" stroke="#d2dfca" strokeWidth="1.5" /></g>}
         </g>
 
         <g fill={INK}>
@@ -211,15 +207,7 @@ export default function GeorgiaPlate({ plate, state = "Georgia", className, styl
           </text>
         </g>
         <rect x="18" y="18" width="964" height="464" rx={PLATE_INSET_RADIUS} fill="none" stroke="#ffffff" strokeWidth="1.5" opacity="0.75" />
-        <g>
-          {[198, 806].flatMap((x) => [46, 447].map((y) => (
-            <g key={`${x}-${y}`}>
-              <rect x={x - 42} y={y - 11} width="84" height="23" rx="11" fill="#e7ede3" opacity="0.75" />
-              <rect x={x - 40} y={y - 10} width="80" height="20" rx="10" fill={`url(#gaSlot-${id})`} stroke="#c2c8be" strokeWidth="1" />
-            </g>
-          )))}
-        </g>
       </PlateSvg>
-    </div>
+    </PlateFrame>
   );
 }

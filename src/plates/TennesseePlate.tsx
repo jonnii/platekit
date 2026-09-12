@@ -28,8 +28,7 @@ export default function TennesseePlate(props: PlateProps) {
       serialInset={48}
       separatorX={436}
       frame={false}
-      hardware="photo"
-      shadedSlots={true}
+
     >
       <rect {...PLATE_OUTLINE} fill="#f5f5f2" />
       <rect x="23" y="23" width="954" height="454" rx={PLATE_INSET_RADIUS} fill="#172652" stroke="#8993a4" strokeWidth="6" />
@@ -38,7 +37,8 @@ export default function TennesseePlate(props: PlateProps) {
       <circle cx="437" cy="264" r="57" fill="none" stroke="#e43358" strokeWidth="7" />
       <circle cx="437" cy="264" r="53" fill="none" stroke="#fff" strokeWidth="4" />
       <Star x={419} y={243} size={44} fill="#fff" /><Star x={426} y={285} size={44} fill="#fff" /><Star x={460} y={256} size={44} fill="#fff" />
-      <text x="42" y="49" fontFamily={PLATE_SANS} fontSize="23" letterSpacing="3" fill="#fff"><tspan x="42">THE</tspan><tspan x="42" dy="24">VOLUNTEER</tspan><tspan x="42" dy="24">STATE</tspan></text><rect x="259" y="404" width="480" height="70" fill="#f2f2ee" />
+      <text x="42" y="49" fontFamily={PLATE_SANS} fontSize="23" letterSpacing="3" fill="#fff"><tspan x="42">THE</tspan><tspan x="42" dy="24">VOLUNTEER</tspan><tspan x="42" dy="24">STATE</tspan></text>
+      {props.registrationStickerAreas && <g data-plate-registration-sticker-area=""><rect x="259" y="404" width="480" height="70" fill="#f2f2ee" /></g>}
     </BaselinePlate>
   );
 }

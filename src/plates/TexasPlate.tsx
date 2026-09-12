@@ -1,5 +1,6 @@
 "use client";
 
+import PlateFrame from "../internal/PlateFrame.js";
 import PlateSvg, { PLATE_INSET_RADIUS, PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import { PlateProps } from "../types.js";
@@ -14,7 +15,7 @@ export default function TexasPlate({ plate, state = "Texas", className, style, .
   const size = tx.centered.length <= 7 ? 300 : Math.round(300 * 7 / tx.centered.length);
 
   return (
-    <div className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }}
+    <PlateFrame className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }}
       aria-label={`License plate ${plate} from ${state}`} {...rest}>
       <PlateSvg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" role="img"
         preserveAspectRatio="xMidYMid meet" style={{ width: "100%", height: "auto" }}>
@@ -27,9 +28,6 @@ export default function TexasPlate({ plate, state = "Texas", className, style, .
             <stop stopColor="#ddddda" /><stop offset="0.18" stopColor="#eeeeec" />
             <stop offset="0.85" stopColor="#e5e5e2" /><stop offset="1" stopColor="#cecfca" />
           </linearGradient>
-          <linearGradient id={`txSlot-${id}`} x2="0" y2="1">
-            <stop stopColor="#bfc1bd" /><stop offset="0.3" stopColor="#fafaf8" /><stop offset="1" stopColor="#ffffff" />
-          </linearGradient>
           <clipPath id={`txClip-${id}`}><rect x="7" y="7" width="986" height="486" rx={PLATE_OUTLINE.rx} /></clipPath>
         </defs>
         <rect {...PLATE_OUTLINE} fill="#f3f3f0" />
@@ -38,8 +36,6 @@ export default function TexasPlate({ plate, state = "Texas", className, style, .
         <g clipPath={`url(#txClip-${id})`} fill="none" stroke="#dbdcd8" strokeWidth="1.5" opacity="0.5">
           {[285, 715].map((x) => <path key={x} d={`M${x} 18 C${x - 28} 65 ${x + 25} 95 ${x} 142 S${x - 25} 222 ${x} 269 S${x + 25} 345 ${x} 391 S${x - 24} 454 ${x} 486`} />)}
         </g>
-        {[183, 772].flatMap((x) => [38, 438].map((y) =>
-          <rect key={`${x}-${y}`} x={x} y={y} width="43" height="24" rx="12" fill={`url(#txSlot-${id})`} />))}
         {/* Alternate black facets meet at the star's centre. */}
         <g transform="translate(49 54) scale(1.13 1.08)">
           <path d="M50 0 L62 36 H100 L69 58 81 95 50 72 19 95 31 58 0 36 H38 Z" fill="#fafaf8" stroke={INK} strokeWidth="2.6" />
@@ -59,7 +55,7 @@ export default function TexasPlate({ plate, state = "Texas", className, style, .
         <text x="495" y="464" textAnchor="middle" fill={INK} fontFamily={SANS}
           fontWeight={900} fontSize="45" textLength="464" lengthAdjust="spacingAndGlyphs">The Lone Star State</text>
       </PlateSvg>
-    </div>
+    </PlateFrame>
   );
 }
 

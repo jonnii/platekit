@@ -16,8 +16,10 @@ export default function App() {
   const [state, setState] = useState<PlateState>("NY");
   const [plate, setPlate] = useState("HELLO123");
   const [search, setSearch] = useState("");
+  const [mountingHoles, setMountingHoles] = useState<false | "slots" | "round">(false);
+  const [registrationStickerAreas, setRegistrationStickerAreas] = useState(false);
   const shown = states.filter((code) => `${code} ${PLATES[code].name}`.toLowerCase().includes(search.toLowerCase().trim()));
-  const example = `<LicensePlate\n  state=${JSON.stringify(state)}\n  plate=${JSON.stringify(plate)}\n  style={{ width: 400 }}\n/>`;
+  const example = `<LicensePlate\n  state=${JSON.stringify(state)}\n  plate=${JSON.stringify(plate)}${mountingHoles ? `\n  mountingHoles="${mountingHoles}"` : ""}${registrationStickerAreas ? "\n  registrationStickerAreas" : ""}\n  style={{ width: 400 }}\n/>`;
   return <>
     <header className="site-header">
       <a className="brand" href="#" aria-label="Platekit home"><span className="brand-mark">PK</span>platekit<span className="brand-tag">/ react</span></a>
@@ -59,8 +61,10 @@ export default function App() {
             <div className="playground-controls">
               <label>State<select value={state} onChange={(event) => setState(event.target.value as PlateState)}>{states.map((code) => <option key={code} value={code}>{PLATES[code].name}</option>)}</select></label>
               <label>Registration<input value={plate} onChange={(event) => setPlate(event.target.value)} maxLength={20} spellCheck={false} /></label>
+              <label>Mounting holes<select value={mountingHoles || "none"} onChange={(event) => setMountingHoles(event.target.value === "none" ? false : event.target.value as "slots" | "round")}><option value="none">None</option><option value="slots">Slots</option><option value="round">Round</option></select></label>
+              <label>Registration sticker areas<select value={String(registrationStickerAreas)} onChange={(event) => setRegistrationStickerAreas(event.target.value === "true")}><option value="false">Hidden</option><option value="true">Show where supported</option></select></label>
             </div>
-            <div className="playground-preview"><LicensePlate state={state} plate={plate} /></div>
+            <div className="playground-preview"><LicensePlate state={state} plate={plate} mountingHoles={mountingHoles} registrationStickerAreas={registrationStickerAreas} /></div>
             <CodeBlock>{example}</CodeBlock>
           </div>
           <p className="small">Import <code>platekit/fonts.css</code> to use the same lettering as these examples. See <a href="#fonts">Fonts</a> for customization.</p>
@@ -87,6 +91,8 @@ export default function App() {
             <tr><th><code>className</code></th><td><code>string</code></td><td>Class applied to the wrapping div.</td></tr>
             <tr><th><code>style</code></th><td><code>CSSProperties</code></td><td>Wrapper styles, merged with layout defaults.</td></tr>
             <tr><th><code>ref</code></th><td><code>Ref&lt;HTMLDivElement&gt;</code></td><td>Access the wrapping div.</td></tr>
+            <tr><th><code>mountingHoles</code></th><td><code>boolean | "slots" | "round"</code></td><td>Optional shared overlay for any plate. Hidden by default; true selects slots.</td></tr>
+            <tr><th><code>registrationStickerAreas</code></th><td><code>boolean</code></td><td>Show unassigned sticker areas included in the selected design. Hidden by default.</td></tr>
             <tr><th>Other div props</th><td>HTML attributes</td><td>Forwarded to the wrapper. Children are reserved for artwork.</td></tr>
           </tbody></table></div>
           <p>Types <code>LicensePlateProps</code>, <code>PlateProps</code>, and <code>PlateState</code> are exported from the package root. <code>PLATES</code> maps codes to names and components; <code>PLATE_STATES</code> lists the supported codes.</p>

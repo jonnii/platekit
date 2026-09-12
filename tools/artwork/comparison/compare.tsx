@@ -1,4 +1,5 @@
 import { partitionColumns } from "./masks";
+import { optionalFeatureRects } from "../optional-features";
 import { AGREEMENT_SETTINGS, AGREEMENT_VERSION, featureRegions, measureAgreement } from "./agreement";
 import { rasterizePlate } from "./raster";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
@@ -628,6 +629,7 @@ function formatMetric(name: string, metric: RegionMetric) {
 export async function main() {
   const options = parseArgs(process.argv.slice(2));
   const profile = options.profile;
+  const state = Object.keys(PLATE_PROFILES).find((key) => PLATE_PROFILES[key] === profile)!;
   const TOP_END = profile.topEnd;
   const BOTTOM_START = profile.bottomStart;
   const OUTPUT_PATHS = outputPaths(profile.slug, options.outputDirectory);
@@ -653,6 +655,13 @@ export async function main() {
     alignmentAnchor: createMaskFromRects(profile.alignmentAnchor),
     whitePatches: createMaskFromRects(profile.whitePatches),
   };
+
+  // The original photographs retain optional holes and decals. Exclude those
+  // physical features from scoring and alignment, including text-enabled runs.
+  const optionalMask = createMaskFromRects(optionalFeatureRects(state));
+  for (const key of Object.keys(masks) as Array<keyof typeof masks>) {
+    masks[key] = subtractMask(masks[key], optionalMask);
+  }
 
   // Artwork-only: drop every text region from every scored mask, so the
   // reference's lettering can't register as mismatch against our text-free
@@ -712,12 +721,11 @@ export async function main() {
 
   // New agreement metrics use actual rendered colors. Legacy calibrated metrics
   // remain available for diagnostics, but cannot conceal a wrong base color.
-  const state = Object.keys(PLATE_PROFILES).find((key) => PLATE_PROFILES[key] === profile)!;
   const regions = featureRegions(state, masks.full, WIDTH, HEIGHT);
   const comparisonHash = createHash("sha256").update(referenceRaw).update(masks.full)
     .update(JSON.stringify({ state, profile, threshold: options.threshold, align: options.align,
       calibrate: options.calibrate, withText: options.withText, settings: AGREEMENT_SETTINGS, version: AGREEMENT_VERSION }));
-  for (const source of ["./compare.tsx", "./agreement.ts", "./masks.ts", "./raster.ts", "../profiles/index.tsx", "../config.ts"]) {
+  for (const source of ["./compare.tsx", "./agreement.ts", "./masks.ts", "./raster.ts", "../optional-features.ts", "../profiles/index.tsx", "../config.ts"]) {
     comparisonHash.update(await readFile(new URL(source, import.meta.url)));
   }
   for (const region of regions) comparisonHash.update(region.label).update(region.mask);

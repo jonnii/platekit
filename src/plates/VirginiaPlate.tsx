@@ -15,8 +15,7 @@ export default function VirginiaPlate(props: PlateProps) {
       headingWidth={470}
       headingY={102}
       ink="#0a204e"
-      hardware="photo"
-      shadedSlots={true}
+
       rim={true}
       rimWidth={12}
       serialStroke="#fafaf8"

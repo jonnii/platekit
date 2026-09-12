@@ -8,7 +8,7 @@ export default function WestVirginiaPlate(props: PlateProps) {
   return (
     <BaselinePlate {...props} state={props.state ?? "West Virginia"}
       name="West Virginia"
-      hardware="photo"
+
       rim={true}
       rimWidth={12}
       colors={["#efefec"]}

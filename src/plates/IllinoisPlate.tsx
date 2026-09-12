@@ -1,5 +1,6 @@
 "use client";
 
+import PlateFrame from "../internal/PlateFrame.js";
 import PlateSvg, { PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import { PlateProps } from "../types.js";
@@ -11,12 +12,11 @@ export default function IllinoisPlate({ plate, state = "Illinois", className, st
   const clip = `${id}-clip`;
   const face = `${id}-face`;
   const coat = `${id}-coat`;
-  const slot = `${id}-slot`;
   const cleaned = plate.replace(/[\s\-–—]/g, "").toUpperCase();
   const serialWidth = Math.min(860, cleaned.length * 112);
 
   return (
-    <div
+    <PlateFrame
       className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }}
       aria-label={`License plate ${plate} from ${state}`} {...rest}
     >
@@ -41,11 +41,6 @@ export default function IllinoisPlate({ plate, state = "Illinois", className, st
             <stop offset="55%" stopColor="#555754" />
             <stop offset="100%" stopColor="#414342" />
           </linearGradient>
-          <radialGradient id={slot} cx="50%" cy="35%" r="72%">
-            <stop stopColor="#f4f4f2" />
-            <stop offset="58%" stopColor="#dededc" />
-            <stop offset="100%" stopColor="#989c9c" />
-          </radialGradient>
           <clipPath id={clip}><rect {...PLATE_OUTLINE} /></clipPath>
         </defs>
         <rect {...PLATE_OUTLINE} fill="#fafbf9" />
@@ -116,10 +111,6 @@ export default function IllinoisPlate({ plate, state = "Illinois", className, st
 
           <rect {...PLATE_OUTLINE} fill="none" stroke="#fafbf9" strokeWidth="12" />
           <rect {...PLATE_OUTLINE} fill="none" stroke="#d2d6d5" strokeWidth="2" />
-          {[38, 437].map((y) => [156, 765].map((x) => (
-            <rect key={`${x}-${y}`} x={x} y={y} width="84" height="21" rx="10.5"
-              fill={`url(#${slot})`} stroke="#c0c4c2" strokeWidth="1" />
-          )))}
         </g>
 
         <text x="506" y="85" textAnchor="middle" fill="#101412"
@@ -139,6 +130,6 @@ export default function IllinoisPlate({ plate, state = "Illinois", className, st
           Land of Lincoln
         </text>
       </PlateSvg>
-    </div>
+    </PlateFrame>
   );
 }

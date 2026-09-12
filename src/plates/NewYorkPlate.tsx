@@ -1,5 +1,6 @@
 "use client";
 
+import PlateFrame from "../internal/PlateFrame.js";
 import PlateSvg, { PLATE_INSET_RADIUS, PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import { PlateProps } from "../types.js";
@@ -31,7 +32,7 @@ export default function NewYorkPlate({ plate, state = "New York", className, sty
   const combinedReg = `${formatted.left}${formatted.right}`;
 
   return (
-    <div
+    <PlateFrame
       className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }}
       aria-label={`License plate ${plate} from ${state}`} {...rest}
     >
@@ -53,11 +54,6 @@ export default function NewYorkPlate({ plate, state = "New York", className, sty
           <linearGradient id={`plateSheen-${id}`} x1="0" y1="0" x2="0.2" y2="1">
             <stop offset="0" stopColor="#ffffff" />
             <stop offset="1" stopColor="#f8faf8" />
-          </linearGradient>
-          <linearGradient id={`slot-${id}`} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor="#b7baba" />
-            <stop offset="0.4" stopColor="#e9ebea" />
-            <stop offset="1" stopColor="#ffffff" />
           </linearGradient>
           <linearGradient id={`bandGradient-${id}`} x1="0" y1="0" x2="0" y2="1">
             <stop offset="0" stopColor="#ffffff" stopOpacity="0" />
@@ -206,17 +202,8 @@ export default function NewYorkPlate({ plate, state = "New York", className, sty
         </g>
 
         <rect x="24" y="24" width="952" height="454" rx={PLATE_INSET_RADIUS} fill="none" stroke={navy} strokeWidth="3" />
-        {/* Recessed mounting slots, above the artwork just like the stamped plate. */}
-        <g id={`mounts-${id}`}>
-          {[208, 794].flatMap((x) => [57, 444].map((y) => (
-            <g key={`${x}-${y}`}>
-              <rect x={x - 22} y={y - 9} width="44" height="21" rx="10" fill="#ffffff" opacity="0.9" />
-              <rect x={x - 21} y={y - 10} width="42" height="20" rx="10" fill={`url(#slot-${id})`} stroke="#929b9e" strokeWidth="1" />
-            </g>
-          )))}
-        </g>
       </PlateSvg>
-    </div>
+    </PlateFrame>
   );
 }
 

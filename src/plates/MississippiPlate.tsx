@@ -22,8 +22,7 @@ export default function MississippiPlate(props: PlateProps) {
       separatorWidth={235}
       serialInset={40}
       serialStroke="#fcfcf8"
-      hardware="photo"
-      shadedSlots={true}
+
       frame={false}
     >
       <defs><linearGradient id={`${id}-pressed-rim`} x2="0" y2="1"><stop stopColor="#fafbf8" /><stop offset=".75" stopColor="#f8f9f6" /><stop offset=".94" stopColor="#e2e3df" /><stop offset="1" stopColor="#a4a7a2" /></linearGradient></defs>

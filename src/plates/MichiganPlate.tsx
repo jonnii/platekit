@@ -1,5 +1,6 @@
 "use client";
 
+import PlateFrame from "../internal/PlateFrame.js";
 import PlateSvg, { PLATE_INSET_RADIUS, PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import { PlateProps } from "../types.js";
@@ -14,7 +15,7 @@ export default function MichiganPlate({ plate, state = "Michigan", className, st
   const serialSize = cleaned.length <= 7 ? 300 : Math.round((300 * 7) / cleaned.length);
 
   return (
-    <div
+    <PlateFrame
       className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }}
       aria-label={`License plate ${plate} from ${state}`} {...rest}
     >
@@ -29,7 +30,6 @@ export default function MichiganPlate({ plate, state = "Michigan", className, st
         <defs>
           <clipPath id={`miClip-${id}`}><rect x="18" y="19" width="964" height="465" rx={PLATE_INSET_RADIUS} /></clipPath>
           <linearGradient id={`miRim-${id}`} x2="0" y2="1"><stop stopColor="#9eaaa8" /><stop offset="0.5" stopColor="#f6f7f2" /><stop offset="1" stopColor="#9bacae" /></linearGradient>
-          <linearGradient id={`miSlot-${id}`} x2="0" y2="1"><stop stopColor="#9aa39a" /><stop offset="0.5" stopColor="#e4e8de" /><stop offset="1" stopColor="#a7ada1" /></linearGradient>
           <filter id={`miEmboss-${id}`} x="-5%" y="-5%" width="110%" height="115%"><feDropShadow dx="1" dy="1.8" stdDeviation="0.5" floodColor="#b4b7a4" /></filter>
         </defs>
         <rect {...PLATE_OUTLINE} fill="#f6f6f3" />
@@ -38,7 +38,6 @@ export default function MichiganPlate({ plate, state = "Michigan", className, st
           <path d="M17 390 C160 423 295 424 403 417 C594 410 810 374 983 390 V489 H17 Z" fill={BLUE} />
         </g>
         <rect x="18" y="19" width="964" height="465" rx={PLATE_INSET_RADIUS} fill="none" stroke={`url(#miRim-${id})`} strokeWidth="2.7" />
-        {[158, 765].flatMap((x) => [38, 438].map((y) => <rect key={`${x}-${y}`} x={x} y={y} width="83" height="21" rx="10" fill={`url(#miSlot-${id})`} stroke="#afb7ad" strokeWidth="1" />))}
 
         {/* Wordmark: PURE, the script M, then ICHIGAN. The three are positioned
             rather than set as one string so the M can overlap and oversail. */}
@@ -102,6 +101,6 @@ export default function MichiganPlate({ plate, state = "Michigan", className, st
           michigan.org
         </text>
       </PlateSvg>
-    </div>
+    </PlateFrame>
   );
 }

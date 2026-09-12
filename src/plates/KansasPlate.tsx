@@ -1,5 +1,6 @@
 "use client";
 
+import PlateFrame from "../internal/PlateFrame.js";
 import PlateSvg, { PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import type { PlateProps } from "../types.js";
@@ -7,12 +8,12 @@ import type { PlateProps } from "../types.js";
 const INK = "#334550";
 
 /** To the Stars: the Kansas outline and Capitol's Ad Astra statue. */
-export default function KansasPlate({ plate, state = "Kansas", className, style, ...rest }: PlateProps) {
+export default function KansasPlate({ plate, state = "Kansas", className, style, registrationStickerAreas = false, ...rest }: PlateProps) {
   const id = useId();
   const cleaned = plate.replace(/[\s\-–—]/g, "").toUpperCase();
   const serialSize = Math.min(270, 1890 / Math.max(7, cleaned.length));
   return (
-    <div className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }} aria-label={`License plate ${plate} from ${state}`} {...rest}>
+    <PlateFrame className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }} aria-label={`License plate ${plate} from ${state}`} {...rest}>
       <PlateSvg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid meet" style={{ width: "100%", height: "auto" }}>
         <title>{`Kansas license plate: ${plate}`}</title>
         <defs>
@@ -25,8 +26,7 @@ export default function KansasPlate({ plate, state = "Kansas", className, style,
           <rect width="1000" height="500" fill={INK} />
           <path d="M51 10 H908 C918 12 915 34 931 27 C941 20 941 29 951 32 Q964 36 956 45 Q947 52 951 64 L962 67 969 77 975 79 990 98 V451 Q990 489 949 491 H51 Q11 491 11 451 V52 Q11 12 51 10Z" fill={`url(#ks-sky-${id})`} />
           <g fill="#fff">
-            <rect x="54" y="41" width="125" height="112" /><rect x="822" y="41" width="125" height="112" />
-            {[202, 799].flatMap((x) => [57, 443].map((y) => <circle key={`${x}-${y}`} cx={x} cy={y} r="16" />))}
+            {registrationStickerAreas && <g data-plate-registration-sticker-area=""><rect x="54" y="41" width="125" height="112" /><rect x="822" y="41" width="125" height="112" /></g>}
           </g>
           <g fill={INK}>
             <path d="M0 434 Q18 419 43 407 L45 399 49 393 Q43 385 47 377 L49 369 Q60 358 63 356 V347 H61 L59 344 V329 H64 Q67 312 76 307 L80 302 76 298 75 294 79 286 V282 L82 279 V274 H91 V279 L95 282 94 287 99 294 96 301 93 304 Q105 313 108 328 H114 V345 L109 347 V357 Q120 361 121 374 Q126 386 120 394 L124 407 Q174 430 200 500 H0Z" />
@@ -49,6 +49,6 @@ export default function KansasPlate({ plate, state = "Kansas", className, style,
           <text x="511" y="467" textAnchor="middle" fill={INK} fontFamily="var(--font-plate-script, cursive), cursive" fontSize="84" textLength="326" lengthAdjust="spacingAndGlyphs">to the stars</text>
         </g>
       </PlateSvg>
-    </div>
+    </PlateFrame>
   );
 }

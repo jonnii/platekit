@@ -1,5 +1,6 @@
 "use client";
 
+import PlateFrame from "../internal/PlateFrame.js";
 import PlateSvg, { PLATE_INSET_RADIUS, PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import { PlateProps } from "../types.js";
@@ -93,7 +94,7 @@ export default function MarylandPlate({ plate, state = "Maryland", className, st
   const id = useId();
   const cleaned = plate.replace(/[\s\-–—]/g, "").toUpperCase();
   return (
-    <div className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }}
+    <PlateFrame className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }}
       aria-label={`License plate ${plate} from ${state}`} {...rest}>
       <PlateSvg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" role="img"
         preserveAspectRatio="xMidYMid meet" style={{ width: "100%", height: "auto" }}>
@@ -120,9 +121,6 @@ export default function MarylandPlate({ plate, state = "Maryland", className, st
             <stop offset="0.83" stopColor="#000000" stopOpacity="0.17" />
             <stop offset="0.95" stopColor="#ffffff" stopOpacity="0.1" />
             <stop offset="1" stopColor="#000000" stopOpacity="0.1" />
-          </linearGradient>
-          <linearGradient id={`mdSlot-${id}`} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor="#b0b3b2" /><stop offset="0.45" stopColor="#e4e5e3" /><stop offset="1" stopColor="#c5c8c5" />
           </linearGradient>
           <filter id={`mdEmboss-${id}`} x="-5%" y="-5%" width="110%" height="110%" colorInterpolationFilters="sRGB">
             <feDropShadow dx="2" dy="2" stdDeviation="1.2" floodColor="#272d25" floodOpacity="0.35" />
@@ -152,11 +150,7 @@ export default function MarylandPlate({ plate, state = "Maryland", className, st
           fontSize={Math.min(334, 2338 / Math.max(cleaned.length, 1))} textLength={cleaned.length ? Math.min(890, cleaned.length * 127) : undefined}
           lengthAdjust="spacingAndGlyphs" filter={`url(#mdEmboss-${id})`}>{cleaned}</text>
         <rect x="13" y="13" width="974" height="474" rx={PLATE_INSET_RADIUS} fill="none" stroke="#ffffff" strokeWidth="2" opacity="0.7" />
-        {[199, 805].flatMap((x) => [47, 447].map((y) => (
-          <rect key={`${x}-${y}`} x={x - 41} y={y - 10} width="82" height="20" rx="10"
-            fill={`url(#mdSlot-${id})`} stroke="#c5cbc0" strokeWidth="1.5" />
-        )))}
       </PlateSvg>
-    </div>
+    </PlateFrame>
   );
 }

@@ -9,10 +9,9 @@ export default function KentuckyPlate(props: PlateProps) {
   const id = useId();
   return (
     <BaselinePlate {...props} state={props.state ?? "Kentucky"}
-      shadedSlots={true}
       name="Kentucky"
       frame={false}
-      hardware="photo"
+
       colors={["#5291a7", "#c4d4de", "#d7e6e8"]}
       stops={[0, 0.48, 1]}
       heading="Kentucky"
@@ -28,7 +27,7 @@ export default function KentuckyPlate(props: PlateProps) {
       <path d="M0 393 Q17 387 27 381 L44 391 56 387 69 391 83 400 97 399 109 389 124 392 138 398 150 394 163 393 175 403 190 406 204 402 220 405 236 400 252 400 274 387 296 390 317 393 338 390 359 390 380 387 401 388 422 390 444 382 465 390 488 387 511 391 536 383 560 385 584 392 609 387 635 388 660 383 686 385 711 382 733 378 751 390 774 386 793 395 812 394 835 405 859 406 883 409 907 405 931 406 953 402 976 403 1000 400 V500 H0Z" fill="#3d7d6b" />
       <path d="M0 430 Q28 425 48 433 L65 435 79 445 92 442 107 448 121 442 133 433 147 429 161 429 175 416 190 414 205 408 220 420 235 426 253 414 280 419 307 420 335 412 364 415 391 418 420 416 449 417 478 412 507 417 536 414 565 416 594 420 623 418 652 412 681 414 710 416 739 409 756 411 760 420 775 418 789 428 804 426 820 432 835 431 850 438 866 436 882 447 896 441 911 449 928 441 944 445 962 445 980 437 1000 437 V500 H0Z" fill="#003b2b" />
       </g>
-      <rect x="254" y="386" width="489" height="67" rx="3" fill="#033d40" stroke="#76a59c" strokeWidth="4" />
+      {props.registrationStickerAreas && <g data-plate-registration-sticker-area=""><rect x="254" y="386" width="489" height="67" rx="3" fill="#033d40" stroke="#76a59c" strokeWidth="4" /></g>}
       <path d="M0 0 H1000 V500 H0Z M42 16 Q14 16 14 43 V460 Q14 486 40 486 H960 Q986 486 986 460 V43 Q986 16 960 16Z" fill="#f4f6f5" fillRule="evenodd" />
       <text x="500" y="115" textAnchor="middle" fontFamily={PLATE_SANS} fontSize="19" fill="#142d3c">BLUEGRASS STATE</text>
     </BaselinePlate>

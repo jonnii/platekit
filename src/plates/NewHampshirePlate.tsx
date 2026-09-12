@@ -8,8 +8,7 @@ export default function NewHampshirePlate(props: PlateProps) {
   return (
     <BaselinePlate {...props} state={props.state ?? "New Hampshire"}
       name="New Hampshire"
-      hardware="photo"
-      shadedSlots={true}
+
       colors={["#c7d8e7", "#b8c8ce", "#cbd8d6"]}
       stops={[0, 0.5, 1]}
       heading="LIVE FREE OR DIE"

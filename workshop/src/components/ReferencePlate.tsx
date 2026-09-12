@@ -24,5 +24,5 @@ export default function ReferencePlate({ reference, width, detail }: {
       : `${-reference.plate.x * scale - offsetX}px ${-reference.plate.y * scale - offsetY}px`,
     backgroundRepeat: "no-repeat",
   };
-  return <div role="img" aria-label={`${reference.label}${detail ? ` — ${detail.label}` : ""}${cleaned ? ", sample registration removed" : ", reference photo"}`} style={style} />;
+  return <div role="img" aria-label={`${reference.label}${detail ? ` — ${detail.label}` : ""}${cleaned ? ", sample registration removed; mounting holes and sticker areas removed" : ", reference photo"}`} style={style} />;
 }

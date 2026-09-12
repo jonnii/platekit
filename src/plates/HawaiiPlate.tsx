@@ -9,9 +9,6 @@ export default function HawaiiPlate(props: PlateProps) {
   const id = useId();
   return (
     <BaselinePlate {...props} state={props.state ?? "Hawaii"}
-      hardware="photo"
-      slotYs={[40, 438]}
-      slotXs={[160, 764]}
       name="Hawaii"
       colors={["#f4f5f2"]}
       heading="HAWAII"

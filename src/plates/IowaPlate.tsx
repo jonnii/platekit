@@ -8,7 +8,6 @@ import type { PlateProps } from "../types.js";
 export default function IowaPlate(props: PlateProps) {
   return (
     <BaselinePlate {...props} state={props.state ?? "Iowa"}
-      hardware="photo"
       rim={true}
       rimWidth={11}
       name="Iowa"
@@ -24,7 +23,6 @@ export default function IowaPlate(props: PlateProps) {
       <rect x="28" y="28" width="944" height="445" rx={PLATE_INSET_RADIUS} fill="#426837" />
       <path d="M53 28 H947 Q972 28 972 53 V246 H28 V53 Q28 28 53 28Z" fill="#8bc4d1" />
       <path d="M63 46 H937 Q954 46 954 63 V146 H46 V63 Q46 46 63 46Z" fill="#25829e" />
-      
       <path d="M29 140 H952 V397 H46 V140Z" fill="#e7e8e8" />
       <path d="M56 154 V102 L70 102 Q68 75 83 71 V60 H88 V71 Q101 76 104 102 H112 V154 M128 154 V59 H169 V154 M181 154 V112 H204 V121 H229 V87 H250 V154 M273 154 V107 H323 V154 M718 154 V106 L749 81 809 74 851 88 879 127 V154 M901 154 V78 L923 54 945 78 V154" fill="#e7e8e8" />
       <path d="M699 159 L705 81 M705 81 L672 66 699 85 720 60 706 83 727 113Z" stroke="#e7e8e8" strokeWidth="4" fill="#e7e8e8" />

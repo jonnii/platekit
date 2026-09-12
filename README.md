@@ -19,6 +19,12 @@ Requires React 19. Plates scale to their container width. Import the optional [f
 
 `LicensePlate` requires `plate: string` and `state: string`. It also accepts standard div props, including `className`, `style`, accessible labels, event handlers, and `ref`, applied to its wrapping div. Children are reserved for the artwork. State codes and full state names are accepted, ignoring case and surrounding whitespace. Unknown states render a generic plate. Registration formatting varies by state.
 
+Mounting holes and registration sticker areas are hidden by default. Use `mountingHoles` for a shared decorative overlay on any plate (`true` or `"slots"` for slots, `"round"` for round holes). The overlay is separate from the state artwork SVG. Set `registrationStickerAreas` to show the selected design's unassigned sticker areas; designs without them are unaffected.
+
+```tsx
+<LicensePlate state="FL" plate="ABC123" mountingHoles="round" registrationStickerAreas />
+```
+
 Import individual components to include only the states you need:
 
 ```tsx

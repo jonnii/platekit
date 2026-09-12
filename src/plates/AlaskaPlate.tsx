@@ -8,9 +8,6 @@ import type { PlateProps } from "../types.js";
 export default function AlaskaPlate(props: PlateProps) {
   return (
     <BaselinePlate {...props} state={props.state ?? "Alaska"}
-      hardware="slots"
-      slotYs={[36, 433]}
-      shadedSlots={true}
       name="Alaska"
       colors={["#e9af04"]}
       heading="ALASKA"

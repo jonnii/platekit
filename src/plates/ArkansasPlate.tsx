@@ -19,8 +19,7 @@ export default function ArkansasPlate(props: PlateProps) {
       headingWidth={540}
       headingWeight={900}
       headingY={122}
-      hardware="photo"
-      shadedSlots={true}
+
       rim={true}
       rimWidth={12}
       serialStroke="#f8f8f2"
@@ -47,7 +46,7 @@ export default function ArkansasPlate(props: PlateProps) {
         <path d="M538 222 521 295 465 365Z" fill="#c2c5c2" /><path d="M538 222 602 230 521 295Z" fill="#aeb2b0" />
         <path d="M602 230 521 295 465 365Z" fill="#ebeeeb" />
       </g>
-      <rect x="32" y="22" width="105" height="95" rx="4" fill="none" stroke="#6d9fab" opacity=".4" /><rect x="859" y="22" width="105" height="95" rx="4" fill="none" stroke="#6d9fab" opacity=".4" />
+      {props.registrationStickerAreas && <g data-plate-registration-sticker-area=""><rect x="32" y="22" width="105" height="95" rx="4" fill="none" stroke="#6d9fab" opacity=".4" /><rect x="859" y="22" width="105" height="95" rx="4" fill="none" stroke="#6d9fab" opacity=".4" /></g>}
     </BaselinePlate>
   );
 }

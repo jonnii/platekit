@@ -7,6 +7,7 @@ import sharp from "sharp";
 import { PLATE_REFERENCES } from "../../tools/artwork/references";
 import { originalReference } from "../../tools/artwork/reference-assets";
 import { cleanedReferenceSource } from "../../tools/artwork/reference-assets";
+import cleanedManifest from "../../references/cleaned-references.json";
 
 describe("portable reference assets", () => {
   it("includes intact original scoring crops and cleaned display copies for every reference", async () => {
@@ -20,6 +21,9 @@ describe("portable reference assets", () => {
       const cleaned = cleanedReferenceSource(ref)!;
       expect(cleaned).toBeDefined();
       expect(await Bun.file(referencePath(cleaned)).exists()).toBe(true);
+      const cleanup = cleanedManifest[ref.state as keyof typeof cleanedManifest].optionalFeatureCleanup;
+      expect(cleanup.inputSha256).toMatch(/^[a-f0-9]{64}$/);
+      expect(createHash("sha256").update(await readFile(referencePath(cleaned))).digest("hex")).toBe(cleanup.sha256);
       expect(cleaned).not.toBe(original.src);
     }
   });

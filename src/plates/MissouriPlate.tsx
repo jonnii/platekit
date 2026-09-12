@@ -1,5 +1,6 @@
 "use client";
 
+import PlateFrame from "../internal/PlateFrame.js";
 import PlateSvg, { PLATE_INSET_RADIUS, PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import { PlateProps } from "../types.js";
@@ -15,7 +16,7 @@ export default function MissouriPlate({ plate, state = "Missouri", className, st
   const size = cleaned.length <= 7 ? 330 : Math.round(330 * 7 / cleaned.length);
 
   return (
-    <div className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }}
+    <PlateFrame className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }}
       aria-label={`License plate ${plate} from ${state}`} {...rest}>
       <PlateSvg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" role="img"
         preserveAspectRatio="xMidYMid meet" style={{ width: "100%", height: "auto" }}>
@@ -28,9 +29,6 @@ export default function MissouriPlate({ plate, state = "Missouri", className, st
           </linearGradient>
           <linearGradient id={`moRim-${id}`} x2="0" y2="1">
             <stop stopColor="#f4f5f3" /><stop offset="0.65" stopColor="#e4e7e4" /><stop offset="1" stopColor="#c8d2d0" />
-          </linearGradient>
-          <linearGradient id={`moSlot-${id}`} x2="0" y2="1">
-            <stop stopColor="#a6aaa7" /><stop offset="0.45" stopColor="#dedfdc" /><stop offset="0.65" stopColor="#e2e3df" /><stop offset="1" stopColor="#a3aaa5" />
           </linearGradient>
           <linearGradient id={`moBlue-${id}`} x1="0" y1="0" x2="1" y2="0.8">
             <stop stopColor="#7770a2" /><stop offset="0.45" stopColor="#4b5289" /><stop offset="1" stopColor="#304a74" />
@@ -91,8 +89,6 @@ export default function MissouriPlate({ plate, state = "Missouri", className, st
           </g>
         </g>
         <rect x="13" y="13" width="974" height="475" rx={PLATE_INSET_RADIUS} fill="none" stroke={`url(#moRim-${id})`} strokeWidth="4" />
-        {[157, 764].flatMap((x) => [38, 437].map((y) =>
-          <rect key={`${x}-${y}`} x={x} y={y} width="83" height="20" rx="10" fill={`url(#moSlot-${id})`} />))}
         <text x="500" y="84" textAnchor="middle" fill="#354e76" fontFamily={SANS}
           fontWeight={800} fontStyle="italic" fontSize="87" textLength="314" lengthAdjust="spacingAndGlyphs">Missouri</text>
         <text x="500" y="110" textAnchor="middle" fill="#223e67" fontFamily={SANS}
@@ -105,6 +101,6 @@ export default function MissouriPlate({ plate, state = "Missouri", className, st
             textLength={Math.min(900, cleaned.length * 126) || undefined} lengthAdjust="spacingAndGlyphs">{cleaned}</text>}
         </g>
       </PlateSvg>
-    </div>
+    </PlateFrame>
   );
 }

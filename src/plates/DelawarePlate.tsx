@@ -13,8 +13,7 @@ export default function DelawarePlate(props: PlateProps) {
       stops={[0, 0.22, 1]}
       frame={false}
       edgeColor="#c29a4c"
-      hardware="photo"
-      slotYs={[37, 435]}
+
       heading="THE FIRST STATE"
       headingFont={PLATE_SANS}
       headingSize={49}

@@ -10,8 +10,6 @@ const BRIDGE_BOARDS = Array.from({ length: 37 }, (_, i) => `M${304 + i * 9} 433 
 export default function IndianaPlate(props: PlateProps) {
   return (
     <BaselinePlate {...props} state={props.state ?? "Indiana"}
-      hardware="photo"
-      shadedSlots={true}
       rim={true}
       rimWidth={11}
       name="Indiana"
@@ -55,7 +53,7 @@ export default function IndianaPlate(props: PlateProps) {
         <path d="M198 431 V403 M198 419 l-9 -10 M198 414 l8 -11 M702 437 V398 M702 419 l-9 -11 M702 414 l9 -13 M768 433 V405 M768 421 l-7 -8" />
       </g>
       {[211,710,754].map((x,i)=><path key={x} d={`M${x} ${79+i*13} q10 -19 25 -5 q15 -20 27 0 q18 -6 27 7Z`} fill="white" />)}
-      <rect x="830" y="416" width="118" height="74" rx="2" fill="#f5f5ed" />
+      {props.registrationStickerAreas && <g data-plate-registration-sticker-area=""><rect x="830" y="416" width="118" height="74" rx="2" fill="#f5f5ed" /></g>}
     </BaselinePlate>
   );
 }

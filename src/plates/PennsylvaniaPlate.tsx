@@ -1,5 +1,6 @@
 "use client";
 
+import PlateFrame from "../internal/PlateFrame.js";
 import PlateSvg, { PLATE_INSET_RADIUS, PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import { PlateProps } from "../types.js";
@@ -42,7 +43,7 @@ export default function PennsylvaniaPlate({ plate, state = "Pennsylvania", class
   const serialY = total <= 7 ? 362 : 351;
 
   return (
-    <div
+    <PlateFrame
       className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }}
       aria-label={`License plate ${plate} from ${state}`} {...rest}
     >
@@ -58,8 +59,6 @@ export default function PennsylvaniaPlate({ plate, state = "Pennsylvania", class
           <clipPath id={`paClip-${id}`}><rect x="15" y="13" width="970" height="475" rx={PLATE_INSET_RADIUS} /></clipPath>
           <linearGradient id={`paTop-${id}`} x2="0" y2="1"><stop stopColor="#526b8b" /><stop offset="0.23" stopColor="#294571" /><stop offset="0.85" stopColor={NAVY} /></linearGradient>
           <linearGradient id={`paRim-${id}`} x2="0" y2="1"><stop stopColor="#b6c2cd" /><stop offset="0.16" stopColor="#6d819f" /><stop offset="0.85" stopColor="#6d819f" /><stop offset="1" stopColor="#123265" /></linearGradient>
-          <linearGradient id={`paSlot-${id}`} x2="0" y2="1"><stop stopColor="#9c9f9e" /><stop offset="0.4" stopColor="#dedfdb" /><stop offset="0.7" stopColor="#e5e5e1" /><stop offset="1" stopColor="#a8aaa6" /></linearGradient>
-          <linearGradient id={`paLowerSlot-${id}`} x2="0" y2="1"><stop stopColor="#afb0aa" /><stop offset="0.45" stopColor="#c6c7c0" /><stop offset="1" stopColor="#939892" /></linearGradient>
           <filter id={`paEmboss-${id}`} x="-5%" y="-5%" width="110%" height="115%"><feDropShadow dx="1.2" dy="1.6" stdDeviation="0.5" floodColor="#a9af9a" /></filter>
         </defs>
         <rect {...PLATE_OUTLINE} fill="#efefef" />
@@ -71,7 +70,6 @@ export default function PennsylvaniaPlate({ plate, state = "Pennsylvania", class
           <rect x="15" y="13" width="970" height="475" rx={PLATE_INSET_RADIUS} fill="none" stroke={`url(#paRim-${id})`} strokeWidth="5" />
         </g>
         <rect x="11" y="9" width="978" height="483" rx={PLATE_INSET_RADIUS} fill="none" stroke="#fafafa" strokeWidth="3" />
-        {[157, 764].flatMap((x) => [38, 437].map((y) => <rect key={`${x}-${y}`} x={x} y={y} width="83" height="20" rx="10" fill={`url(#${y === 38 ? "paSlot" : "paLowerSlot"}-${id})`} />))}
 
         <text
           x="500"
@@ -145,6 +143,6 @@ export default function PennsylvaniaPlate({ plate, state = "Pennsylvania", class
           visitPA.com
         </text>
       </PlateSvg>
-    </div>
+    </PlateFrame>
   );
 }

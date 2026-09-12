@@ -1,17 +1,18 @@
 "use client";
 
+import PlateFrame from "../internal/PlateFrame.js";
 import PlateSvg, { PLATE_INSET_RADIUS, PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import type { PlateProps } from "../types.js";
 
 /** Sunrise over the Badlands, wheat heads and a shaggy plains bison. */
-export default function NorthDakotaPlate({ plate, state = "North Dakota", className, style, ...rest }: PlateProps) {
+export default function NorthDakotaPlate({ plate, state = "North Dakota", className, style, registrationStickerAreas = false, ...rest }: PlateProps) {
   const id = useId();
   const paint = (name: string) => `url(#nd-${name}-${id})`;
   const cleaned = plate.replace(/[\s\-–—]/g, "").toUpperCase();
   const size = Math.min(281, 1967 / Math.max(7, cleaned.length));
   return (
-    <div className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }} aria-label={`License plate ${plate} from ${state}`} {...rest}>
+    <PlateFrame className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }} aria-label={`License plate ${plate} from ${state}`} {...rest}>
       <PlateSvg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid meet" style={{ width: "100%", height: "auto" }}>
         <title>{`North Dakota license plate: ${plate}`}</title>
         <defs>
@@ -22,7 +23,6 @@ export default function NorthDakotaPlate({ plate, state = "North Dakota", classN
           <radialGradient id={`nd-sunrise-${id}`} cx=".76" cy=".8" r=".4" gradientTransform="translate(0 .4) scale(1 .5)"><stop stopColor="#f7ba00" /><stop offset=".4" stopColor="#f5a500" stopOpacity=".95" /><stop offset="1" stopColor="#ef7b09" stopOpacity="0" /></radialGradient>
           <filter id={`nd-haze-${id}`} x="-10%" y="-30%" width="120%" height="160%"><feGaussianBlur stdDeviation="3" /></filter>
           <linearGradient id={`nd-rim-${id}`} x2=".15" y2="1"><stop stopColor="#f4eee5" /><stop offset=".5" stopColor="#d6c7b6" /><stop offset="1" stopColor="#f3ebe0" /></linearGradient>
-          <linearGradient id={`nd-slot-${id}`} x2="0" y2="1"><stop stopColor="#b3b3ab" /><stop offset=".45" stopColor="#eeeae1" /><stop offset="1" stopColor="#b4bfc0" /></linearGradient>
           <linearGradient id={`nd-fur-${id}`} x1=".2" y1="0" x2=".5" y2="1"><stop stopColor="#ad691b" /><stop offset=".45" stopColor="#87501b" /><stop offset="1" stopColor="#382718" /></linearGradient>
           <clipPath id={`nd-clip-${id}`}><rect x="21" y="20" width="958" height="460" rx={PLATE_INSET_RADIUS} /></clipPath>
           <path id={`nd-bison-${id}`} d="M822 370 Q820 354 837 353 Q850 350 875 359 L901 368 Q929 373 948 385 Q966 395 963 416 L958 434 955 457 950 478 936 479 940 463 935 441 Q915 444 902 438 L886 439 875 432 866 449 864 478 848 480 849 454 839 449 838 477 826 478 824 446 813 434 808 420 811 395Z" />
@@ -79,15 +79,13 @@ export default function NorthDakotaPlate({ plate, state = "North Dakota", classN
               </g>)}
             </g>)}
           </g>)}
-          <rect x="847" y="30" width="96" height="62" fill="#10272b" />
-          <text x="895" y="49" textAnchor="middle" fill="#99c2c9" fontFamily="Arial, sans-serif" fontSize="15"><tspan x="895">PLACE</tspan><tspan x="895" dy="18">STICKER</tspan><tspan x="895" dy="18">HERE</tspan></text>
+          {registrationStickerAreas && <g data-plate-registration-sticker-area=""><rect x="847" y="30" width="96" height="62" fill="#10272b" /><text x="895" y="49" textAnchor="middle" fill="#99c2c9" fontFamily="Arial, sans-serif" fontSize="15"><tspan x="895">PLACE</tspan><tspan x="895" dy="18">STICKER</tspan><tspan x="895" dy="18">HERE</tspan></text></g>}
           <text x="503" y="52" textAnchor="middle" fill="#243b3b" fontFamily='Georgia, "Times New Roman", serif' fontWeight="700" fontSize="22" letterSpacing="16">LEGENDARY</text>
           <text x="507" y="112" textAnchor="middle" fill="#93532f" stroke="#1d231f" strokeWidth="4" paintOrder="stroke" fontFamily="var(--font-geist-sans, Arial, sans-serif), Arial, sans-serif" fontWeight="800" fontSize="68" textLength="535" lengthAdjust="spacingAndGlyphs">NORTH DAKOTA</text>
           <text x="500" y={339 - (281 - size) * .35} textAnchor="middle" fill="#061b1d" fontFamily="var(--font-plate-ny, sans-serif)" fontSize={size} textLength={Math.min(873, cleaned.length * 123)} lengthAdjust="spacingAndGlyphs">{cleaned}</text>
           <text x="158" y="470" textAnchor="middle" fill="#efe9dc" fontFamily='Rockwell, Georgia, serif' fontWeight="900" fontSize="24" textLength="220" lengthAdjust="spacingAndGlyphs">PEACE GARDEN STATE</text>
         </g>
-        {[158, 760].flatMap((x) => [38, 439].map((y) => <rect key={`${x}-${y}`} x={x} y={y} width="82" height="20" rx="9" fill={paint("slot")} />))}
       </PlateSvg>
-    </div>
+    </PlateFrame>
   );
 }

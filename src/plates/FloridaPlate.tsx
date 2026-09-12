@@ -1,5 +1,6 @@
 "use client";
 
+import PlateFrame from "../internal/PlateFrame.js";
 import PlateSvg, { PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import { PlateProps } from "../types.js";
@@ -65,7 +66,7 @@ function blossom(cx: number, cy: number, scale: number, rotate: number, green: s
   );
 }
 
-export default function FloridaPlate({ plate, state = "Florida", className, style, ...rest }: PlateProps) {
+export default function FloridaPlate({ plate, state = "Florida", className, style, registrationStickerAreas = false, ...rest }: PlateProps) {
   const id = useId().replace(/:/g, "");
   const green = "#31684e";
   const serialGreen = "#00672b";
@@ -73,7 +74,7 @@ export default function FloridaPlate({ plate, state = "Florida", className, styl
   const fl = formatFlPlate(plate);
 
   return (
-    <div
+    <PlateFrame
       className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }}
       aria-label={`License plate ${plate} from ${state}`} {...rest}
     >
@@ -101,10 +102,7 @@ export default function FloridaPlate({ plate, state = "Florida", className, styl
         </defs>
         <rect {...PLATE_OUTLINE} fill="#fff" />
         <rect x="7" y="6" width="986" height="487" rx={PLATE_OUTLINE.rx} fill="none" stroke={`url(#flRim-${id})`} strokeWidth="2.4" />
-        <rect x="842" y="19" width="130" height="91" rx="6" fill="#fff" stroke={`url(#flRim-${id})`} strokeWidth="2.6" />
-        {[202, 799].flatMap((x) => [55, 442].map((y) => (
-          <circle key={`${x}-${y}`} cx={x} cy={y} r="13" fill="#fff" stroke={`url(#flRim-${id})`} strokeWidth="1.4" />
-        )))}
+        {registrationStickerAreas && <g data-plate-registration-sticker-area=""><rect x="842" y="19" width="130" height="91" rx="6" fill="#fff" stroke={`url(#flRim-${id})`} strokeWidth="2.6" /></g>}
 
         {/* Arc header: MYFLORIDA.COM */}
         <g transform="translate(0,25)">
@@ -211,7 +209,7 @@ export default function FloridaPlate({ plate, state = "Florida", className, styl
           SUNSHINE STATE
         </text>
       </PlateSvg>
-    </div>
+    </PlateFrame>
   );
 }
 

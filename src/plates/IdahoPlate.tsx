@@ -8,8 +8,7 @@ export default function IdahoPlate(props: PlateProps) {
   return (
     <BaselinePlate {...props} state={props.state ?? "Idaho"}
       name="Idaho"
-      hardware="photo"
-      shadedSlots={true}
+
       rim={true}
       rimWidth={11}
       colors={["#962b26", "#8e0c06", "#8c110c", "#f1efed", "#f1efed"]}

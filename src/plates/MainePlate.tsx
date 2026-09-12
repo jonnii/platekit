@@ -11,8 +11,6 @@ export default function MainePlate(props: PlateProps) {
   const id = useId();
   return (
     <BaselinePlate {...props} state={props.state ?? "Maine"}
-      shadedSlots={true}
-      hardware="photo"
       rim={true}
       rimWidth={5}
       name="Maine"

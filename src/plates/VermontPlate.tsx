@@ -1,5 +1,6 @@
 "use client";
 
+import PlateFrame from "../internal/PlateFrame.js";
 import PlateSvg, { PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import type { PlateProps } from "../types.js";
@@ -13,14 +14,13 @@ export default function VermontPlate({ plate, state = "Vermont", className, styl
   const cleaned = plate.replace(/[\s\-–—]/g, "").toUpperCase();
   const size = Math.min(329, 2303 / Math.max(7, cleaned.length));
   return (
-    <div className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }} aria-label={`License plate ${plate} from ${state}`} {...rest}>
+    <PlateFrame className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }} aria-label={`License plate ${plate} from ${state}`} {...rest}>
       <PlateSvg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid meet" style={{ width: "100%", height: "auto" }}>
         <title>{`Vermont license plate: ${plate}`}</title>
         <defs>
           <linearGradient id={`vt-green-${id}`} x2=".1" y2="1"><stop stopColor="#216657" /><stop offset=".07" stopColor={GREEN} /><stop offset=".5" stopColor="#045e4d" /><stop offset=".78" stopColor="#075947" /><stop offset="1" stopColor="#064837" /></linearGradient>
           <linearGradient id={`vt-silver-${id}`} x2="0" y2="1"><stop stopColor="#b9babc" /><stop offset=".07" stopColor="#d0d2d1" /><stop offset=".5" stopColor="#b7b9bb" /><stop offset=".94" stopColor="#c7c9c9" /><stop offset="1" stopColor="#b6b8b9" /></linearGradient>
           <linearGradient id={`vt-rim-${id}`} x2=".1" y2="1"><stop stopColor="#7fada3" /><stop offset=".13" stopColor="#285e50" /><stop offset=".85" stopColor="#124f40" /><stop offset="1" stopColor="#367764" /></linearGradient>
-          <linearGradient id={`vt-slot-${id}`} x2="0" y2="1"><stop stopColor="#aabcb5" /><stop offset=".3" stopColor="#f0f2eb" /><stop offset="1" stopColor="#cbd9d1" /></linearGradient>
           <clipPath id={`vt-clip-${id}`}><rect {...PLATE_OUTLINE} /></clipPath>
         </defs>
         <g clipPath={`url(#vt-clip-${id})`}>
@@ -42,15 +42,11 @@ export default function VermontPlate({ plate, state = "Vermont", className, styl
             const y = 48 + Math.sin(angle) * 37 * radius;
             return <path key={i} transform={`translate(${x.toFixed(2)} ${y.toFixed(2)}) rotate(${i * 47 % 360})`} d="M0 -3 1 -1 3 -2 2 0 3 1 1 2 0 3 -1 1 -3 1 -2 -1 -1 -1Z" fill={WHITE} opacity={.55 + (i % 4) * .12} />;
           })}
-          {[158, 763].flatMap((x) => [39, 438].map((y) => <g key={`${x}-${y}`}>
-            <rect x={x - 1} y={y + 2} width="85" height="23" rx="10" fill="#173f31" opacity=".65" />
-            <rect x={x} y={y} width="83" height="20" rx="9" fill={`url(#vt-slot-${id})`} stroke="#b7ccc2" strokeWidth="1" />
-          </g>))}
           <text x="500" y="85" textAnchor="middle" fill={WHITE} stroke={WHITE} strokeWidth=".7" fontFamily='Georgia, "Times New Roman", serif' fontWeight="700" fontSize="98" textLength="410" lengthAdjust="spacingAndGlyphs">Vermont</text>
           <text x="500" y={373 - (329 - size) * .35} textAnchor="middle" fill={WHITE} fontFamily="var(--font-plate-ny, sans-serif)" fontSize={size} textLength={Math.min(858, cleaned.length * 122)} lengthAdjust="spacingAndGlyphs">{cleaned}</text>
           <text x="500" y="474" textAnchor="middle" fill={WHITE} fontFamily='Georgia, "Times New Roman", serif' fontSize="47" textLength="523" lengthAdjust="spacingAndGlyphs">Green Mountain State</text>
         </g>
       </PlateSvg>
-    </div>
+    </PlateFrame>
   );
 }

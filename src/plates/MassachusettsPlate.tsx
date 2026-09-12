@@ -24,7 +24,7 @@ export default function MassachusettsPlate(props: PlateProps) {
       footerSize={60}
       footerTextLength={505}
     >
-      <rect x="856" y="20" width="104" height="94" rx="3" fill="none" stroke="#c4c4ba" strokeWidth="2" />
+      {props.registrationStickerAreas && <g data-plate-registration-sticker-area=""><rect x="856" y="20" width="104" height="94" rx="3" fill="none" stroke="#c4c4ba" strokeWidth="2" /></g>}
     </BaselinePlate>
   );
 }

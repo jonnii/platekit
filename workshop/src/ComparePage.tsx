@@ -8,12 +8,16 @@ import ReferencePlate from "./components/ReferencePlate";
 import { cleanedReferenceSource } from "../../tools/artwork/reference-assets";
 import { PLATE_REFERENCES } from "../../tools/artwork/references";
 import { originalReference } from "../../tools/artwork/reference-assets";
+import { useState } from "react";
 
 // Card-grid width and plate-page width. Kept narrow enough that a reference and
 // a render sit side by side on a laptop.
 
 
 export default function ComparePage({ state, plate }: { state?: string; plate?: string }) {
+  const [mountingHoles, setMountingHoles] = useState<false | "slots" | "round">(false);
+  const [registrationStickerAreas, setRegistrationStickerAreas] = useState(false);
+  const features = { mountingHoles, registrationStickerAreas };
   const selected = state?.toUpperCase();
   const custom = PLATE_STATES.includes(selected as PlateState)
     ? PLATES[selected as PlateState] : undefined;
@@ -25,12 +29,18 @@ export default function ComparePage({ state, plate }: { state?: string; plate?: 
     <div className="min-h-screen bg-zinc-100 p-8 text-zinc-900">
       <h1 className="text-2xl font-bold">Plate redraws — reference vs ours</h1>
       <p className="mt-1 max-w-2xl text-sm text-zinc-600">
-        Left is the reference with its sample registration removed where a cleaned
-        copy is available. Right is our SVG at the same width, drawn with an empty
-        registration so the artwork is what stands out. Cleaned images use AI to
-        restore the background beneath the sample text; scores still use the
-        original photos. Check lettering in the registration samples below.
+        Left is the cleaned reference with sample registrations, mounting holes,
+        and sticker areas removed using AI where a cleaned copy is available.
+        Right is our artwork at the same width. Scores use the original photos,
+        excluding lettering and optional features. Check lettering in the
+        registration samples below.
       </p>
+
+      <fieldset className="mt-4 flex flex-wrap items-center gap-4 text-sm">
+        <legend className="mb-2 font-semibold">Optional plate features</legend>
+        <label>Mounting holes <select aria-label="Mounting holes" className="rounded border bg-white p-2" value={mountingHoles || "none"} onChange={(event) => setMountingHoles(event.target.value === "none" ? false : event.target.value as "slots" | "round")}><option value="none">None</option><option value="slots">Slots</option><option value="round">Round</option></select></label>
+        <label className="flex items-center gap-2"><input type="checkbox" checked={registrationStickerAreas} onChange={(event) => setRegistrationStickerAreas(event.target.checked)} />Registration sticker areas</label>
+      </fieldset>
 
       <ComparisonOverview />
 
@@ -62,7 +72,7 @@ export default function ComparePage({ state, plate }: { state?: string; plate?: 
         <section id="plate-detail" className="mt-8 scroll-mt-6">
           <h2 className="font-semibold">{custom.name}</h2>
           <p className="my-3 text-sm text-zinc-600">Reference needed. This custom plate is not scored yet.</p>
-          <div className="max-w-[460px]"><LicensePlate plate={PLATE_METADATA[selected as PlateState].sample} state={selected!} /></div>
+          <div className="max-w-[460px]"><LicensePlate plate={PLATE_METADATA[selected as PlateState].sample} state={selected!} {...features} /></div>
         </section>
       ) : shown.length === 0 ? (
         <p id="plate-detail" className="mt-8 text-sm text-red-700">
@@ -93,14 +103,14 @@ export default function ComparePage({ state, plate }: { state?: string; plate?: 
               <div className="flex flex-wrap items-start gap-5">
                 <div>
                   <div className="mb-1 text-[10px] uppercase tracking-wider text-emerald-700">
-                    {cleanedReferenceSource(ref) ? "reference — sample registration removed" : "reference photo"}
+                    {cleanedReferenceSource(ref) ? "reference — cleaned artwork" : "reference photo"}
                   </div>
                   <ReferencePlate reference={ref} width={width} />
                 </div>
                 <div>
                   <div className="mb-1 text-[10px] uppercase tracking-wider text-zinc-400">ours — no registration</div>
                   <div style={{ width }}>
-                    <LicensePlate plate="" state={ref.state} />
+                    <LicensePlate plate="" state={ref.state} {...features} />
                   </div>
                 </div>
               </div>
@@ -117,7 +127,7 @@ export default function ComparePage({ state, plate }: { state?: string; plate?: 
               {[...new Set([...ref.samples, "AB***34", "CUSTOM12345", ...(plate ? [plate] : [])])].map((sample) => (
                 <figure key={sample}>
                   <figcaption className="mb-1 text-xs text-zinc-500">{sample} — {width}px</figcaption>
-                  <div style={{ width }}><LicensePlate plate={sample} state={ref.state} /></div>
+                  <div style={{ width }}><LicensePlate plate={sample} state={ref.state} {...features} /></div>
                 </figure>
               ))}
             </div>

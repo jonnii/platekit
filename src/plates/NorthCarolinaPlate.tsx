@@ -7,9 +7,8 @@ import type { PlateProps } from "../types.js";
 export default function NorthCarolinaPlate(props: PlateProps) {
   return (
     <BaselinePlate {...props} state={props.state ?? "North Carolina"}
-      shadedSlots={true}
       name="North Carolina"
-      hardware="photo"
+
       rim={true}
       rimWidth={7}
       colors={["#f6f6f3"]}

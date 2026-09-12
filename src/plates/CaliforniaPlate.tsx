@@ -1,5 +1,6 @@
 "use client";
 
+import PlateFrame from "../internal/PlateFrame.js";
 import PlateSvg, { PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import { PlateProps } from "../types.js";
@@ -14,7 +15,7 @@ export default function CaliforniaPlate({ plate, state = "California", className
   const ca = formatCaPlate(plate);
 
   return (
-    <div
+    <PlateFrame
       className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }}
       aria-label={`License plate ${plate} from ${state}`} {...rest}
     >
@@ -31,15 +32,9 @@ export default function CaliforniaPlate({ plate, state = "California", className
             <stop stopColor="#d8d9d7" /><stop offset="0.1" stopColor="#fff" />
             <stop offset="0.9" stopColor="#fafafa" /><stop offset="1" stopColor="#9d9f9b" />
           </linearGradient>
-          <linearGradient id={`caSlot-${id}`} x1="0" y1="0" x2="0" y2="1">
-            <stop stopColor="#a1a3a0" /><stop offset="0.45" stopColor="#e6e7e4" /><stop offset="0.7" stopColor="#e6e7e4" /><stop offset="1" stopColor="#aeb0ac" />
-          </linearGradient>
         </defs>
         <rect {...PLATE_OUTLINE} fill="#fff" />
         <path d="M1 30 Q1 1 30 1 H970 Q999 1 999 30 M1 470 Q1 499 30 499 H970 Q999 499 999 470" fill="none" stroke={`url(#caRim-${id})`} strokeWidth="2.5" />
-        {[156, 765].flatMap((x) => [37, 435].map((y) => (
-          <rect key={`${x}-${y}`} x={x} y={y} width="83" height="20" rx="10" fill={`url(#caSlot-${id})`} stroke="#b8bab7" strokeWidth="1" />
-        )))}
 
         {/* Brush script with the wide proportions and trailing swash of the white base */}
         <text
@@ -103,7 +98,7 @@ export default function CaliforniaPlate({ plate, state = "California", className
           dmv.ca.gov
         </text>
       </PlateSvg>
-    </div>
+    </PlateFrame>
   );
 }
 

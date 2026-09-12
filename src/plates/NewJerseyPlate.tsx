@@ -1,5 +1,6 @@
 "use client";
 
+import PlateFrame from "../internal/PlateFrame.js";
 import PlateSvg, { PLATE_INSET_RADIUS, PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import { PlateProps } from "../types.js";
@@ -11,7 +12,7 @@ export default function NewJerseyPlate({ plate, state = "New Jersey", className,
   const rightChunk = nj.middleDigits + nj.trailingLetter;
 
   return (
-    <div
+    <PlateFrame
       className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }}
       aria-label={`License plate ${plate} from ${state}`} {...rest}
     >
@@ -65,8 +66,6 @@ export default function NewJerseyPlate({ plate, state = "New Jersey", className,
           <rect x="3" y="3" width="994" height="494" rx={PLATE_OUTLINE.rx} fill="#fff" />
           <rect x="12" y="12" width="976" height="476" rx={PLATE_INSET_RADIUS} fill={`url(#${id}-njBg)`} />
         </g>
-
-        {[154, 761].flatMap(x => [38, 434].map(y => <rect key={`${x}-${y}`} x={x} y={y} width="85" height="22" rx="10" fill="#474947" stroke="#8d8d7e" strokeWidth="1.5" />))}
 
         {/* Sizes and baselines measured off the reference rather than guessed:
             wordmark spans y20..113, serial y144..379, motto y413..489. All three
@@ -142,7 +141,7 @@ export default function NewJerseyPlate({ plate, state = "New Jersey", className,
           Garden State
         </text>
       </PlateSvg>
-    </div>
+    </PlateFrame>
   );
 }
 
@@ -170,5 +169,4 @@ function formatNjPlate(input: string): {
     isCanonical: false,
   };
 }
-
 

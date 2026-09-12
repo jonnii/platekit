@@ -10,7 +10,7 @@ export default function WyomingPlate(props: PlateProps) {
     <BaselinePlate {...props} state={props.state ?? "Wyoming"}
       name="Wyoming"
       colors={["#1b294d"]}
-      hardware="round"
+
       frame={false}
       heading="WYOMING"
       headingColor="#19294c"

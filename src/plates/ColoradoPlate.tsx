@@ -10,8 +10,6 @@ export default function ColoradoPlate(props: PlateProps) {
   const rockFade = `co-rock-${useId()}`;
   return (
     <BaselinePlate {...props} state={props.state ?? "Colorado"}
-      hardware="photo"
-      shadedSlots={true}
       name="Colorado"
       colors={["#f4f5f1"]}
       heading="COLORADO"

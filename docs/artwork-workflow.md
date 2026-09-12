@@ -19,10 +19,22 @@ Choose fresh task-specific output directories. The comparator overwrites its out
 
 Reference preparation uses checksummed original crops from this repository when their provenance matches current metadata. `--src=/path/to/full-source.jpg` crops a supplied full image; `--fetch` explicitly downloads the recorded source URL. Both validate the original dimensions and crop. Changing a reference requires updating its provenance and regenerating both before and after reports. Reconstructed cleaned images are never valid scoring inputs.
 
+Mounting holes and registration sticker areas are hidden by default. The workshop
+and public playground have independent controls for these optional features.
+Mounting holes use a shared overlay, separate from each state's artwork SVG.
+`tools/artwork/optional-features.ts` records the original-photo regions excluded
+from artwork scoring, alignment, and calibration. Changing these exclusions
+invalidates previous comparison reports; regenerate both sides of a regression.
+
+The cleaned display references also omit these features using AI image editing.
+See [cleanup provenance and prompts](history/reference-material/optional-feature-cleanup.md).
+The preserved originals and their checksums remain unchanged.
+
 ## Browser and complexity checks
 
 ```sh
 bun run capture-plates --states=GA --output-dir=/tmp/ga-browser
+bun run capture-plates --states=FL --mounting-holes=round --registration-sticker-areas --output-dir=/tmp/fl-features-browser
 bun run audit-plates --states=GA --output-dir=/tmp/ga-svg-before
 # After the optimization:
 bun run audit-plates --states=GA --baseline=/tmp/ga-svg-before --output-dir=/tmp/ga-svg-after --require-identical

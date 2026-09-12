@@ -1,5 +1,6 @@
 "use client";
 
+import PlateFrame from "../internal/PlateFrame.js";
 import PlateSvg, { PLATE_INSET_RADIUS, PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import type { PlateProps } from "../types.js";
@@ -14,7 +15,7 @@ const palettes = [
   ["#f1d986", "#edd16d", "#dca649", "#e6ba5c", "#bc7138", "#c78a3d"],
 ];
 
-export default function NevadaPlate({ plate, state = "Nevada", className, style, ...rest }: PlateProps) {
+export default function NevadaPlate({ plate, state = "Nevada", className, style, registrationStickerAreas = false, ...rest }: PlateProps) {
   const id = useId().replace(/:/g, "");
   const cleaned = plate.replace(/[\s\-–—]/g, "").toUpperCase();
   const split = /^[A-Z0-9*]{6}$/.test(cleaned);
@@ -22,14 +23,13 @@ export default function NevadaPlate({ plate, state = "Nevada", className, style,
   const rows = [ridge.map((y, i) => [i * 50, y]), middle.map((y, i) => [i === 0 || i === 20 ? i * 50 : +(i * 50 + Math.sin(i * 9) * 12).toFixed(2), y]),
     ridge.map((_, i) => [i * 50, 492])];
   return (
-    <div className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }} aria-label={`License plate ${plate} from ${state}`} {...rest}>
+    <PlateFrame className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }} aria-label={`License plate ${plate} from ${state}`} {...rest}>
       <PlateSvg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid meet" style={{ width: "100%", height: "auto" }}>
         <title>{`Nevada license plate: ${plate}`}</title>
         <defs>
           <clipPath id={`nvClip-${id}`}><rect x="13" y="13" width="974" height="475" rx={PLATE_INSET_RADIUS} /></clipPath>
           <linearGradient id={`nvSky-${id}`} x2="0" y2="1"><stop stopColor="#66b1c9" /><stop offset="1" stopColor="#83bbca" /></linearGradient>
           <linearGradient id={`nvRim-${id}`} x2="0" y2="1"><stop stopColor="#d1dcdb" /><stop offset="0.2" stopColor="#f8f8f4" /><stop offset="1" stopColor="#adb9b4" /></linearGradient>
-          <linearGradient id={`nvSlots-${id}`} x2="0" y2="1"><stop stopColor="#c1ccca" /><stop offset="0.5" stopColor="#f6f7f2" /><stop offset="1" stopColor="#b6c1bc" /></linearGradient>
         </defs>
         <rect {...PLATE_OUTLINE} fill="#f4f5f2" />
         <g clipPath={`url(#nvClip-${id})`}>
@@ -51,8 +51,7 @@ export default function NevadaPlate({ plate, state = "Nevada", className, style,
           <path d="M909 454 L943 418 L987 421 L987 490 L907 490 L895 470 Z" fill="#b7642d" />
         </g>
         <rect x="13" y="13" width="974" height="475" rx={PLATE_INSET_RADIUS} fill="none" stroke={`url(#nvRim-${id})`} strokeWidth="3" />
-        <rect x="852" y="29" width="118" height="89" rx="2" fill="none" stroke="#c0dae0" strokeWidth="1.5" opacity="0.7" />
-        {[157, 765].flatMap((x) => [38, 438].map((y) => <rect key={`${x}-${y}`} x={x} y={y} width="83" height="20" rx="10" fill={`url(#nvSlots-${id})`} />))}
+        {registrationStickerAreas && <g data-plate-registration-sticker-area=""><rect x="852" y="29" width="118" height="89" rx="2" fill="none" stroke="#c0dae0" strokeWidth="1.5" opacity="0.7" /></g>}
         <text x="500" y="114" textAnchor="middle" fill="#080b0c" fontFamily="var(--font-plate-motto, Georgia, serif), Georgia, serif" fontWeight="900" fontSize="110" textLength="500" lengthAdjust="spacingAndGlyphs" stroke="#080b0c" strokeWidth="3">NEVADA</text>
         <g fill="#080b0c" fontFamily="var(--font-plate-ny, sans-serif)" fontSize="305">
           {split ? <>
@@ -63,6 +62,6 @@ export default function NevadaPlate({ plate, state = "Nevada", className, style,
         </g>
         <text x="500" y="466" textAnchor="middle" fill="#080a08" fontFamily="var(--font-plate-motto, Georgia, serif), Georgia, serif" fontWeight="800" fontSize="58" textLength="510" lengthAdjust="spacingAndGlyphs">Home Means Nevada</text>
       </PlateSvg>
-    </div>
+    </PlateFrame>
   );
 }

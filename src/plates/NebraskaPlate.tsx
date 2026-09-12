@@ -17,8 +17,7 @@ export default function NebraskaPlate(props: PlateProps) {
       headingWeight={900}
       ink="#19385c"
       frame={false}
-      hardware="photo"
-      shadedSlots={true}
+
       rim={true}
       rimWidth={16}
     >

@@ -7,7 +7,6 @@ import type { PlateProps } from "../types.js";
 export default function UtahPlate(props: PlateProps) {
   return (
     <BaselinePlate {...props} state={props.state ?? "Utah"}
-      hardware="photo"
       rim={true}
       rimWidth={11}
       name="Utah"

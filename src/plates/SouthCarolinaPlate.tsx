@@ -22,13 +22,13 @@ export default function SouthCarolinaPlate(props: PlateProps) {
       serialX={627}
       serialWidth={650}
       frame={false}
-      hardware="round"
+
       rim={true}
       rimWidth={10}
     >
       <rect x="12" y="12" width="976" height="476" rx={PLATE_INSET_RADIUS} fill="none" stroke="#a4edf0" strokeWidth="3" />
       <path d="M24 20 H976" stroke="#205c97" strokeWidth="7" />
-      <rect x="836" y="386" width="120" height="80" rx="4" fill="none" stroke="#171717" strokeWidth="2" />
+      {props.registrationStickerAreas && <g data-plate-registration-sticker-area=""><rect x="836" y="386" width="120" height="80" rx="4" fill="none" stroke="#171717" strokeWidth="2" /></g>}
       <path d="M21 108 H982" stroke="#c83436" strokeWidth="8" />
       <g transform="translate(-4 -4) scale(1.05)">
       <rect x="42" y="133" width="207" height="210" fill="#d73a49" stroke="#1b4c8f" strokeWidth="2" /><path d="M43 264 Q128 117 248 190 V342 H43Z" fill="#f4f4f1" />
