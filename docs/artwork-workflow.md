@@ -17,7 +17,7 @@ mise run check
 
 Choose fresh task-specific output directories. The comparator overwrites its output files. `compare-plates` refreshes all 51 states and publishes progress into `.plate-comparisons/latest.json`; the workshop's Refresh comparisons button runs the same batch. Stale, missing, and failed results remain visible and unranked.
 
-Reference preparation uses checksummed original crops from this repository when their provenance matches current metadata. `--src=/path/to/full-source.jpg` crops a supplied full image; `--fetch` explicitly downloads the recorded source URL. Both validate the original dimensions and crop. Changing a reference requires updating its provenance and regenerating both before and after reports. Reconstructed cleaned images are never valid scoring inputs.
+Reference preparation uses checksummed original crops from this repository when their provenance matches current metadata. `--src=/path/to/full-source.jpg` crops a supplied full image; `--fetch` explicitly downloads the recorded source URL (or reads the preserved local raster for Oregon’s extracted PDF artwork). Both validate the original dimensions and crop. Changing a reference requires updating its provenance and regenerating both before and after reports. Reconstructed cleaned images are never valid scoring inputs.
 
 Mounting holes and registration sticker areas are hidden by default. The workshop
 and public playground have independent controls for these optional features.
@@ -26,9 +26,12 @@ Mounting holes use a shared overlay, separate from each state's artwork SVG.
 from artwork scoring, alignment, and calibration. Changing these exclusions
 invalidates previous comparison reports; regenerate both sides of a regression.
 
-The cleaned display references also omit these features using AI image editing.
-See [cleanup provenance and prompts](history/reference-material/optional-feature-cleanup.md).
-The preserved originals and their checksums remain unchanged.
+Cleaned display references have two recorded cleanup types. Older copies omit
+optional hardware and sticker areas; see [their provenance and prompts](history/reference-material/optional-feature-cleanup.md).
+The October 2026 replacements remove only the large registration and retain
+source hardware and decals; their sources, prompts and checksums are recorded in
+`references/cleaned-references.json`. Both are reconstructed display aids, never
+scoring inputs.
 
 ## Browser and complexity checks
 
@@ -52,7 +55,7 @@ Each command also has a matching mise task; pass script flags after `--`, for ex
 ## Reference material and history
 
 - `tools/artwork/references.ts`: selected designs, source URLs, original dimensions, crop bounds, samples, notes, and close-ups.
-- `references/originals/`: 51 unretouched scoring crops preserved from the source app's current cache. `original-references.json` records provenance and checksums.
+- `references/originals/`: 51 preserved scoring crops, including replacements from official samples and issued-plate photographs. `original-references.json` records provenance and checksums.
 - `references/cleaned/`: 51 reconstructed display copies, with source/crop provenance in `cleaned-references.json`.
 - `workshop/public/ny-plate-bg.svg`: legacy New York background asset.
 - `workshop/public/fonts/serial.otf`: originating serial font, development-only.

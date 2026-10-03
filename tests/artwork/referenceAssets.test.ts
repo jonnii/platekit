@@ -17,11 +17,15 @@ describe("portable reference assets", () => {
       const pixels = await readFile(referencePath(original.src));
       expect(createHash("sha256").update(pixels).digest("hex")).toBe(original.sha256);
       const meta = await sharp(pixels).metadata();
-      expect([meta.width, meta.height]).toEqual([ref.plate.w, ref.plate.h]);
+      const stored = original.stored ?? ref.plate;
+      expect([meta.width, meta.height]).toEqual([stored.w, stored.h]);
+      // A downscaled crop keeps the crop's proportions.
+      expect(Math.abs(stored.w / stored.h - ref.plate.w / ref.plate.h)).toBeLessThan(.005);
       const cleaned = cleanedReferenceSource(ref)!;
       expect(cleaned).toBeDefined();
       expect(await Bun.file(referencePath(cleaned)).exists()).toBe(true);
-      const cleanup = cleanedManifest[ref.state as keyof typeof cleanedManifest].optionalFeatureCleanup;
+      const entry = cleanedManifest[ref.state as keyof typeof cleanedManifest];
+      const cleanup = "serialCleanup" in entry ? entry.serialCleanup : entry.optionalFeatureCleanup;
       expect(cleanup.inputSha256).toMatch(/^[a-f0-9]{64}$/);
       expect(createHash("sha256").update(await readFile(referencePath(cleaned))).digest("hex")).toBe(cleanup.sha256);
       expect(cleaned).not.toBe(original.src);

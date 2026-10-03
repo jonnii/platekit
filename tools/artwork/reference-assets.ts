@@ -5,6 +5,8 @@ import type { PlateReference } from "./references.ts";
 type OriginalReference = {
   source: string; image: PlateReference["image"]; plate: PlateReference["plate"];
   src: string; sha256: string;
+  /** Stored size when the crop was downscaled for the repository (scoring resizes to 1000 × 500 anyway). */
+  stored?: { w: number; h: number };
 };
 
 /** Reuse a preserved crop only while its source and crop geometry still match. */

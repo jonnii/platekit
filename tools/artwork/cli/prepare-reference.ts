@@ -55,6 +55,9 @@ async function main() {
     const src = srcArg.slice("--src=".length);
     console.log(`Reading ${src}`);
     input = await sharp(src).toBuffer();
+  } else if (ref.src.startsWith("/plate-references/")) {
+    // Some official artwork is preserved as an extracted document raster.
+    input = await readFile(referencePath(ref.src));
   } else {
     console.log(`Fetching ${ref.src}`);
     const res = await fetch(ref.src);

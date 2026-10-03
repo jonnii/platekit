@@ -38,60 +38,132 @@
     }
   },
   "CA": {
-    "source": "https://signsandtagsonline.com/cdn/shop/products/california-custom-license-plate-1234567890-red-text-white.jpg?v=1736861799&width=1946",
+    "source": "https://upload.wikimedia.org/wikipedia/commons/b/b0/California_2018_license_plate_%28USA%29.jpg",
     "image": {
-      "w": 1200,
-      "h": 1200
+      "w": 3507,
+      "h": 1777
     },
     "plate": {
-      "x": 97,
-      "y": 348,
-      "w": 1007,
-      "h": 508
+      "x": 30,
+      "y": 10,
+      "w": 3430,
+      "h": 1750
     },
     "src": "/plate-references/cleaned/ca.webp",
-    "optionalFeatureCleanup": {
-      "method": "AI image editing",
-      "inputSha256": "b33196141ccc7edf8204746bffb6067c2d783547629f1c6ed15b708a3e78a741",
-      "sha256": "41cd323886676e69bf42b92f4a4cc462ae21746a179e9aa2e0684560fea67687"
+    "serialCleanup": {
+      "method": "AI image editing; original pixels restored outside feathered registration regions",
+      "inputSha256": "dd58b62f4f75690280dd0b021b19422cef7f4f4381664d3ee512106e6f491e5c",
+      "sha256": "5f00386de252617457846d670dcc6b7478c777a3bf157bc94da5319b7a8dcfe9",
+      "generatedImage": {
+        "w": 1762,
+        "h": 892
+      },
+      "outputImage": {
+        "w": 1800,
+        "h": 918
+      },
+      "featherInSourcePixels": 42,
+      "prompt": "Use case: precise-object-edit. Edit target: supplied license plate reference. Remove only large blue serial 7TRR812 with its embossing and shadows. Preserve California red script, dmv.ca.gov, stickers, screws and holes. Keep everything else unchanged: exact composition, shapes, colors, texture, lighting, framing, dimensions and aspect ratio. Reconstruct only background pixels hidden by registration. No redesign, no added elements.",
+      "regions": [
+        [
+          74,
+          193,
+          842,
+          226
+        ]
+      ],
+      "notes": "Issued 2018 white script plate photograph, replacing the novelty product image. Vehicle-specific decals and screws remain.",
+      "delivery": "Full-size PNG in the handoff for CO/ID/NV/FL/IL/UT; workshop WebP capped at 1800px wide. Original source pixels retained outside feathered registration regions before display resizing and compression."
     }
   },
   "NJ": {
-    "source": "https://signsandtagsonline.com/cdn/shop/products/g-personalized-new-jersey-state-license-plate.jpg?v=1736863332&width=1946",
+    "source": "https://upload.wikimedia.org/wikipedia/commons/d/d0/New_Jersey_sample_license_plate%2C_2019.png",
     "image": {
-      "w": 1000,
-      "h": 776
+      "w": 3530,
+      "h": 1768
     },
     "plate": {
-      "x": 99,
-      "y": 185,
-      "w": 805,
-      "h": 408
+      "x": 0,
+      "y": 0,
+      "w": 3530,
+      "h": 1768
     },
     "src": "/plate-references/cleaned/nj.webp",
-    "optionalFeatureCleanup": {
-      "method": "AI image editing",
-      "inputSha256": "62231018b6eadfbb944abe31bc912d0a0dee7cc96331afd9adde886958efc3a2",
-      "sha256": "bbdd0ae25571cbfb44ac1e0d2ed23304cab2a85c6c2887566a0508ffa9685d06"
+    "serialCleanup": {
+      "method": "AI image editing; original pixels restored outside feathered registration regions",
+      "inputSha256": "ec8fb6221e7a3fd2af829185872783ec9c33ff65402d68e91af11b6529ca785c",
+      "sha256": "ca5668e8fa5ecfa5cdcee60dec2ce11ef1e45c62f622485feac00448036e1b85",
+      "generatedImage": {
+        "w": 1772,
+        "h": 887
+      },
+      "outputImage": {
+        "w": 1800,
+        "h": 902
+      },
+      "featherInSourcePixels": 42,
+      "prompt": "Use case: precise-object-edit. Edit target: supplied license plate reference. Remove only large black serial SAMPLE. Preserve the central black New Jersey-shaped separator, New Jersey and Garden State lettering, holes, barcode, yellow-to-white gradient and border. Keep everything else unchanged: exact composition, shapes, colors, texture, lighting, framing, dimensions and aspect ratio. Reconstruct only background pixels hidden by registration. No redesign, no added elements.",
+      "regions": [
+        [
+          58,
+          136,
+          368,
+          240
+        ],
+        [
+          570,
+          136,
+          366,
+          240
+        ]
+      ],
+      "notes": "NJ MVC 2019 sample artwork via Wikimedia Commons. Original gradient and state separator retained.",
+      "delivery": "Full-size PNG in the handoff for CO/ID/NV/FL/IL/UT; workshop WebP capped at 1800px wide. Original source pixels retained outside feathered registration regions before display resizing and compression."
     }
   },
   "PA": {
-    "source": "https://cdn.shopify.com/s/files/1/0267/1643/8599/products/pennsylvania-state-auto-tag-any-text.jpg?v=1588190239&width=1946",
+    "source": "https://upload.wikimedia.org/wikipedia/commons/1/16/2010_Pennsylvania_license_plate_-_HJG-7895.jpg",
     "image": {
-      "w": 1200,
-      "h": 1200
+      "w": 3642,
+      "h": 1832
     },
     "plate": {
-      "x": 95,
-      "y": 347,
-      "w": 1011,
-      "h": 505
+      "x": 10,
+      "y": 10,
+      "w": 3620,
+      "h": 1810
     },
     "src": "/plate-references/cleaned/pa.webp",
-    "optionalFeatureCleanup": {
-      "method": "AI image editing",
-      "inputSha256": "d9182af8efe5a6843284cfce9638a8071673745a1d4c843a8af53ca315c0742b",
-      "sha256": "dbfd29c991c3c808e4080ebd81530b49e0d48d5f944f1e18bfcfd7d28d21e3d5"
+    "serialCleanup": {
+      "method": "AI image editing; original pixels restored outside feathered registration regions",
+      "inputSha256": "f4be9b222b305325c1083dd957d933785612d838eda1aa6516f8db38706e7e13",
+      "sha256": "abafe29ac720e0ba2a92e1158bf410d5c7912a5a2e8caf14241f793efdcb6328",
+      "generatedImage": {
+        "w": 1768,
+        "h": 890
+      },
+      "outputImage": {
+        "w": 1800,
+        "h": 900
+      },
+      "featherInSourcePixels": 44,
+      "prompt": "Use case: precise-object-edit. Edit target: supplied license plate reference. Remove only large blue serial HJG 7985 with all embossed edges, highlights and shadows. Preserve the small blue keystone separator, PENNSYLVANIA, visitPA.com, blue/yellow bands, sticker, holes and plate texture. Keep everything else unchanged: exact composition, shapes, colors, texture, lighting, framing, dimensions and aspect ratio. Reconstruct only background pixels hidden by registration. No redesign, no added elements.",
+      "regions": [
+        [
+          60,
+          135,
+          347,
+          235
+        ],
+        [
+          480,
+          125,
+          456,
+          249
+        ]
+      ],
+      "notes": "2010 visitPA.com issued plate scan; keystone, dated decal and wear retained.",
+      "delivery": "Full-size PNG in the handoff for CO/ID/NV/FL/IL/UT; workshop WebP capped at 1800px wide. Original source pixels retained outside feathered registration regions before display resizing and compression."
     }
   },
   "MA": {
@@ -190,22 +262,48 @@
     }
   },
   "IL": {
-    "source": "https://signsandtagsonline.com/cdn/shop/products/illinois-lincoln-custom-text-license-plate.jpg?v=1649959516&width=1946",
+    "source": "https://upload.wikimedia.org/wikipedia/commons/b/b4/2017_Illinois_License_Plate.png",
     "image": {
-      "w": 1200,
-      "h": 1200
+      "w": 3800,
+      "h": 1954
     },
     "plate": {
-      "x": 96,
-      "y": 348,
-      "w": 1008,
-      "h": 504
+      "x": 0,
+      "y": 0,
+      "w": 3800,
+      "h": 1954
     },
     "src": "/plate-references/cleaned/il.webp",
-    "optionalFeatureCleanup": {
-      "method": "AI image editing",
-      "inputSha256": "2587b8357d8073974732fb7a1458b31dddb87bb86f480e37bec0e3cdffc7d57f",
-      "sha256": "43467a9fbec9199789d6ea5317824b858590b180ca89315c2815de1664a77023"
+    "serialCleanup": {
+      "method": "AI image editing; original pixels restored outside feathered registration regions",
+      "inputSha256": "2072aa92c5ca1444e7e1fc3cb85ba82d77f0ab0e9803fcd1a0419169a2c6ab50",
+      "sha256": "fd8836c65a6310138199fef131471e4ff4a9e1257675ec7075b5647cb227a09c",
+      "generatedImage": {
+        "w": 1750,
+        "h": 899
+      },
+      "outputImage": {
+        "w": 1800,
+        "h": 926
+      },
+      "featherInSourcePixels": 46,
+      "regions": [
+        [
+          48,
+          158,
+          218,
+          238
+        ],
+        [
+          375,
+          158,
+          576,
+          244
+        ]
+      ],
+      "notes": "2017 issued plate scan. Lincoln and skyline behind the registration are partly inferred in the display cleanup.",
+      "delivery": "Full-size PNG in the handoff for CO/ID/NV/FL/IL/UT; workshop WebP capped at 1800px wide. Original source pixels retained outside feathered registration regions before display resizing and compression.",
+      "promptSummary": "Remove only the large registration characters, preserving all other text, artwork, mounting holes, stickers, colors, texture, perspective, framing and source dimensions. Reconstruct only background obscured by the registration."
     }
   },
   "OH": {
@@ -266,41 +364,93 @@
     }
   },
   "MI": {
-    "source": "https://signsandtagsonline.com/cdn/shop/products/custom-michigan-state-license-plate.jpg?v=1588090258&width=1946",
+    "source": "https://upload.wikimedia.org/wikipedia/commons/5/56/2017_Michigan_state_license_plate%2C_DNJ-0955.jpg",
     "image": {
-      "w": 1200,
-      "h": 1200
+      "w": 3890,
+      "h": 1946
     },
     "plate": {
-      "x": 94,
-      "y": 347,
-      "w": 1012,
-      "h": 506
+      "x": 0,
+      "y": 0,
+      "w": 3890,
+      "h": 1946
     },
     "src": "/plate-references/cleaned/mi.webp",
-    "optionalFeatureCleanup": {
-      "method": "AI image editing",
-      "inputSha256": "db989215ba420359491ee313c9c70931d3bc304eb01618fdaf88483c68e31207",
-      "sha256": "d086a55f10699059c2b3b1643dcdb9a25e8446230c5e0953de4877678381ee2b"
+    "serialCleanup": {
+      "method": "AI image editing; original pixels restored outside feathered registration regions",
+      "inputSha256": "1848b47f7a8416cbd559b4c8e06ce93a8fe9951a99672ef8f1c953c637f8f0bb",
+      "sha256": "0ddc232baff4375b933b2c300de501e1de73426b565e4ff11ef97710e6bc8af8",
+      "generatedImage": {
+        "w": 1774,
+        "h": 887
+      },
+      "outputImage": {
+        "w": 1800,
+        "h": 900
+      },
+      "featherInSourcePixels": 47,
+      "prompt": "Use case: precise-object-edit. Edit target: supplied license plate reference. Remove only large blue serial DNJ 0955 with all embossed edges and shadows. Preserve PURE MICHIGAN, michigan.org blue footer, central security wave, sticker, holes and scan texture. Keep everything else unchanged: exact composition, shapes, colors, texture, lighting, framing, dimensions and aspect ratio. Reconstruct only background pixels hidden by registration. No redesign, no added elements.",
+      "regions": [
+        [
+          53,
+          139,
+          334,
+          249
+        ],
+        [
+          512,
+          139,
+          441,
+          250
+        ]
+      ],
+      "notes": "2017 issued Pure Michigan plate scan; dated decal and central security wave retained.",
+      "delivery": "Full-size PNG in the handoff for CO/ID/NV/FL/IL/UT; workshop WebP capped at 1800px wide. Original source pixels retained outside feathered registration regions before display resizing and compression."
     }
   },
   "FL": {
-    "source": "https://florida-license-plate.com/cdn/shop/files/2019-2024-florida-license-plate-sunshine-state.png?v=1713875604&width=1946",
+    "source": "https://upload.wikimedia.org/wikipedia/commons/4/48/Fl_Plate_2023.jpg",
     "image": {
-      "w": 1771,
-      "h": 900
+      "w": 3050,
+      "h": 1512
     },
     "plate": {
-      "x": 12,
-      "y": 13,
-      "w": 1745,
-      "h": 879
+      "x": 0,
+      "y": 0,
+      "w": 3050,
+      "h": 1512
     },
     "src": "/plate-references/cleaned/fl.webp",
-    "optionalFeatureCleanup": {
-      "method": "AI image editing",
-      "inputSha256": "e1ebc2b859265eb9cccf7b565997d7888e1e4010196e07d4f950c8cacebef1a6",
-      "sha256": "d2e576bd1b26f748466ff1380c108892df8435e1d05d64345c441020dc19d50f"
+    "serialCleanup": {
+      "method": "AI image editing; original pixels restored outside feathered registration regions",
+      "inputSha256": "429305faadfe72dea5b845284b2e142ac44ed73c9c35dd163704e350b687aee2",
+      "sha256": "85834f91df07cc20767c2f54230b2bb13900c294626a7f52f60cfe387afef20f",
+      "generatedImage": {
+        "w": 1781,
+        "h": 883
+      },
+      "outputImage": {
+        "w": 1800,
+        "h": 892
+      },
+      "featherInSourcePixels": 37,
+      "regions": [
+        [
+          37,
+          138,
+          357,
+          271
+        ],
+        [
+          634,
+          136,
+          343,
+          271
+        ]
+      ],
+      "notes": "Issued 2023 Sunshine State plate photograph. Side edges are clipped; screws and dated decal remain.",
+      "delivery": "Full-size PNG in the handoff for CO/ID/NV/FL/IL/UT; workshop WebP capped at 1800px wide. Original source pixels retained outside feathered registration regions before display resizing and compression.",
+      "promptSummary": "Remove only the large registration characters, preserving all other text, artwork, mounting holes, stickers, colors, texture, perspective, framing and source dimensions. Reconstruct only background obscured by the registration."
     }
   },
   "LA": {
@@ -323,22 +473,48 @@
     }
   },
   "MO": {
-    "source": "https://signsandtagsonline.com/cdn/shop/products/missouri-any-text-license-plate.jpg?width=1946",
+    "source": "https://upload.wikimedia.org/wikipedia/commons/0/02/Missouri_2021_Bicentennial_License_Plate.png",
     "image": {
-      "w": 1200,
-      "h": 1200
+      "w": 900,
+      "h": 512
     },
     "plate": {
-      "x": 95,
-      "y": 347,
-      "w": 1010,
-      "h": 507
+      "x": 28,
+      "y": 43,
+      "w": 845,
+      "h": 428
     },
     "src": "/plate-references/cleaned/mo.webp",
-    "optionalFeatureCleanup": {
-      "method": "AI image editing",
-      "inputSha256": "32558602577106f238f61014baac5aa3beb6ba2e27ef741d066111b90a117d24",
-      "sha256": "6afdf390a415d55b5fd9997b87064d4614d47ee60eea41a0ad5d9d4568a00f1f"
+    "serialCleanup": {
+      "method": "AI image editing; original pixels restored outside feathered registration regions",
+      "inputSha256": "0035c03bf12071ce531cf67b976a19d532606f61aa590672574bbcc4043769ab",
+      "sha256": "f8cfe6801cac4c87d5878612293d1295751c2e007e8bbafbef3c8bb38e80efde",
+      "generatedImage": {
+        "w": 1663,
+        "h": 945
+      },
+      "outputImage": {
+        "w": 845,
+        "h": 428
+      },
+      "featherInSourcePixels": 11,
+      "prompt": "Use case: precise-object-edit. Edit target: supplied license plate reference. Remove only large navy registration M02 021 including its embossed edges and shadows. Conservatively reconstruct the faint gray Missouri state seal where obscured. Preserve MISSOURI BICENTENNIAL, AUG, 1821 star 2021, red and blue wavy bands, rim, all holes, original visible seal details, colors and framing. Keep everything else unchanged, with the same dimensions and aspect ratio. No redesign or additional elements.",
+      "regions": [
+        [
+          80,
+          143,
+          354,
+          221
+        ],
+        [
+          580,
+          143,
+          313,
+          221
+        ]
+      ],
+      "notes": "Selected target: Missouri Bicentennial (2018\u2013), replacing the bluebird reference by user decision. State Historical Society of Missouri artwork via Wikimedia Commons. The existing SVG still needs a bicentennial redraw. Cleaned seal details behind the serial are inferred; use the original for evidence.",
+      "delivery": "Full-size PNG in the handoff for CO/ID/NV/FL/IL/UT; workshop WebP capped at 1800px wide. Original source pixels retained outside feathered registration regions before display resizing and compression."
     }
   },
   "MT": {
@@ -437,98 +613,228 @@
     }
   },
   "CO": {
-    "source": "https://cdn.shopify.com/s/files/1/0267/1643/8599/products/colorado-any-text-license-plate.jpg?v=1588160079",
+    "source": "https://upload.wikimedia.org/wikipedia/commons/8/8a/Colorado_2018_License_Plate.jpg",
     "image": {
-      "w": 1200,
-      "h": 1200
+      "w": 2586,
+      "h": 1288
     },
     "plate": {
-      "x": 95,
-      "y": 347,
-      "w": 1012,
-      "h": 506
+      "x": 0,
+      "y": 0,
+      "w": 2586,
+      "h": 1288
     },
     "src": "/plate-references/cleaned/co.webp",
-    "optionalFeatureCleanup": {
-      "method": "AI image editing",
-      "inputSha256": "fb029d8246b556f0a26995e2dafd112c9f7e74e49c10f7d0c86014f3aac5d7e2",
-      "sha256": "5b0474042190d10ad7b5cae6eee984789046aa74081018590595d33bee49bdbc"
+    "serialCleanup": {
+      "method": "AI image editing; original pixels restored outside feathered registration regions",
+      "inputSha256": "068be6a0e4947d85b1f14aa681598a1f8f5118a09ae62cfa25bc6af160a3983e",
+      "sha256": "e0769ca9434189bab7146b4e7e85547b7c3a71f0895e366e70e1713e50e7f71d",
+      "generatedImage": {
+        "w": 1778,
+        "h": 885
+      },
+      "outputImage": {
+        "w": 1800,
+        "h": 897
+      },
+      "featherInSourcePixels": 31,
+      "regions": [
+        [
+          65,
+          138,
+          365,
+          229
+        ],
+        [
+          573,
+          138,
+          364,
+          230
+        ],
+        [
+          472,
+          226,
+          58,
+          57
+        ]
+      ],
+      "notes": "Issued 2018 plate photo; reflective sheeting and directional highlights remain.",
+      "delivery": "Full-size PNG in the handoff for CO/ID/NV/FL/IL/UT; workshop WebP capped at 1800px wide. Original source pixels retained outside feathered registration regions before display resizing and compression.",
+      "promptSummary": "Remove only the large registration characters, preserving all other text, artwork, mounting holes, stickers, colors, texture, perspective, framing and source dimensions. Reconstruct only background obscured by the registration."
     }
   },
   "DE": {
-    "source": "https://cdn.shopify.com/s/files/1/0267/1643/8599/products/delaware-any-text-custom-license-plate.jpg?v=1588161734",
+    "source": "https://services.dmv.de.gov/VehicleServices/tags/specialty-plates/images/PNG/Sample.png",
     "image": {
-      "w": 1200,
-      "h": 1200
+      "w": 3597,
+      "h": 1796
     },
     "plate": {
-      "x": 95,
-      "y": 347,
-      "w": 1012,
-      "h": 506
+      "x": 0,
+      "y": 0,
+      "w": 3597,
+      "h": 1796
     },
     "src": "/plate-references/cleaned/de.webp",
-    "optionalFeatureCleanup": {
-      "method": "AI image editing",
-      "inputSha256": "b991a7e59acc32b509c5b92560edd5eff09cd758ab570bf3ada5a2c0fbf53c39",
-      "sha256": "e427cdc829b49677a0285b59c32953deb07a581671975ca99b0ea997b5faca93"
+    "serialCleanup": {
+      "method": "AI image editing; original pixels restored outside feathered registration regions",
+      "inputSha256": "0d34b738f062ce8498a0a89d6adcd3e2c6bdffe2226d1c956a610b7ca4d5ba07",
+      "sha256": "c5b89499f5ba092754aeccc2e36a5d1dd9a4280c178e3b0f2baaf3f9498fea5e",
+      "generatedImage": {
+        "w": 1775,
+        "h": 886
+      },
+      "outputImage": {
+        "w": 1800,
+        "h": 899
+      },
+      "featherInSourcePixels": 43,
+      "prompt": "Use case: precise-object-edit. Edit target: supplied license plate reference. Remove only large gold serial SAMPLE. Preserve THE FIRST STATE, DELAWARE, PLACE STICKER HERE box, four white holes, gold border, original flat navy and gold colors. Keep everything else unchanged: exact composition, shapes, colors, texture, lighting, framing, dimensions and aspect ratio. Reconstruct only background pixels hidden by registration. No redesign, no added elements.",
+      "regions": [
+        [
+          110,
+          103,
+          779,
+          255
+        ]
+      ],
+      "notes": "Official Delaware DMV sample artwork; gold/navy colors and sticker box retained.",
+      "delivery": "Full-size PNG in the handoff for CO/ID/NV/FL/IL/UT; workshop WebP capped at 1800px wide. Original source pixels retained outside feathered registration regions before display resizing and compression."
     }
   },
   "DC": {
-    "source": "https://cdn.shopify.com/s/files/1/0267/1643/8599/products/dc-customized-license-plate.jpg?v=1594300420",
+    "source": "https://dmv.dc.gov/sites/default/files/dc/sites/dmv/End%20Taxation%20Without%20Representation%20Tag%202.jpg",
     "image": {
-      "w": 1200,
-      "h": 1200
+      "w": 1232,
+      "h": 600
     },
     "plate": {
-      "x": 95,
-      "y": 347,
-      "w": 1012,
-      "h": 506
+      "x": 0,
+      "y": 0,
+      "w": 1232,
+      "h": 600
     },
     "src": "/plate-references/cleaned/dc.webp",
-    "optionalFeatureCleanup": {
-      "method": "AI image editing",
-      "inputSha256": "698ac4d8a1725f1852227da3b22bc41182a4709ab2be8e863d9714bef5fe7dca",
-      "sha256": "04e5a18805c95ac965b3cf1ba93dd88722329f3b6b528a5f2afebf8a608098a4"
+    "serialCleanup": {
+      "method": "AI image editing; original pixels restored outside feathered registration regions",
+      "inputSha256": "91081120f51f87b831ce69f53f47a1bb19e0aba73ec8909af7b21c624bf2f306",
+      "sha256": "965e4bd28f224f7d007b358936417d0d821eecb15d1756e2d26f7e9ca42c2e36",
+      "generatedImage": {
+        "w": 1797,
+        "h": 875
+      },
+      "outputImage": {
+        "w": 1232,
+        "h": 600
+      },
+      "featherInSourcePixels": 15,
+      "prompt": "Use case: precise-object-edit. Edit target: supplied license plate reference. Remove only the six large navy registration letters SAMPLE. Preserve the red three-star/two-bar flag separator, both thin red rules, WASHINGTON, DC, END TAXATION WITHOUT REPRESENTATION, NOT FOR OFFICIAL USE boxes, holes, all lettering exactly, and photographic colors/texture. Do not fix the holes obscuring footer letters. Keep everything else unchanged: exact composition, shapes, colors, texture, lighting, framing, dimensions and aspect ratio. Reconstruct only background pixels hidden by registration. No redesign, no added elements.",
+      "regions": [
+        [
+          42,
+          130,
+          250,
+          255
+        ],
+        [
+          445,
+          130,
+          541,
+          255
+        ]
+      ],
+      "notes": "Official DC DMV sample of the End Taxation Without Representation design. Weak photo: uneven warm lighting, cropped rim and mounting holes obscure footer letters. Do not use the cleanup to infer those letters.",
+      "delivery": "Full-size PNG in the handoff for CO/ID/NV/FL/IL/UT; workshop WebP capped at 1800px wide. Original source pixels retained outside feathered registration regions before display resizing and compression."
     }
   },
   "TX": {
-    "source": "https://upload.wikimedia.org/wikipedia/commons/b/b9/Texas_Passenger_Car_License_Plate_2020.png",
+    "source": "https://upload.wikimedia.org/wikipedia/commons/8/8f/2012_Texas_license_plate_ABC_1234.png",
     "image": {
-      "w": 1328,
-      "h": 671
+      "w": 3348,
+      "h": 1622
     },
     "plate": {
-      "x": 6,
-      "y": 6,
-      "w": 1316,
-      "h": 658
+      "x": 0,
+      "y": 0,
+      "w": 3348,
+      "h": 1622
     },
     "src": "/plate-references/cleaned/tx.webp",
-    "optionalFeatureCleanup": {
-      "method": "AI image editing",
-      "inputSha256": "c104e75aeab3e380528e117cc646bf2d5640a1890a526789eef18c8d5e1f5614",
-      "sha256": "c7981792af57ad6153d8ef51961a0b1b9d4e60ffd241a1d3cc644bb12365a814"
+    "serialCleanup": {
+      "method": "AI image editing; original pixels restored outside feathered registration regions",
+      "inputSha256": "512060419e860d8fd60531c7dd6a9471ed390a69a30c9c0245f5f9dd836a2e3f",
+      "sha256": "16d048d218db16d9daa918b6d7054b864244d1f8fbefdd289f8a0108b663569d",
+      "generatedImage": {
+        "w": 1802,
+        "h": 873
+      },
+      "outputImage": {
+        "w": 1800,
+        "h": 872
+      },
+      "featherInSourcePixels": 40,
+      "prompt": "Use case: precise-object-edit. Edit target: supplied license plate reference. Remove only large black registration ABC 1234. Preserve central Texas silhouette, top star, TEXAS, The Lone Star State, gray vertical security waves, holes, barcode and original scan grain. Keep everything else unchanged: exact composition, shapes, colors, texture, lighting, framing, dimensions and aspect ratio. Reconstruct only background pixels hidden by registration. No redesign, no added elements.",
+      "regions": [
+        [
+          35,
+          173,
+          337,
+          238
+        ],
+        [
+          480,
+          173,
+          464,
+          238
+        ]
+      ],
+      "notes": "Higher-resolution 2012 Texas sample scan. The scan clips the outer rim; security waves and barcode remain.",
+      "delivery": "Full-size PNG in the handoff for CO/ID/NV/FL/IL/UT; workshop WebP capped at 1800px wide. Original source pixels retained outside feathered registration regions before display resizing and compression."
     }
   },
   "NV": {
-    "source": "https://signsandtagsonline.com/cdn/shop/products/nevada-customized-state-license-plate.jpg?width=1946",
+    "source": "https://upload.wikimedia.org/wikipedia/commons/2/2a/Nevada_2016_License_Plate.png",
     "image": {
-      "w": 1200,
-      "h": 1200
+      "w": 2274,
+      "h": 1166
     },
     "plate": {
-      "x": 95,
-      "y": 347,
-      "w": 1010,
-      "h": 507
+      "x": 0,
+      "y": 0,
+      "w": 2274,
+      "h": 1166
     },
     "src": "/plate-references/cleaned/nv.webp",
-    "optionalFeatureCleanup": {
-      "method": "AI image editing",
-      "inputSha256": "9b1df488f06b5f7916906b9e018d385a8781f34e0a32e5f8d6398eca19dbaed3",
-      "sha256": "3b772b975c27c30161247f362e8ea6864daa0d2c13acf157bfed6058c0cae76a"
+    "serialCleanup": {
+      "method": "AI image editing; original pixels restored outside feathered registration regions",
+      "inputSha256": "2d64ca288db7fd3d624a3aac370df290a5fdf31b44753acc93d1bcc433608e59",
+      "sha256": "56b1443c3896f1a2a519a4bea8996a85baf674aa0cc20eb0336d7c1da073b3c1",
+      "generatedImage": {
+        "w": 1751,
+        "h": 898
+      },
+      "outputImage": {
+        "w": 1800,
+        "h": 923
+      },
+      "featherInSourcePixels": 27,
+      "regions": [
+        [
+          53,
+          160,
+          380,
+          233
+        ],
+        [
+          599,
+          165,
+          356,
+          229
+        ]
+      ],
+      "notes": "Issued 2016 plate photograph. Perspective and reflective security wave remain; state separator retained.",
+      "delivery": "Full-size PNG in the handoff for CO/ID/NV/FL/IL/UT; workshop WebP capped at 1800px wide. Original source pixels retained outside feathered registration regions before display resizing and compression.",
+      "promptSummary": "Remove only the large registration characters, preserving all other text, artwork, mounting holes, stickers, colors, texture, perspective, framing and source dimensions. Reconstruct only background obscured by the registration."
     }
   },
   "HI": {
@@ -551,22 +857,42 @@
     }
   },
   "ID": {
-    "source": "https://cdn.shopify.com/s/files/1/0267/1643/8599/products/scenic-idaho-custom-text-license-plate.jpg?v=1588173886",
+    "source": "https://itd.idaho.gov/wp-content/uploads/2025/03/Idaho_Sample-High-Res.jpeg",
     "image": {
-      "w": 1200,
-      "h": 1200
+      "w": 5054,
+      "h": 2643
     },
     "plate": {
-      "x": 95,
-      "y": 347,
-      "w": 1012,
-      "h": 506
+      "x": 0,
+      "y": 0,
+      "w": 5054,
+      "h": 2643
     },
     "src": "/plate-references/cleaned/id.webp",
-    "optionalFeatureCleanup": {
-      "method": "AI image editing",
-      "inputSha256": "57a5339b69adf1767b8c0650f54ed264d61e71ab7e16698162b888067a269d2c",
-      "sha256": "1bc212912e4d64f5be19ecdfa430e82efa77d0585416da699926bb1582252793"
+    "serialCleanup": {
+      "method": "AI image editing; original pixels restored outside feathered registration regions",
+      "inputSha256": "b38cefe1d6cfffac1cd4dfbc0b1fb0cf94ab452d26169ac825a4589d338e8cea",
+      "sha256": "45eeff29424da50ec25783b20e55731af29ce197cbd47d19ee7ebf1499162aa4",
+      "generatedImage": {
+        "w": 1734,
+        "h": 907
+      },
+      "outputImage": {
+        "w": 1800,
+        "h": 941
+      },
+      "featherInSourcePixels": 61,
+      "regions": [
+        [
+          227,
+          146,
+          537,
+          214
+        ]
+      ],
+      "notes": "Official Idaho Transportation Department physical sample. The source clips portions of the outer rim; SAMP and barcode are retained.",
+      "delivery": "Full-size PNG in the handoff for CO/ID/NV/FL/IL/UT; workshop WebP capped at 1800px wide. Original source pixels retained outside feathered registration regions before display resizing and compression.",
+      "promptSummary": "Remove only the large registration characters, preserving all other text, artwork, mounting holes, stickers, colors, texture, perspective, framing and source dimensions. Reconstruct only background obscured by the registration."
     }
   },
   "IN": {
@@ -665,22 +991,48 @@
     }
   },
   "MS": {
-    "source": "https://cdn.shopify.com/s/files/1/0267/1643/8599/files/custom-text-mississippi-2024-present-flower-novelty-license-plate.jpg?v=1723032727",
+    "source": "https://www.dor.ms.gov/sites/default/files/news/2024%20License%20Plate%202.png",
     "image": {
-      "w": 1200,
-      "h": 1200
+      "w": 2159,
+      "h": 1113
     },
     "plate": {
-      "x": 95,
-      "y": 347,
-      "w": 1012,
-      "h": 506
+      "x": 0,
+      "y": 0,
+      "w": 2159,
+      "h": 1113
     },
     "src": "/plate-references/cleaned/ms.webp",
-    "optionalFeatureCleanup": {
-      "method": "AI image editing",
-      "inputSha256": "99cd042c68d1cbab5769e0366b40d21b50d9833b8d2373c57dd9f8cd6401ced6",
-      "sha256": "7c6178a43649786a0cfa920274217dc112e63388f531e927e6dbf1dc54e8dc1b"
+    "serialCleanup": {
+      "method": "AI image editing; original pixels restored outside feathered registration regions",
+      "inputSha256": "1b7fb841423e7bb0221e3123b49df7afc61128d6df939c496f62367f32e8a379",
+      "sha256": "7d746fac8c1fa7d4189f680df9fcd3ae4d7a8285ae451890c80da4d3fecf7f84",
+      "generatedImage": {
+        "w": 1747,
+        "h": 900
+      },
+      "outputImage": {
+        "w": 1800,
+        "h": 928
+      },
+      "featherInSourcePixels": 26,
+      "prompt": "Use case: precise-object-edit. Edit target: supplied license plate reference. Remove only the large serial ABC 000. Preserve the entire central magnolia medallion, MISSISSIPPI wordmark with intertwined swashes, OKTIBBEHA county text and thin navy border. Keep everything else unchanged: exact composition, shapes, colors, texture, lighting, framing, dimensions and aspect ratio. Reconstruct only background pixels hidden by registration. No redesign, no added elements.",
+      "regions": [
+        [
+          10,
+          128,
+          363,
+          234
+        ],
+        [
+          617,
+          128,
+          353,
+          235
+        ]
+      ],
+      "notes": "Official Mississippi DOR 2024 magnolia artwork. OKTIBBEHA is source sample county text, not supplied vehicle data.",
+      "delivery": "Full-size PNG in the handoff for CO/ID/NV/FL/IL/UT; workshop WebP capped at 1800px wide. Original source pixels retained outside feathered registration regions before display resizing and compression."
     }
   },
   "NE": {
@@ -779,22 +1131,48 @@
     }
   },
   "OR": {
-    "source": "https://cdn.shopify.com/s/files/1/0267/1643/8599/products/oregon-custom-license-plate.jpg?v=1588190058",
+    "source": "/plate-references/originals/or.jpg",
     "image": {
-      "w": 1200,
-      "h": 1200
+      "w": 4120,
+      "h": 2070
     },
     "plate": {
-      "x": 95,
-      "y": 347,
-      "w": 1012,
-      "h": 506
+      "x": 0,
+      "y": 0,
+      "w": 4120,
+      "h": 2070
     },
     "src": "/plate-references/cleaned/or.webp",
-    "optionalFeatureCleanup": {
-      "method": "AI image editing",
-      "inputSha256": "e7d215f8a824700ce62292ef113d7b10afb438e6987974b65e48749680dd2d13",
-      "sha256": "3e39f8fd0726336f2e8ca04824b312443331d7831be6f3ed893108389da3a934"
+    "serialCleanup": {
+      "method": "AI image editing; original pixels restored outside feathered registration regions",
+      "inputSha256": "19767141ec12f6907745728131b6cbd9586de7e9ccbec4e74fed6cd7dec54e7d",
+      "sha256": "0cb9fd1279b7717f4394ca640f2b8955c0aa80ef6e985d9f820c8b431203dd41",
+      "generatedImage": {
+        "w": 1732,
+        "h": 908
+      },
+      "outputImage": {
+        "w": 1800,
+        "h": 904
+      },
+      "featherInSourcePixels": 52,
+      "prompt": "Use case: precise-object-edit. Edit target: supplied license plate reference. Remove only large navy serial 000 BBB. Continue existing pale lavender mountains and white snowy ridge lines where obscured. Preserve exact central green fir branches, navy lower trees, Oregon wordmark, sticker boxes, holes, border and original flat colors. Keep everything else unchanged: exact composition, shapes, colors, texture, lighting, framing, dimensions and aspect ratio. Reconstruct only background pixels hidden by registration. No redesign, no added elements.",
+      "regions": [
+        [
+          59,
+          120,
+          370,
+          238
+        ],
+        [
+          553,
+          120,
+          364,
+          238
+        ]
+      ],
+      "notes": "Official Oregon DMV Passenger (Tree) artwork extracted from the plate manual. Preserved raster is the local source; upstream document is recorded in the manifest.",
+      "delivery": "Full-size PNG in the handoff for CO/ID/NV/FL/IL/UT; workshop WebP capped at 1800px wide. Original source pixels retained outside feathered registration regions before display resizing and compression."
     }
   },
   "SC": {
@@ -855,41 +1233,87 @@
     }
   },
   "UT": {
-    "source": "https://cdn.shopify.com/s/files/1/0267/1643/8599/products/utah-state-license-plate-any-text.jpg?v=1588872211",
+    "source": "https://upload.wikimedia.org/wikipedia/commons/3/39/UTnewfont.png",
     "image": {
-      "w": 1200,
-      "h": 1200
+      "w": 2573,
+      "h": 1283
     },
     "plate": {
-      "x": 95,
-      "y": 347,
-      "w": 1012,
-      "h": 506
+      "x": 0,
+      "y": 0,
+      "w": 2573,
+      "h": 1283
     },
     "src": "/plate-references/cleaned/ut.webp",
-    "optionalFeatureCleanup": {
-      "method": "AI image editing",
-      "inputSha256": "6801eb8864e175ef6e950360e4f3780282175700bfadab8e6121f0c6d2cc0ce6",
-      "sha256": "cf5a69a9c538a69d0ec9acaa8a0fe4a564791a52fe8da97b7e7b974427736710"
+    "serialCleanup": {
+      "method": "AI image editing; original pixels restored outside feathered registration regions",
+      "inputSha256": "00e074c3882e582c4d2bd3ee0e55822c80656a60db4e075c1ffc7cfb5a352373",
+      "sha256": "f946cef76a2905f97ed2a085f16e40657931d3aae9617f150f83c8875d19c6ef",
+      "generatedImage": {
+        "w": 1777,
+        "h": 885
+      },
+      "outputImage": {
+        "w": 1800,
+        "h": 898
+      },
+      "featherInSourcePixels": 31,
+      "regions": [
+        [
+          94,
+          177,
+          331,
+          250
+        ],
+        [
+          551,
+          177,
+          338,
+          250
+        ]
+      ],
+      "notes": "Life Elevated arch plate photograph. Occluded arch facets are inferred in the display cleanup.",
+      "delivery": "Full-size PNG in the handoff for CO/ID/NV/FL/IL/UT; workshop WebP capped at 1800px wide. Original source pixels retained outside feathered registration regions before display resizing and compression.",
+      "promptSummary": "Remove only the large registration characters, preserving all other text, artwork, mounting holes, stickers, colors, texture, perspective, framing and source dimensions. Reconstruct only background obscured by the registration."
     }
   },
   "VA": {
-    "source": "https://signsandtagsonline.com/cdn/shop/files/40001-VA-2.jpg?v=1781701743&width=1946",
+    "source": "https://www.dmv.virginia.gov/sites/default/files/images/va4loversplate-thumb.jpg",
     "image": {
-      "w": 1500,
-      "h": 1500
+      "w": 1280,
+      "h": 639
     },
     "plate": {
-      "x": 118,
-      "y": 433,
-      "w": 1264,
-      "h": 632
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 639
     },
     "src": "/plate-references/cleaned/va.webp",
-    "optionalFeatureCleanup": {
-      "method": "AI image editing",
-      "inputSha256": "fae398313a56d4c2b5f4737e03c358472bc774b6220e1b877d675253dbb3c2f2",
-      "sha256": "5e6c7a682eb3dcd93e93e5dac0674415f833c6bc8f263a0e8c940c5f90aee237"
+    "serialCleanup": {
+      "method": "AI image editing; original pixels restored outside feathered registration regions",
+      "inputSha256": "864b6f3c23ea6ee773cc7420c6296c3bfd953d66b9c78b61a30029c4a9f69d72",
+      "sha256": "fe6f011d7495385942f7b987633ede658b9a453d0c17ca38ff3d285a597bdc74",
+      "generatedImage": {
+        "w": 1775,
+        "h": 886
+      },
+      "outputImage": {
+        "w": 1280,
+        "h": 639
+      },
+      "featherInSourcePixels": 15,
+      "prompt": "Use case: precise-object-edit. Edit target: supplied license plate reference. Remove only large blue registration SAMPLE, including its embossed edges and shadows. Preserve VIRGINIA, VIRGINIA IS FOR LOVERS with its red heart, Virginia.org, MONTH and YEAR boxes, four holes, original texture, border, color and framing. Keep everything else unchanged, with the same dimensions and aspect ratio. No redesign or additional elements.",
+      "regions": [
+        [
+          120,
+          124,
+          767,
+          256
+        ]
+      ],
+      "notes": "Official Virginia DMV media sample for Virginia is for Lovers. Outer rim is clipped; sample serial uses serif lettering.",
+      "delivery": "Full-size PNG in the handoff for CO/ID/NV/FL/IL/UT; workshop WebP capped at 1800px wide. Original source pixels retained outside feathered registration regions before display resizing and compression."
     }
   },
   "WA": {
