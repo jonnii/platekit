@@ -3,12 +3,13 @@
 import { useId } from "react";
 import BaselinePlate, { PLATE_SANS } from "../internal/BaselinePlate.js";
 import type { PlateProps } from "../types.js";
+import { BEBAS_NEUE_400 } from "../internal/registrationGlyphs.js";
 
 /** Reference-guided artwork; source and design caveats are in plate-compare/references.ts. */
 export default function HawaiiPlate(props: PlateProps) {
   const id = useId();
   return (
-    <BaselinePlate {...props} state={props.state ?? "Hawaii"}
+    <BaselinePlate {...props} registrationFace={BEBAS_NEUE_400} state={props.state ?? "Hawaii"}
       name="Hawaii"
       colors={["#f4f5f2"]}
       heading="HAWAII"

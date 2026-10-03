@@ -5,6 +5,7 @@ import { BASELINE_PLATE_STATES } from "../../tools/artwork/profiles/initial-stat
 import { PLATES } from "../../src/registry.js";
 import { PLATE_REFERENCES } from "../../tools/artwork/references";
 import LicensePlate from "../../src/LicensePlate.js";
+import { registrationRuns } from "./registration.js";
 
 describe("LicensePlate component", () => {
   it("renders plate and state into markup", () => {
@@ -68,29 +69,22 @@ describe("LicensePlate component", () => {
     expect(ids.length).toBeGreaterThan(0);
     expect(new Set(ids).size).toBe(ids.length);
     for (const reference of references) expect(ids).toContain(reference);
-    const visibleText = [...html.matchAll(/<text\b[^>]*>([\s\S]*?)<\/text>/g)]
-      .map((match) => match[1].replace(/<[^>]*>/g, "")).join("");
+    const visibleText = registrationRuns(html).map((run) => run.text).join("");
     expect(visibleText).toContain("ABC1234");
     expect(visibleText).toContain(`${state}*99X`);
   });
   it.each(["AK", "AR", "DC", "MN", "MS", "NM", "OK", "OR", "TN"])("keeps long %s registrations split around fixed artwork", (state) => {
     const html = renderToString(<LicensePlate plate="custom–12345" state={state} />);
-    const registration = html.match(/<g[^>]*font-family="var\(--font-plate-ny, sans-serif\)"[^>]*>([\s\S]*?)<\/g>/)![1];
-    const parts = [...registration.matchAll(/<text\b[^>]*>([^<]*)<\/text>/g)].map((match) => match[1]);
-    expect(parts).toEqual(["CUSTOM", "12345"]);
+    expect(registrationRuns(html).map((run) => run.text)).toEqual(["CUSTOM", "12345"]);
   });
 
   it.each([["TN", 368.5, 503.5], ["MN", 398.5, 533.5], ["AK", 370, 550], ["OR", 375, 625]] as const)("reserves the %s symbol for every supported sample", (state, leftEdge, rightEdge) => {
     for (const plate of ["ABC123", `${state}*99X`, "CUSTOM12345"]) {
       const html = renderToString(<LicensePlate plate={plate} state={state} />);
-      const registration = html.match(/<g[^>]*font-family="var\(--font-plate-ny, sans-serif\)"[^>]*>([\s\S]*?)<\/g>/)![1];
-      const parts = [...registration.matchAll(/<text\b([^>]*)>/g)].map((match) => ({
-        x: Number(match[1].match(/\bx="([^"]+)"/)![1]),
-        width: Number(match[1].match(/\btextLength="([^"]+)"/)![1]),
-      }));
+      const parts = registrationRuns(html);
       expect(parts).toHaveLength(2);
-      expect(parts[0].x + parts[0].width / 2).toBeLessThan(leftEdge);
-      expect(parts[1].x - parts[1].width / 2).toBeGreaterThan(rightEdge);
+      expect(parts[0]!.right).toBeLessThan(leftEdge);
+      expect(parts[1]!.left).toBeGreaterThan(rightEdge);
     }
   });
 
@@ -103,7 +97,7 @@ describe("LicensePlate component", () => {
       expect(ref!.samples.some((sample) => sample.includes("*"))).toBe(true);
       expect(ref!.samples.some((sample) => sample.length > 8)).toBe(true);
       const html = renderToString(<LicensePlate plate="custom–12345" state={code.toLowerCase()} />);
-      const lettering = [...html.matchAll(/<text\b[^>]*>([\s\S]*?)<\/text>/g)].map((match) => match[1]).join("");
+      const lettering = registrationRuns(html).map((run) => run.text).join("");
       expect(lettering).toContain("CUSTOM12345");
       expect(html).not.toContain("<image");
     }

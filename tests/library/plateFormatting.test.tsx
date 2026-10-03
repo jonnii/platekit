@@ -1,6 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { renderToString } from "react-dom/server";
 import LicensePlate from "../../src/LicensePlate.js";
+import { registrationRuns } from "./registration.js";
 
 // Helper function to extract formatting results from rendered components
 function getPlateFormatting(plate: string, state: string) {
@@ -110,7 +111,7 @@ describe("License Plate Formatting Functions", () => {
 
         // Canonical plates should have split rendering with NY state symbol
         expect(html).toMatch(/id="registration-/);
-        expect(html).toMatch(/href="#nyState-/); // State symbol indicates canonical split format
+        expect(registrationRuns(html)).toHaveLength(2); // Canonical registrations split around the state outline
         const letters = plate.replace(/[^A-Z]/g, "").slice(0, 3);
         const digits = plate.replace(/[^0-9]/g, "").slice(-4);
         expect(html).toContain(letters);
@@ -134,7 +135,7 @@ describe("License Plate Formatting Functions", () => {
         expect(html).toMatch(/id="registration-/);
         expect(html).toContain(cleaned);
         // Should not have the state symbol (only canonical plates have it)
-        expect(html).not.toMatch(/href="#nyState-/);
+        expect(registrationRuns(html)).toHaveLength(1);
       });
     });
   });
@@ -161,10 +162,8 @@ describe("License Plate Formatting Functions", () => {
     it("keeps the Texas separator and supplied characters for custom and blank registrations", () => {
       for (const plate of ["", "A", "AB1234", "ABCD1234", "ABC123", "ABC12345", "INVALID", "1234567", "TX*99X", "custom–12345"]) {
         const html = getPlateFormatting(plate, "TX");
-        const registration = html.match(/<g id="registration-[^>]*>([\s\S]*?)<\/g>/)![1];
-        const groups = [...registration.matchAll(/<text\b[^>]*>([^<]*)<\/text>/g)];
-        expect(groups.map((match) => match[1]).join("")).toBe(plate.toUpperCase().replace(/[\s\-–—]/g, ""));
-        expect(registration).toMatch(/href="#txState-/);
+        expect(registrationRuns(html).map((run) => run.text).join("")).toBe(plate.toUpperCase().replace(/[\s\-–—]/g, ""));
+        expect(html).toMatch(/href="#txState-/);
       }
     });
 
@@ -208,7 +207,9 @@ describe("License Plate Formatting Functions", () => {
         const cleaned = plate.toUpperCase().replace(/[\s\-\u2013\u2014]/g, "");
         expect(html).toContain(cleaned);
         // Custom registrations stay centered and do not render the separator.
-        expect(html).toMatch(/<text[^>]*x="500"[^>]*>[^<]*<\/text>/);
+        const [run, ...others] = registrationRuns(html);
+        expect(others).toHaveLength(0);
+        expect((run!.left + run!.right) / 2).toBeCloseTo(500, 0);
         expect(html).not.toMatch(/<use href="#[^"]+-njState"/);
       });
     });
@@ -262,7 +263,7 @@ describe("License Plate Formatting Functions", () => {
 
         // Anonymized plates should render in canonical split format with state symbol
         expect(html).toMatch(/id="registration-/);
-        expect(html).toMatch(/href="#nyState-/); // State symbol indicates canonical split format
+        expect(registrationRuns(html)).toHaveLength(2); // Canonical registrations split around the state outline
         const letters = plate.replace(/[^A-Z*]/g, "").slice(0, 3);
         const digits = plate.replace(/[^0-9*]/g, "").slice(-4);
         expect(html).toContain(letters);
@@ -312,7 +313,7 @@ describe("License Plate Formatting Functions", () => {
 
       // Should render in canonical format (split with state symbol)
       expect(html).toMatch(/id="registration-/);
-      expect(html).toMatch(/href="#nyState-/);
+      expect(registrationRuns(html)).toHaveLength(2); // Canonical registrations split around the state outline
       expect(html).toContain("AB*");
       expect(html).toContain("**34");
     });

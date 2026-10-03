@@ -3,18 +3,18 @@
 import { useId } from "react";
 import BaselinePlate from "../internal/BaselinePlate.js";
 import type { PlateProps } from "../types.js";
+import { BEBAS_NEUE_400 } from "../internal/registrationGlyphs.js";
+import { OR_NAME } from "../internal/traces/or.js";
 
 /** Reference-guided artwork; source and design caveats are in plate-compare/references.ts. */
 export default function OregonPlate(props: PlateProps) {
   const id = useId();
   return (
-    <BaselinePlate {...props} state={props.state ?? "Oregon"}
+    <BaselinePlate {...props} registrationFace={BEBAS_NEUE_400} state={props.state ?? "Oregon"}
       name="Oregon"
       colors={["#b0d9ec", "#b7c0dc"]}
       stops={[0, 1]}
-      heading="Oregon"
-      headingSize={100}
-      headingY={92}
+      heading={{ text: "Oregon", paths: [{ d: OR_NAME }] }}
       ink="#182b69"
       separator={true}
       separatorWidth={250}

@@ -2,11 +2,12 @@
 
 import BaselinePlate, { PLATE_SERIF } from "../internal/BaselinePlate.js";
 import type { PlateProps } from "../types.js";
+import { BEBAS_NEUE_400 } from "../internal/registrationGlyphs.js";
 
 /** Reference-guided artwork; source and design caveats are in plate-compare/references.ts. */
 export default function RhodeIslandPlate(props: PlateProps) {
   return (
-    <BaselinePlate {...props} state={props.state ?? "Rhode Island"}
+    <BaselinePlate {...props} registrationFace={BEBAS_NEUE_400} state={props.state ?? "Rhode Island"}
       name="Rhode Island"
       colors={["#f0f1ef"]}
       heading="Rhode Island"

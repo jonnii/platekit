@@ -2,11 +2,12 @@
 
 import BaselinePlate, { Star, PLATE_SANS } from "../internal/BaselinePlate.js";
 import type { PlateProps } from "../types.js";
+import { BARLOW_CONDENSED_700 } from "../internal/registrationGlyphs.js";
 
 /** First artwork pass; source and design caveats are in plate-compare/references.ts. */
 export default function DistrictofColumbiaPlate(props: PlateProps) {
   return (
-    <BaselinePlate {...props} state={props.state ?? "District of Columbia"}
+    <BaselinePlate {...props} registrationFace={BARLOW_CONDENSED_700} state={props.state ?? "District of Columbia"}
       name="District of Columbia"
       colors={["#f5f5f4"]}
       heading="DISTRICT OF COLUMBIA"

@@ -4,12 +4,14 @@ import PlateFrame from "../internal/PlateFrame.js";
 import PlateSvg, { PLATE_INSET_RADIUS, PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import type { PlateProps } from "../types.js";
+import Registration, { cleanRegistration } from "../internal/Registration.js";
+import { BARLOW_CONDENSED_500 } from "../internal/registrationGlyphs.js";
 
 /** Alabama's beach sunrise: layered clouds, Gulf surf and sea-oat dunes. */
 export default function AlabamaPlate({ plate, state = "Alabama", className, style, ...rest }: PlateProps) {
   const id = useId();
   const paint = (name: string) => `url(#al-${name}-${id})`;
-  const cleaned = plate.replace(/[\s\-–—]/g, "").toUpperCase();
+  const cleaned = cleanRegistration(plate);
   const size = Math.min(316, 2212 / Math.max(7, cleaned.length));
   return (
     <PlateFrame className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }} aria-label={`License plate ${plate} from ${state}`} {...rest}>
@@ -72,7 +74,7 @@ export default function AlabamaPlate({ plate, state = "Alabama", className, styl
           <text x="899" y="453" fill="#fff" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="10" textAnchor="middle">DIXIE</text>
         </g>
         <text x="500" y="98" textAnchor="middle" fill="#285498" fontFamily='Baskerville, "Times New Roman", serif' fontSize="98" textLength="474" lengthAdjust="spacingAndGlyphs">ALABAMA</text>
-        <text x="500" y={375 - (316 - size) * .35} fill="#080a08" fontFamily="var(--font-plate-ny, sans-serif)" fontSize={size} textAnchor="middle" textLength={Math.min(886, cleaned.length * 122)} lengthAdjust="spacingAndGlyphs">{cleaned}</text>
+        <Registration face={BARLOW_CONDENSED_500} text={cleaned} x={500} y={375 - (316 - size) * .35} fill="#080a08" fontSize={size} textAnchor="middle" width={Math.min(886, cleaned.length * 122)} />
         <text x="505" y="460" fill="#fff" fontFamily="Arial, sans-serif" fontSize="33" fontStyle="italic" textAnchor="middle" textLength="310" lengthAdjust="spacingAndGlyphs">www.alabama.travel</text>
       </PlateSvg>
     </PlateFrame>

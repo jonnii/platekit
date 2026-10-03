@@ -2,11 +2,12 @@
 
 import BaselinePlate, { PLATE_SERIF } from "../internal/BaselinePlate.js";
 import type { PlateProps } from "../types.js";
+import { BEBAS_NEUE_400 } from "../internal/registrationGlyphs.js";
 
 /** First artwork pass; source and design caveats are in plate-compare/references.ts. */
 export default function WestVirginiaPlate(props: PlateProps) {
   return (
-    <BaselinePlate {...props} state={props.state ?? "West Virginia"}
+    <BaselinePlate {...props} registrationFace={BEBAS_NEUE_400} state={props.state ?? "West Virginia"}
       name="West Virginia"
 
       rim={true}

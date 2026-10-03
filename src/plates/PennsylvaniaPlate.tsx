@@ -4,6 +4,10 @@ import PlateFrame from "../internal/PlateFrame.js";
 import PlateSvg, { PLATE_INSET_RADIUS, PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import { PlateProps } from "../types.js";
+import Registration, { cleanRegistration } from "../internal/Registration.js";
+import { BARLOW_CONDENSED_500 } from "../internal/registrationGlyphs.js";
+import { TracedLettering } from "../internal/Lettering.js";
+import { PA_NAME, PA_URL } from "../internal/traces/pa.js";
 
 /** Pennsylvania's blue-and-yellow visitPA.com base, with a keystone separator. */
 const NAVY = "#0e2c5e";
@@ -27,7 +31,7 @@ function keystone(x: number, y: number, w: number, h: number) {
 
 /** Pennsylvania issues LLL-DDDD, so split three letters from the rest. */
 function splitSerial(input: string) {
-  const cleaned = input.replace(/[\s\-–—]/g, "").toUpperCase();
+  const cleaned = cleanRegistration(input);
   if (cleaned.length < 5) return { left: cleaned, right: "", split: false };
   const m = cleaned.match(/^([A-Z*]{3})([0-9*].*)$/);
   if (m) return { left: m[1], right: m[2], split: true };
@@ -71,77 +75,19 @@ export default function PennsylvaniaPlate({ plate, state = "Pennsylvania", class
         </g>
         <rect x="11" y="9" width="978" height="483" rx={PLATE_INSET_RADIUS} fill="none" stroke="#fafafa" strokeWidth="3" />
 
-        <text
-          x="500"
-          y="96"
-          textAnchor="middle"
-          fill="#ffffff"
-          fontFamily='var(--font-geist-sans, Arial, sans-serif), ui-sans-serif, system-ui, sans-serif'
-          fontWeight={800}
-          fontSize="66"
-          textLength="493" lengthAdjust="spacingAndGlyphs"
-        >
-          PENNSYLVANIA
-        </text>
+        <TracedLettering text="PENNSYLVANIA" fill="#ffffff" paths={[{ d: PA_NAME }]} />
 
         {split ? (
           <>
-            <text
-              x="392"
-              y={serialY}
-              textAnchor="end"
-              fill={SERIAL}
-              stroke="#c8ccc5" strokeWidth="3" paintOrder="stroke"
-              fontFamily="var(--font-plate-ny, sans-serif)"
-              fontSize={size}
-              filter={`url(#paEmboss-${id})`}
-              letterSpacing="2"
-              textLength={Math.min(330, left.length * 108)} lengthAdjust="spacingAndGlyphs"
-            >
-              {left}
-            </text>
+            <Registration face={BARLOW_CONDENSED_500} text={left} x={392} y={serialY} textAnchor="end" fill={SERIAL} stroke="#c8ccc5" strokeWidth={3} paintOrder="stroke" fontSize={size} filter={`url(#paEmboss-${id})`} letterSpacing={2} width={Math.min(330, left.length * 108)} />
             {keystone(415, 219, 64, 64)}
-            <text
-              x="507"
-              y={serialY}
-              textAnchor="start"
-              fill={SERIAL}
-              stroke="#c8ccc5" strokeWidth="3" paintOrder="stroke"
-              fontFamily="var(--font-plate-ny, sans-serif)"
-              fontSize={size}
-              filter={`url(#paEmboss-${id})`}
-              letterSpacing="2"
-              textLength={Math.min(425, right.length * 106)} lengthAdjust="spacingAndGlyphs"
-            >
-              {right}
-            </text>
+            <Registration face={BARLOW_CONDENSED_500} text={right} x={507} y={serialY} textAnchor="start" fill={SERIAL} stroke="#c8ccc5" strokeWidth={3} paintOrder="stroke" fontSize={size} filter={`url(#paEmboss-${id})`} letterSpacing={2} width={Math.min(425, right.length * 106)} />
           </>
         ) : (
-          <text
-            x="500"
-            y="362"
-            textAnchor="middle"
-            fill={SERIAL}
-            fontFamily="var(--font-plate-ny, sans-serif)"
-            fontSize={size}
-            letterSpacing="4"
-          >
-            {left}
-          </text>
+          <Registration face={BARLOW_CONDENSED_500} text={left} x={500} y={362} textAnchor="middle" fill={SERIAL} fontSize={size} letterSpacing={4} width={900} />
         )}
 
-        <text
-          x="500"
-          y="456"
-          textAnchor="middle"
-          fill="#111111"
-          fontFamily='var(--font-geist-sans, Arial, sans-serif), ui-sans-serif, system-ui, sans-serif'
-          fontWeight={700}
-          fontSize="68"
-          textLength="356" lengthAdjust="spacingAndGlyphs"
-        >
-          visitPA.com
-        </text>
+        <TracedLettering text="visitPA.com" fill="#111111" paths={[{ d: PA_URL }]} />
       </PlateSvg>
     </PlateFrame>
   );

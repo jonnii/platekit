@@ -5,12 +5,13 @@ import { useId } from "react";
 import BaselinePlate, { PLATE_SERIF } from "../internal/BaselinePlate.js";
 import MaineIllustration from "../internal/MaineIllustration.js";
 import type { PlateProps } from "../types.js";
+import { BEBAS_NEUE_400 } from "../internal/registrationGlyphs.js";
 
 /** Reference-guided artwork; source and design caveats are in plate-compare/references.ts. */
 export default function MainePlate(props: PlateProps) {
   const id = useId();
   return (
-    <BaselinePlate {...props} state={props.state ?? "Maine"}
+    <BaselinePlate {...props} registrationFace={BEBAS_NEUE_400} state={props.state ?? "Maine"}
       rim={true}
       rimWidth={5}
       name="Maine"

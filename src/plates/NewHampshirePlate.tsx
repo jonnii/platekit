@@ -1,12 +1,14 @@
 "use client";
 
-import BaselinePlate, { PLATE_SANS, PLATE_SERIF, PLATE_SCRIPT } from "../internal/BaselinePlate.js";
+import BaselinePlate, { PLATE_SANS, PLATE_SCRIPT } from "../internal/BaselinePlate.js";
 import type { PlateProps } from "../types.js";
+import { NH_HAMPSHIRE } from "../internal/wordmarks.js";
+import { BARLOW_CONDENSED_500 } from "../internal/registrationGlyphs.js";
 
 /** Reference-guided artwork; source and design caveats are in plate-compare/references.ts. */
 export default function NewHampshirePlate(props: PlateProps) {
   return (
-    <BaselinePlate {...props} state={props.state ?? "New Hampshire"}
+    <BaselinePlate {...props} registrationFace={BARLOW_CONDENSED_500} state={props.state ?? "New Hampshire"}
       name="New Hampshire"
 
       colors={["#c7d8e7", "#b8c8ce", "#cbd8d6"]}
@@ -18,9 +20,8 @@ export default function NewHampshirePlate(props: PlateProps) {
       headingWidth={520}
       headingY={77}
       ink="#07513d"
-      footer="HAMPSHIRE"
-      footerFont={PLATE_SERIF}
-      footerSize={80}
+      footer={NH_HAMPSHIRE}
+      footerSize={79}
       footerTextLength={389}
       footerY={476}
     >

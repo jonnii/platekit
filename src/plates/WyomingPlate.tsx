@@ -3,11 +3,12 @@
 import { PLATE_INSET_RADIUS } from "../internal/PlateSvg.js";
 import BaselinePlate from "../internal/BaselinePlate.js";
 import type { PlateProps } from "../types.js";
+import { ANTONIO_600 } from "../internal/registrationGlyphs.js";
 
 /** Reference-guided artwork; source and design caveats are in plate-compare/references.ts. */
 export default function WyomingPlate(props: PlateProps) {
   return (
-    <BaselinePlate {...props} state={props.state ?? "Wyoming"}
+    <BaselinePlate {...props} registrationFace={ANTONIO_600} state={props.state ?? "Wyoming"}
       name="Wyoming"
       colors={["#1b294d"]}
 

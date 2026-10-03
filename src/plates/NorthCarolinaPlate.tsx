@@ -2,11 +2,12 @@
 
 import BaselinePlate, { PLATE_SANS } from "../internal/BaselinePlate.js";
 import type { PlateProps } from "../types.js";
+import { BARLOW_CONDENSED_500 } from "../internal/registrationGlyphs.js";
 
 /** Reference-guided artwork; source and design caveats are in plate-compare/references.ts. */
 export default function NorthCarolinaPlate(props: PlateProps) {
   return (
-    <BaselinePlate {...props} state={props.state ?? "North Carolina"}
+    <BaselinePlate {...props} registrationFace={BARLOW_CONDENSED_500} state={props.state ?? "North Carolina"}
       name="North Carolina"
 
       rim={true}

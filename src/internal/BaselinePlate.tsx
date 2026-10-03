@@ -2,6 +2,9 @@
 
 import PlateFrame from "./PlateFrame.js";
 import PlateSvg, { PLATE_INSET_RADIUS, PLATE_OUTLINE } from "./PlateSvg.js";
+import Lettering, { TracedLettering, type LetteringRun, type TracedRun } from "./Lettering.js";
+import Registration, { cleanRegistration } from "./Registration.js";
+import { BEBAS_NEUE_400, type RegistrationFace } from "./registrationGlyphs.js";
 import { useId, type ReactNode } from "react";
 import type { PlateProps } from "../types.js";
 
@@ -14,7 +17,8 @@ type Props = PlateProps & {
   colors: string[];
   stops?: number[];
   ink?: string;
-  heading: string;
+  /** Text in headingFont, a pre-drawn run that ignores the font props, or lettering traced in place. */
+  heading: string | LetteringRun | TracedRun;
   headingColor?: string;
   headingY?: number;
   headingX?: number;
@@ -25,7 +29,7 @@ type Props = PlateProps & {
   headingStyle?: "normal" | "italic";
   headingStroke?: string;
   serialStroke?: string;
-  footer?: string;
+  footer?: string | LetteringRun | TracedRun;
   footerColor?: string;
   footerY?: number;
   footerSize?: number;
@@ -43,6 +47,8 @@ type Props = PlateProps & {
   footerWidth?: number;
   footerTextLength?: number;
   border?: string;
+  /** The state's measured registration face; Bebas Neue where no candidate beat it. */
+  registrationFace?: RegistrationFace;
   children?: ReactNode;
   rim?: boolean;
   rimWidth?: number;
@@ -56,11 +62,11 @@ export default function BaselinePlate({
   headingColor = ink, headingX = 500, headingY = 93, headingSize = 78, headingWidth = 690,
   headingFont = PLATE_SERIF, headingWeight = 700, headingStyle, headingStroke, serialStroke, footer, footerColor = headingColor, footerY = 465,
   footerSize = 43, footerFont = PLATE_SANS, footerWeight = 600, footerStyle, footerStroke, serialX = 500, serialWidth = 880,
-  serialY = 373, serialInset = 20, separator = false, separatorWidth, separatorX = 500, footerWidth = 820, footerTextLength, border, children, rim = false, rimWidth = 24, frame = true, edgeColor,
+  serialY = 373, serialInset = 20, separator = false, separatorWidth, separatorX = 500, footerWidth = 820, footerTextLength, border, registrationFace = BEBAS_NEUE_400, children, rim = false, rimWidth = 24, frame = true, edgeColor,
   ...rest
 }: Props) {
   const id = useId().replace(/:/g, "");
-  const cleaned = plate.replace(/[\s\-–—]/g, "").toUpperCase();
+  const cleaned = cleanRegistration(plate);
   // Keep long registrations clear of fixed state symbols too.
   const split = separator && cleaned.length >= 5;
   const cut = Math.ceil(cleaned.length / 2);
@@ -88,14 +94,19 @@ export default function BaselinePlate({
           {frame && <><rect x="12" y="12" width="976" height="476" rx={PLATE_INSET_RADIUS} fill="none" stroke={border ?? "#777"} strokeOpacity={border ? 1 : .25} strokeWidth={border ? 7 : 3} />
           <rect {...PLATE_OUTLINE} fill="none" stroke="#fff" strokeOpacity=".5" strokeWidth="5" /></>}
           {rim && <rect x={rimWidth / 2} y={rimWidth / 2} width={1000 - rimWidth} height={500 - rimWidth} rx={PLATE_OUTLINE.rx} fill="none" stroke="#f5f5f2" strokeWidth={rimWidth} />}
-          <text x={headingX} y={headingY} textAnchor="middle" fill={headingColor} stroke={headingStroke} strokeWidth={headingStroke ? 12 : undefined} paintOrder="stroke" strokeLinejoin="round" fontFamily={headingFont} fontWeight={headingWeight} fontStyle={headingStyle} fontSize={headingSize} textLength={Math.min(headingWidth, heading.length * headingSize * .83)} lengthAdjust="spacingAndGlyphs">{heading}</text>
-          <g fill={ink} stroke={serialStroke} strokeWidth={serialStroke ? 3 : undefined} paintOrder="stroke" fontFamily="var(--font-plate-ny, sans-serif)" fontSize={size} textAnchor="middle">
+          {typeof heading === "object" && "paths" in heading ? <TracedLettering {...heading} fill={headingColor} />
+            : typeof heading === "string"
+            ? <text x={headingX} y={headingY} textAnchor="middle" fill={headingColor} stroke={headingStroke} strokeWidth={headingStroke ? 12 : undefined} paintOrder="stroke" strokeLinejoin="round" fontFamily={headingFont} fontWeight={headingWeight} fontStyle={headingStyle} fontSize={headingSize} textLength={Math.min(headingWidth, heading.length * headingSize * .83)} lengthAdjust="spacingAndGlyphs">{heading}</text>
+            : <Lettering run={heading} x={headingX} y={headingY} textAnchor="middle" fill={headingColor} stroke={headingStroke} strokeWidth={headingStroke ? 12 : undefined} paintOrder="stroke" strokeLinejoin="round" fontSize={headingSize} textLength={Math.min(headingWidth, heading.text.length * headingSize * .83)} />}
+          <g fill={ink} stroke={serialStroke} paintOrder="stroke">
             {split ? <>
-              <text x={leftCenter} y={baselineY} textLength={Math.min(leftGroupWidth, cut * 116)} lengthAdjust="spacingAndGlyphs">{cleaned.slice(0, cut)}</text>
-              <text x={rightCenter} y={baselineY} textLength={Math.min(rightGroupWidth, (cleaned.length - cut) * 116)} lengthAdjust="spacingAndGlyphs">{cleaned.slice(cut)}</text>
-            </> : <text x={serialX} y={baselineY} textLength={textWidth} lengthAdjust="spacingAndGlyphs">{cleaned}</text>}
+              <Registration face={registrationFace} text={cleaned.slice(0, cut)} x={leftCenter} y={baselineY} fontSize={size} textAnchor="middle" width={Math.min(leftGroupWidth, cut * 116)} strokeWidth={serialStroke ? 3 : undefined} />
+              <Registration face={registrationFace} text={cleaned.slice(cut)} x={rightCenter} y={baselineY} fontSize={size} textAnchor="middle" width={Math.min(rightGroupWidth, (cleaned.length - cut) * 116)} strokeWidth={serialStroke ? 3 : undefined} />
+            </> : <Registration face={registrationFace} text={cleaned} x={serialX} y={baselineY} fontSize={size} textAnchor="middle" width={textWidth} strokeWidth={serialStroke ? 3 : undefined} />}
           </g>
-          {footer && <text x="500" y={footerY} textAnchor="middle" fill={footerColor} fontFamily={footerFont} fontWeight={footerWeight} fontStyle={footerStyle} stroke={footerStroke} strokeWidth={footerStroke ? 4 : undefined} paintOrder="stroke" strokeLinejoin="round" fontSize={footerSize} textLength={footerTextLength ?? Math.min(footerWidth, footer.length * footerSize * .64)} lengthAdjust="spacingAndGlyphs">{footer}</text>}
+          {typeof footer === "string" && <text x="500" y={footerY} textAnchor="middle" fill={footerColor} fontFamily={footerFont} fontWeight={footerWeight} fontStyle={footerStyle} stroke={footerStroke} strokeWidth={footerStroke ? 4 : undefined} paintOrder="stroke" strokeLinejoin="round" fontSize={footerSize} textLength={footerTextLength ?? Math.min(footerWidth, footer.length * footerSize * .64)} lengthAdjust="spacingAndGlyphs">{footer}</text>}
+          {footer && typeof footer === "object" && "paths" in footer && <TracedLettering {...footer} fill={footerColor} />}
+          {footer && typeof footer === "object" && !("paths" in footer) && <Lettering run={footer} x={500} y={footerY} textAnchor="middle" fill={footerColor} stroke={footerStroke} strokeWidth={footerStroke ? 4 : undefined} paintOrder="stroke" strokeLinejoin="round" fontSize={footerSize} textLength={footerTextLength ?? Math.min(footerWidth, footer.text.length * footerSize * .64)} />}
         </g>
       </PlateSvg>
     </PlateFrame>

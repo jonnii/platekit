@@ -4,6 +4,11 @@ import PlateFrame from "../internal/PlateFrame.js";
 import PlateSvg, { PLATE_INSET_RADIUS, PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import type { PlateProps } from "../types.js";
+import Registration, { cleanRegistration } from "../internal/Registration.js";
+import Lettering, { TracedLettering } from "../internal/Lettering.js";
+import { NV_MOTTO } from "../internal/wordmarks.js";
+import { NV_NAME } from "../internal/traces/nv.js";
+import { BEBAS_NEUE_400 } from "../internal/registrationGlyphs.js";
 
 // The printed desert is faceted: pale peaks above olive foothills at left and
 // ochre, amber, and rust at right. Shared vertices keep the facets joined.
@@ -17,7 +22,7 @@ const palettes = [
 
 export default function NevadaPlate({ plate, state = "Nevada", className, style, registrationStickerAreas = false, ...rest }: PlateProps) {
   const id = useId().replace(/:/g, "");
-  const cleaned = plate.replace(/[\s\-–—]/g, "").toUpperCase();
+  const cleaned = cleanRegistration(plate);
   const split = /^[A-Z0-9*]{6}$/.test(cleaned);
   // Rounded on output: Math.sin differs in the last ULP between Node and the browser, which breaks hydration.
   const rows = [ridge.map((y, i) => [i * 50, y]), middle.map((y, i) => [i === 0 || i === 20 ? i * 50 : +(i * 50 + Math.sin(i * 9) * 12).toFixed(2), y]),
@@ -52,15 +57,15 @@ export default function NevadaPlate({ plate, state = "Nevada", className, style,
         </g>
         <rect x="13" y="13" width="974" height="475" rx={PLATE_INSET_RADIUS} fill="none" stroke={`url(#nvRim-${id})`} strokeWidth="3" />
         {registrationStickerAreas && <g data-plate-registration-sticker-area=""><rect x="852" y="29" width="118" height="89" rx="2" fill="none" stroke="#c0dae0" strokeWidth="1.5" opacity="0.7" /></g>}
-        <text x="500" y="114" textAnchor="middle" fill="#080b0c" fontFamily="var(--font-plate-motto, Georgia, serif), Georgia, serif" fontWeight="900" fontSize="110" textLength="500" lengthAdjust="spacingAndGlyphs" stroke="#080b0c" strokeWidth="3">NEVADA</text>
-        <g fill="#080b0c" fontFamily="var(--font-plate-ny, sans-serif)" fontSize="305">
+        <TracedLettering text="NEVADA" fill="#080b0c" paths={[{ d: NV_NAME }]} />
+        <g fill="#080b0c">
           {split ? <>
-            <text x="399" y="376" textAnchor="end" textLength="330" lengthAdjust="spacingAndGlyphs">{cleaned.slice(0, 3)}</text>
+            <Registration face={BEBAS_NEUE_400} text={cleaned.slice(0, 3)} x={399} y={376} fontSize={305} textAnchor="end" width={330} />
             <path d="M440 239 H486 V315 L440 277 Z" />
-            <text x="548" y="376" textLength="380" lengthAdjust="spacingAndGlyphs">{cleaned.slice(3)}</text>
-          </> : <text x="500" y="376" textAnchor="middle" fontSize={Math.min(305, 2050 / Math.max(cleaned.length, 1))} textLength={Math.min(880, cleaned.length * 122)} lengthAdjust="spacingAndGlyphs">{cleaned}</text>}
+            <Registration face={BEBAS_NEUE_400} text={cleaned.slice(3)} x={548} y={376} fontSize={305} width={380} />
+          </> : <Registration face={BEBAS_NEUE_400} text={cleaned} x={500} y={376} textAnchor="middle" fontSize={Math.min(305, 2050 / Math.max(cleaned.length, 1))} width={Math.min(880, cleaned.length * 122)} />}
         </g>
-        <text x="500" y="466" textAnchor="middle" fill="#080a08" fontFamily="var(--font-plate-motto, Georgia, serif), Georgia, serif" fontWeight="800" fontSize="58" textLength="510" lengthAdjust="spacingAndGlyphs">Home Means Nevada</text>
+        <Lettering run={NV_MOTTO} x={500} y={466} textAnchor="middle" fill="#080a08" fontSize={55} textLength={510} />
       </PlateSvg>
     </PlateFrame>
   );

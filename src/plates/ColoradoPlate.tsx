@@ -2,20 +2,19 @@
 
 import { PLATE_INSET_RADIUS } from "../internal/PlateSvg.js";
 import { useId } from "react";
-import BaselinePlate, { PLATE_SANS } from "../internal/BaselinePlate.js";
+import BaselinePlate from "../internal/BaselinePlate.js";
+import { CO_NAME } from "../internal/traces/co.js";
 import type { PlateProps } from "../types.js";
+import { BARLOW_CONDENSED_500 } from "../internal/registrationGlyphs.js";
 
 /** Reference-guided artwork; source and design caveats are in plate-compare/references.ts. */
 export default function ColoradoPlate(props: PlateProps) {
   const rockFade = `co-rock-${useId()}`;
   return (
-    <BaselinePlate {...props} state={props.state ?? "Colorado"}
+    <BaselinePlate {...props} registrationFace={BARLOW_CONDENSED_500} state={props.state ?? "Colorado"}
       name="Colorado"
       colors={["#f4f5f1"]}
-      heading="COLORADO"
-      headingY={458}
-      headingSize={72}
-      headingFont={PLATE_SANS}
+      heading={{ text: "COLORADO", paths: [{ d: CO_NAME }] }}
       frame={false}
       rim={true}
       rimWidth={14}

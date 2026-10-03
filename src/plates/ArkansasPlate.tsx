@@ -3,12 +3,13 @@
 import { useId } from "react";
 import BaselinePlate, { PLATE_SANS, PLATE_SERIF } from "../internal/BaselinePlate.js";
 import type { PlateProps } from "../types.js";
+import { BEBAS_NEUE_400 } from "../internal/registrationGlyphs.js";
 
 /** Reference-guided artwork; source and design caveats are in plate-compare/references.ts. */
 export default function ArkansasPlate(props: PlateProps) {
   const id = useId();
   return (
-    <BaselinePlate {...props} state={props.state ?? "Arkansas"}
+    <BaselinePlate {...props} registrationFace={BEBAS_NEUE_400} state={props.state ?? "Arkansas"}
       name="Arkansas"
       colors={["#a4d1e4", "#eff0ef"]}
       stops={[0, 0.62]}

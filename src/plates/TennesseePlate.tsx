@@ -1,22 +1,20 @@
 "use client";
 
 import { PLATE_INSET_RADIUS, PLATE_OUTLINE } from "../internal/PlateSvg.js";
-import BaselinePlate, { Star, PLATE_SANS } from "../internal/BaselinePlate.js";
+import BaselinePlate, { Star } from "../internal/BaselinePlate.js";
+import { TracedLettering } from "../internal/Lettering.js";
 import type { PlateProps } from "../types.js";
+import { BARLOW_CONDENSED_500 } from "../internal/registrationGlyphs.js";
+import { TN_MOTTO, TN_NAME } from "../internal/traces/tn.js";
 
 /** Reference-guided artwork; source and design caveats are in plate-compare/references.ts. */
 export default function TennesseePlate(props: PlateProps) {
   return (
-    <BaselinePlate {...props} state={props.state ?? "Tennessee"}
+    <BaselinePlate {...props} registrationFace={BARLOW_CONDENSED_500} state={props.state ?? "Tennessee"}
       name="Tennessee"
       colors={["#172652"]}
-      heading="TENNESSEE"
+      heading={{ text: "TENNESSEE", paths: [{ d: TN_NAME }] }}
       headingColor="#fff"
-      headingFont={PLATE_SANS}
-      headingSize={48}
-      headingWeight={400}
-      headingWidth={346}
-      headingY={91}
       ink="#fff"
       footer="TNVACATION.COM"
       footerSize={32}
@@ -37,7 +35,7 @@ export default function TennesseePlate(props: PlateProps) {
       <circle cx="437" cy="264" r="57" fill="none" stroke="#e43358" strokeWidth="7" />
       <circle cx="437" cy="264" r="53" fill="none" stroke="#fff" strokeWidth="4" />
       <Star x={419} y={243} size={44} fill="#fff" /><Star x={426} y={285} size={44} fill="#fff" /><Star x={460} y={256} size={44} fill="#fff" />
-      <text x="42" y="49" fontFamily={PLATE_SANS} fontSize="23" letterSpacing="3" fill="#fff"><tspan x="42">THE</tspan><tspan x="42" dy="24">VOLUNTEER</tspan><tspan x="42" dy="24">STATE</tspan></text>
+      <TracedLettering text="THE VOLUNTEER STATE" paths={[{ d: TN_MOTTO }]} fill="#fff" />
       {props.registrationStickerAreas && <g data-plate-registration-sticker-area=""><rect x="259" y="404" width="480" height="70" fill="#f2f2ee" /></g>}
     </BaselinePlate>
   );

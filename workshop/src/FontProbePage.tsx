@@ -59,11 +59,39 @@ function useCandidateFonts(candidates: FontCandidate[]) {
 function probeTexts(root: HTMLElement, probe: FontProbe) {
   return [...root.querySelectorAll<SVGTextElement>("svg text")].filter((text) => {
     if (probe.kind === "wordmark") return text.textContent?.trim() === probe.text;
-    const font = text.closest("[font-family]")?.getAttribute("font-family") ?? "";
-    const bounds = text.getBBox();
-    // Some headings and footers share the serial family. Restrict by position as well.
-    return font.includes("--font-plate-ny") && bounds.y + bounds.height / 2 > 130 && bounds.y + bounds.height / 2 < 400;
+    return text.dataset.liveOutline !== undefined;
   });
+}
+
+/** The face a probe's outlines are drawn from: its adopted selection, or Bebas Neue for registrations nothing beat. */
+function outlineFace(probe: FontProbe): FontCandidate | undefined {
+  const selected = fontProbeSelection(probe.id).candidate;
+  const id = selected !== "current" ? selected : probe.kind === "registration" ? "bebas-neue-400" : undefined;
+  return probe.candidates.find((candidate) => candidate.id === id);
+}
+
+/**
+ * Runtime registrations and adopted wordmarks are outlines. Trials need live text, so swap
+ * each run for <text> in the outlines' source face over the same drawn extent, inside this page only.
+ */
+function liveOutlines(root: HTMLElement, probe: FontProbe) {
+  const face = outlineFace(probe);
+  const runs = [...root.querySelectorAll<SVGGElement>(probe.kind === "registration" ? "svg g[data-registration]" : "svg g[data-lettering]")]
+    // Traced lettering has no source face to trial against, so it stays as drawn.
+    .filter((run) => run.dataset.face !== "traced" && (probe.kind === "registration" || run.dataset.lettering === probe.text));
+  const swapped = face ? runs.map((run) => {
+    const [left, right] = run.dataset.extent!.split(" ").map(Number);
+    const [, , y, , scale] = run.firstElementChild!.getAttribute("transform")!.match(/translate\(([-\d.]+) ([-\d.]+)\) scale\(([-\d.]+) ([-\d.]+)\)/)!.map(Number);
+    const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    Object.entries({ x: (left! + right!) / 2, y: y!, "text-anchor": "middle", "font-family": `"${face.family}"`, "font-weight": face.weight, "font-style": face.style ?? "normal",
+      "font-size": scale! * 1000, textLength: right! - left!, lengthAdjust: "spacingAndGlyphs" }).forEach(([name, value]) => text.setAttribute(name, String(value)));
+    text.textContent = run.dataset.registration ?? run.dataset.lettering!;
+    text.dataset.liveOutline = "";
+    run.style.display = "none";
+    run.after(text);
+    return { run, text };
+  }) : [];
+  return () => { for (const { run, text } of swapped) { text.remove(); run.style.display = ""; } };
 }
 
 /** Apply trial typography only inside this actual component instance. No runtime SVG is rewritten. */
@@ -72,6 +100,7 @@ function TrialPlate({ probe, candidate, sample, ready }: { probe: FontProbe; can
   const [count, setCount] = useState<number>();
   useLayoutEffect(() => {
     if (!ready || !root.current) return;
+    const restore = liveOutlines(root.current, probe);
     const texts = probeTexts(root.current, probe);
     setCount(texts.length);
     const canvas = document.createElement("canvas").getContext("2d")!;
@@ -95,7 +124,7 @@ function TrialPlate({ probe, candidate, sample, ready }: { probe: FontProbe; can
       text.style.fontSize = `${size * (newHeight > 0 ? oldHeight / newHeight : 1)}px`;
       text.dataset.probeTarget = "true";
     }
-    return () => { for (const { text, style } of saved) { if (style === null) text.removeAttribute("style"); else text.setAttribute("style", style); delete text.dataset.probeTarget; } };
+    return () => { restore(); for (const { text, style } of saved) { if (style === null) text.removeAttribute("style"); else text.setAttribute("style", style); delete text.dataset.probeTarget; } };
   }, [probe, candidate, sample, ready]);
   return <div ref={root} data-trial-font={candidate?.id ?? "current"} data-target-count={count}>
     <LicensePlate state={probe.state} plate={sample} />
@@ -150,8 +179,8 @@ function ProbeDetail({ probe, review, save }: { probe: FontProbe; review: Review
     <label className="my-3 flex flex-wrap items-center gap-2 text-sm">Custom registration <input aria-label="Custom registration" className="border bg-white p-2" value={sample} maxLength={20} onChange={(event) => setSample(event.target.value)} /></label>
     {probe.kind === "registration" && ready && <div className="my-4 overflow-x-auto rounded border bg-white p-3">
       <p className="mb-1 text-xs text-zinc-500">Diagnostic glyphs · natural spacing, no width fitting</p>
-      <p className="whitespace-nowrap text-4xl" style={{ fontFamily: selected ? `"${selected.family}"` : "var(--font-plate-ny)", fontWeight: selected?.weight ?? 400, fontSynthesis: "none" }}>ABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
-      <p className="whitespace-nowrap text-4xl" style={{ fontFamily: selected ? `"${selected.family}"` : "var(--font-plate-ny)", fontWeight: selected?.weight ?? 400, fontSynthesis: "none" }}>0123456789 · B8 D0 O0 I1 S5 Z2 · AB***34</p>
+      <p className="whitespace-nowrap text-4xl" style={{ fontFamily: `"${(selected ?? outlineFace(probe))?.family}"`, fontWeight: (selected ?? outlineFace(probe))?.weight, fontSynthesis: "none" }}>ABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
+      <p className="whitespace-nowrap text-4xl" style={{ fontFamily: `"${(selected ?? outlineFace(probe))?.family}"`, fontWeight: (selected ?? outlineFace(probe))?.weight, fontSynthesis: "none" }}>0123456789 · B8 D0 O0 I1 S5 Z2 · AB***34</p>
     </div>}
     {COMPARISON_WIDTHS.map((width) => <div key={width} className="mt-4">
       <p className="mb-2 text-xs text-zinc-600">{width}px · original / selected candidate</p>

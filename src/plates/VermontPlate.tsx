@@ -4,6 +4,10 @@ import PlateFrame from "../internal/PlateFrame.js";
 import PlateSvg, { PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import type { PlateProps } from "../types.js";
+import Registration, { cleanRegistration } from "../internal/Registration.js";
+import { BARLOW_CONDENSED_500 } from "../internal/registrationGlyphs.js";
+import { TracedLettering } from "../internal/Lettering.js";
+import { VT_NAME, VT_SLOGAN } from "../internal/traces/vt.js";
 
 const GREEN = "#075442";
 const WHITE = "#e4e8de";
@@ -11,7 +15,7 @@ const WHITE = "#e4e8de";
 /** Vermont's white serial panel and finely branched sugar maple. */
 export default function VermontPlate({ plate, state = "Vermont", className, style, ...rest }: PlateProps) {
   const id = useId();
-  const cleaned = plate.replace(/[\s\-–—]/g, "").toUpperCase();
+  const cleaned = cleanRegistration(plate);
   const size = Math.min(329, 2303 / Math.max(7, cleaned.length));
   return (
     <PlateFrame className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }} aria-label={`License plate ${plate} from ${state}`} {...rest}>
@@ -42,9 +46,9 @@ export default function VermontPlate({ plate, state = "Vermont", className, styl
             const y = 48 + Math.sin(angle) * 37 * radius;
             return <path key={i} transform={`translate(${x.toFixed(2)} ${y.toFixed(2)}) rotate(${i * 47 % 360})`} d="M0 -3 1 -1 3 -2 2 0 3 1 1 2 0 3 -1 1 -3 1 -2 -1 -1 -1Z" fill={WHITE} opacity={.55 + (i % 4) * .12} />;
           })}
-          <text x="500" y="85" textAnchor="middle" fill={WHITE} stroke={WHITE} strokeWidth=".7" fontFamily='Georgia, "Times New Roman", serif' fontWeight="700" fontSize="98" textLength="410" lengthAdjust="spacingAndGlyphs">Vermont</text>
-          <text x="500" y={373 - (329 - size) * .35} textAnchor="middle" fill={WHITE} fontFamily="var(--font-plate-ny, sans-serif)" fontSize={size} textLength={Math.min(858, cleaned.length * 122)} lengthAdjust="spacingAndGlyphs">{cleaned}</text>
-          <text x="500" y="474" textAnchor="middle" fill={WHITE} fontFamily='Georgia, "Times New Roman", serif' fontSize="47" textLength="523" lengthAdjust="spacingAndGlyphs">Green Mountain State</text>
+          <TracedLettering text="Vermont" paths={[{ d: VT_NAME }]} fill={WHITE} />
+          <Registration face={BARLOW_CONDENSED_500} text={cleaned} x={500} y={373 - (329 - size) * .35} textAnchor="middle" fill={WHITE} fontSize={size} width={Math.min(858, cleaned.length * 122)} />
+          <TracedLettering text="Green Mountain State" paths={[{ d: VT_SLOGAN }]} fill={WHITE} />
         </g>
       </PlateSvg>
     </PlateFrame>

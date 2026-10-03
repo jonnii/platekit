@@ -4,10 +4,12 @@ import PlateFrame from "../internal/PlateFrame.js";
 import PlateSvg, { PLATE_INSET_RADIUS, PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import type { PlateProps } from "../types.js";
+import Registration, { cleanRegistration } from "../internal/Registration.js";
+import { TEKO_500 } from "../internal/registrationGlyphs.js";
 
 export default function MontanaPlate({ plate, state = "Montana", className, style, registrationStickerAreas = false, ...rest }: PlateProps) {
   const id = useId().replace(/:/g, "");
-  const cleaned = plate.replace(/[\s\-–—]/g, "").toUpperCase();
+  const cleaned = cleanRegistration(plate);
   const split = /^[A-Z0-9*]{6,7}$/.test(cleaned);
   return (
     <PlateFrame className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }} aria-label={`License plate ${plate} from ${state}`} {...rest}>
@@ -30,14 +32,14 @@ export default function MontanaPlate({ plate, state = "Montana", className, styl
           fill="none" stroke="#fbfcf5" strokeWidth="7.5" strokeLinejoin="round" strokeLinecap="round" />
         {registrationStickerAreas && <g data-plate-registration-sticker-area=""><rect x="865" y="31" width="103" height="68" fill="none" stroke="#e6ebe4" strokeWidth="1" /></g>}
         <text x="501" y="71" fill="#fff" textAnchor="middle" fontFamily="var(--font-geist-sans, Arial, sans-serif), sans-serif" fontWeight="800" fontSize="46" textLength="494" lengthAdjust="spacingAndGlyphs">TREASURE STATE</text>
-        <g fill="#fff" fontFamily="var(--font-plate-ny, sans-serif)">
+        <g fill="#fff">
           {split ? <>
-            <text x="505" y="336" textAnchor="end" fontSize="309" textLength="294" lengthAdjust="spacingAndGlyphs">{cleaned.slice(0, 3)}</text>
+            <Registration face={TEKO_500} text={cleaned.slice(0, 3)} x={505} y={336} textAnchor="end" fontSize={309} width={294} />
             <path d="M543 211 Q531 202 525 208 Q518 209 524 198 L521 196 Q509 211 524 216 L535 219
               Q529 223 535 229 L541 244 L546 257 L550 246 L557 233 Q564 225 559 219
               Q582 216 576 203 L571 196 L568 198 Q576 211 564 209 Q553 203 543 211 Z" />
-            <text x="588" y="336" fontSize="309" textLength="343" lengthAdjust="spacingAndGlyphs">{cleaned.slice(3)}</text>
-          </> : <text x="568" y="336" textAnchor="middle" fontSize={Math.min(300, 1800 / Math.max(cleaned.length, 1))} letterSpacing="4">{cleaned}</text>}
+            <Registration face={TEKO_500} text={cleaned.slice(3)} x={588} y={336} fontSize={309} width={343} />
+          </> : <Registration face={TEKO_500} text={cleaned} x={568} y={336} textAnchor="middle" fontSize={Math.min(300, 1800 / Math.max(cleaned.length, 1))} letterSpacing={4} width={760} />}
         </g>
         {/* “10” identifies this blue base's issue year, not a vehicle's county. */}
         <text x="576" y="409" fill="#fff" textAnchor="middle" fontFamily="var(--font-geist-sans, Arial, sans-serif), sans-serif" fontWeight="800" fontSize="65" textLength="554" lengthAdjust="spacingAndGlyphs">MONTANA - 10</text>

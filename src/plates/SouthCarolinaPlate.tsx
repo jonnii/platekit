@@ -3,11 +3,12 @@
 import { PLATE_INSET_RADIUS } from "../internal/PlateSvg.js";
 import BaselinePlate, { PLATE_SERIF, Star } from "../internal/BaselinePlate.js";
 import type { PlateProps } from "../types.js";
+import { BARLOW_CONDENSED_700 } from "../internal/registrationGlyphs.js";
 
 /** First artwork pass; source and design caveats are in plate-compare/references.ts. */
 export default function SouthCarolinaPlate(props: PlateProps) {
   return (
-    <BaselinePlate {...props} state={props.state ?? "South Carolina"}
+    <BaselinePlate {...props} registrationFace={BARLOW_CONDENSED_700} state={props.state ?? "South Carolina"}
       name="South Carolina"
       colors={["#fff"]}
       heading="Where the Revolutionary War Was Won"

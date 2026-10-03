@@ -3,11 +3,12 @@
 import { PLATE_INSET_RADIUS, PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import BaselinePlate from "../internal/BaselinePlate.js";
 import type { PlateProps } from "../types.js";
+import { BEBAS_NEUE_400 } from "../internal/registrationGlyphs.js";
 
 /** Reference-guided artwork; source and design caveats are in plate-compare/references.ts. */
 export default function AlaskaPlate(props: PlateProps) {
   return (
-    <BaselinePlate {...props} state={props.state ?? "Alaska"}
+    <BaselinePlate {...props} registrationFace={BEBAS_NEUE_400} state={props.state ?? "Alaska"}
       name="Alaska"
       colors={["#e9af04"]}
       heading="ALASKA"

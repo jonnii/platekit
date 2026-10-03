@@ -1,27 +1,24 @@
 "use client";
 
 import { PLATE_INSET_RADIUS } from "../internal/PlateSvg.js";
-import BaselinePlate, { PLATE_SANS } from "../internal/BaselinePlate.js";
+import BaselinePlate from "../internal/BaselinePlate.js";
 import type { PlateProps } from "../types.js";
+import { BARLOW_CONDENSED_500 } from "../internal/registrationGlyphs.js";
+import { DE_MOTTO, DE_NAME } from "../internal/traces/de.js";
 
 /** Reference-guided artwork; source and design caveats are in plate-compare/references.ts. */
 export default function DelawarePlate(props: PlateProps) {
   return (
-    <BaselinePlate {...props} state={props.state ?? "Delaware"}
+    <BaselinePlate {...props} registrationFace={BARLOW_CONDENSED_500} state={props.state ?? "Delaware"}
       name="Delaware"
       colors={["#122442", "#05152e", "#06152e"]}
       stops={[0, 0.22, 1]}
       frame={false}
       edgeColor="#c29a4c"
 
-      heading="THE FIRST STATE"
-      headingFont={PLATE_SANS}
-      headingSize={49}
-      headingWidth={475}
-      headingY={76}
+      heading={{ text: "THE FIRST STATE", paths: [{ d: DE_MOTTO }] }}
       ink="#c29949"
-      footer="DELAWARE"
-      footerSize={65}
+      footer={{ text: "DELAWARE", paths: [{ d: DE_NAME }] }}
       border="#c29949"
     >
       <rect x="10" y="10" width="980" height="480" rx={PLATE_INSET_RADIUS} fill="none" stroke="#c59a49" strokeWidth="20" />

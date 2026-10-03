@@ -4,13 +4,17 @@ import PlateFrame from "../internal/PlateFrame.js";
 import PlateSvg, { PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import type { PlateProps } from "../types.js";
+import Registration, { cleanRegistration } from "../internal/Registration.js";
+import Lettering from "../internal/Lettering.js";
+import { KS_MOTTO } from "../internal/wordmarks.js";
+import { BEBAS_NEUE_400 } from "../internal/registrationGlyphs.js";
 
 const INK = "#334550";
 
 /** To the Stars: the Kansas outline and Capitol's Ad Astra statue. */
 export default function KansasPlate({ plate, state = "Kansas", className, style, registrationStickerAreas = false, ...rest }: PlateProps) {
   const id = useId();
-  const cleaned = plate.replace(/[\s\-–—]/g, "").toUpperCase();
+  const cleaned = cleanRegistration(plate);
   const serialSize = Math.min(270, 1890 / Math.max(7, cleaned.length));
   return (
     <PlateFrame className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }} aria-label={`License plate ${plate} from ${state}`} {...rest}>
@@ -45,8 +49,8 @@ export default function KansasPlate({ plate, state = "Kansas", className, style,
             <ellipse cx="168" cy="473" rx="6.5" ry="3.5" transform="rotate(57 168 473)" />
           </g>
           <text x="500" y="133" textAnchor="middle" fill={INK} stroke={INK} strokeWidth="3" fontFamily="var(--font-plate-ny, sans-serif)" fontSize="135" textLength="438" lengthAdjust="spacingAndGlyphs">KANSAS</text>
-          <text x="558" y={383 - (270 - serialSize) * .35} textAnchor="middle" fill="#030404" fontFamily="var(--font-plate-ny, sans-serif)" fontSize={serialSize} textLength={Math.min(724, cleaned.length * 104)} lengthAdjust="spacingAndGlyphs">{cleaned}</text>
-          <text x="511" y="467" textAnchor="middle" fill={INK} fontFamily="var(--font-plate-script, cursive), cursive" fontSize="84" textLength="326" lengthAdjust="spacingAndGlyphs">to the stars</text>
+          <Registration face={BEBAS_NEUE_400} text={cleaned} x={558} y={383 - (270 - serialSize) * .35} textAnchor="middle" fill="#030404" fontSize={serialSize} width={Math.min(724, cleaned.length * 104)} />
+          <Lettering run={KS_MOTTO} x={511} y={467} textAnchor="middle" fill={INK} fontSize={68} textLength={326} />
         </g>
       </PlateSvg>
     </PlateFrame>

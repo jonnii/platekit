@@ -2,11 +2,12 @@
 
 import BaselinePlate, { PLATE_SANS } from "../internal/BaselinePlate.js";
 import type { PlateProps } from "../types.js";
+import { ROBOTO_CONDENSED_700 } from "../internal/registrationGlyphs.js";
 
 /** Reference-guided artwork; source and design caveats are in plate-compare/references.ts. */
 export default function ArizonaPlate(props: PlateProps) {
   return (
-    <BaselinePlate {...props} state={props.state ?? "Arizona"}
+    <BaselinePlate {...props} registrationFace={ROBOTO_CONDENSED_700} state={props.state ?? "Arizona"}
       rim={true}
       rimWidth={11}
       name="Arizona"

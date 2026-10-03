@@ -4,6 +4,10 @@ import PlateFrame from "../internal/PlateFrame.js";
 import PlateSvg, { PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import { PlateProps } from "../types.js";
+import Registration, { cleanRegistration } from "../internal/Registration.js";
+import { BEBAS_NEUE_400 } from "../internal/registrationGlyphs.js";
+import { TracedLettering } from "../internal/Lettering.js";
+import { FL_MOTTO, FL_URL } from "../internal/traces/fl.js";
 
 /**
  * Stipple dots on an orange. The real artwork shades each fruit with a screen of
@@ -87,7 +91,6 @@ export default function FloridaPlate({ plate, state = "Florida", className, styl
       >
         <title>Florida</title>
         <defs>
-          <path id={`flTopArc-${id}`} d="M180 120 C500 30 500 30 820 120" fill="none" />
           {/* Keep the screen in plate coordinates so the state does not enlarge its dots. */}
           <pattern id={`flHalftone-${id}`} width="3" height="3" patternUnits="userSpaceOnUse">
             <rect width="3" height="3" fill="#d5e1d9" />
@@ -104,12 +107,8 @@ export default function FloridaPlate({ plate, state = "Florida", className, styl
         <rect x="7" y="6" width="986" height="487" rx={PLATE_OUTLINE.rx} fill="none" stroke={`url(#flRim-${id})`} strokeWidth="2.4" />
         {registrationStickerAreas && <g data-plate-registration-sticker-area=""><rect x="842" y="19" width="130" height="91" rx="6" fill="#fff" stroke={`url(#flRim-${id})`} strokeWidth="2.6" /></g>}
 
-        {/* Arc header: MYFLORIDA.COM */}
-        <g transform="translate(0,25)">
-          <text fill={green} fontFamily={'ui-serif, Georgia, Cambria, "Times New Roman", Times, serif'} fontWeight={800} fontSize={60} letterSpacing={0}>
-            <textPath href={`#flTopArc-${id}`} startOffset="50%" textAnchor="middle">MYFLORIDA.COM</textPath>
-          </text>
-        </g>
+        {/* Arc header, traced in place */}
+        <TracedLettering text="MYFLORIDA.COM" fill={green} paths={[{ d: FL_URL }]} />
 
         {/* Panhandle, Atlantic coast, Everglades, and the small arc of the Keys. */}
         <path d="M274 114 L286 108 L410 104 L416 119 L553 122 L555 134 L560 131 L558 110 L566 105 L579 110 L590 111
@@ -155,59 +154,14 @@ export default function FloridaPlate({ plate, state = "Florida", className, styl
 
         {fl.isCanonical ? (
           <g id={`registration-${id}`} filter={`url(#flEmboss-${id})`}>
-            <text
-              x={365}
-              y={376}
-              textAnchor="end"
-              fill={serialGreen}
-              fontFamily={'var(--font-plate-ny, sans-serif)'}
-              fontSize={320}
-              letterSpacing={2}
-              textLength="322" lengthAdjust="spacingAndGlyphs"
-            >
-              {fl.leftLetters}
-            </text>
-            <text
-              x={635}
-              y={376}
-              textAnchor="start"
-              fill={serialGreen}
-              fontFamily={'var(--font-plate-ny, sans-serif)'}
-              fontSize={320}
-              letterSpacing={2}
-              textLength="322" lengthAdjust="spacingAndGlyphs"
-            >
-              {fl.rightDigits}
-            </text>
+            <Registration face={BEBAS_NEUE_400} text={fl.leftLetters} x={365} y={376} textAnchor="end" fill={serialGreen} fontSize={320} letterSpacing={2} width={322} />
+            <Registration face={BEBAS_NEUE_400} text={fl.rightDigits} x={635} y={376} textAnchor="start" fill={serialGreen} fontSize={320} letterSpacing={2} width={322} />
           </g>
         ) : (
-          <text
-            x={500}
-            y={376}
-            textAnchor="middle"
-            fill={serialGreen}
-            fontFamily={'var(--font-plate-ny, sans-serif)'}
-            fontSize={Math.min(320, 2050 / Math.max(fl.centered.length, 1))}
-            letterSpacing={6}
-          >
-            {fl.centered}
-          </text>
+          <Registration face={BEBAS_NEUE_400} text={fl.centered} x={500} y={376} textAnchor="middle" fill={serialGreen} fontSize={Math.min(320, 2050 / Math.max(fl.centered.length, 1))} letterSpacing={6} width={900} />
         )}
 
-        <text
-          x={500}
-          y={468}
-          textAnchor="middle"
-          fill={serialGreen}
-          fontFamily="var(--font-plate-ny, sans-serif)"
-          fontWeight={400}
-          fontSize={78}
-          textLength="552" lengthAdjust="spacingAndGlyphs"
-          filter={`url(#flEmboss-${id})`}
-          letterSpacing={2}
-        >
-          SUNSHINE STATE
-        </text>
+        <TracedLettering text="SUNSHINE STATE" fill={serialGreen} filter={`url(#flEmboss-${id})`} paths={[{ d: FL_MOTTO }]} />
       </PlateSvg>
     </PlateFrame>
   );
@@ -219,7 +173,7 @@ function formatFlPlate(input: string): {
   leftLetters: string;
   rightDigits: string;
 } {
-  const cleaned = input.replace(/[\s\-\u2013\u2014]/g, "").toUpperCase();
+  const cleaned = cleanRegistration(input);
   // Florida canonical: any 6 alphanumeric characters or asterisks
   if (/^[A-Z0-9*]{6}$/.test(cleaned)) {
     return {

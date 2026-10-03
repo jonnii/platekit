@@ -4,6 +4,8 @@ import PlateFrame from "../internal/PlateFrame.js";
 import PlateSvg, { PLATE_INSET_RADIUS, PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import { PlateProps } from "../types.js";
+import Registration, { cleanRegistration } from "../internal/Registration.js";
+import { BEBAS_NEUE_400 } from "../internal/registrationGlyphs.js";
 
 const INK = "#093169";
 const SANS = 'var(--font-geist-sans, Arial, sans-serif), ui-sans-serif, system-ui, sans-serif';
@@ -11,7 +13,7 @@ const SANS = 'var(--font-geist-sans, Arial, sans-serif), ui-sans-serif, system-u
 /** The bluebird Show Me State base, with a hawthorn sprig below the outline. */
 export default function MissouriPlate({ plate, state = "Missouri", className, style, ...rest }: PlateProps) {
   const id = useId().replace(/:/g, "");
-  const cleaned = plate.replace(/[\s\-–—]/g, "").toUpperCase();
+  const cleaned = cleanRegistration(plate);
   const split = cleaned.length === 6;
   const size = cleaned.length <= 7 ? 330 : Math.round(330 * 7 / cleaned.length);
 
@@ -93,12 +95,12 @@ export default function MissouriPlate({ plate, state = "Missouri", className, st
           fontWeight={800} fontStyle="italic" fontSize="87" textLength="314" lengthAdjust="spacingAndGlyphs">Missouri</text>
         <text x="500" y="110" textAnchor="middle" fill="#223e67" fontFamily={SANS}
           fontWeight={700} fontSize="22" textLength="183" lengthAdjust="spacingAndGlyphs">SHOW ME STATE</text>
-        <g fill={INK} stroke="#c8cfc7" strokeWidth="3" paintOrder="stroke" fontFamily="var(--font-plate-ny, sans-serif)" fontSize={size}>
+        <g fill={INK} stroke="#c8cfc7" paintOrder="stroke">
           {split ? <>
-            <text x="433" y="373" textAnchor="end" textLength="380" lengthAdjust="spacingAndGlyphs">{cleaned.slice(0, 3)}</text>
-            <text x="550" y="373" textLength="397" lengthAdjust="spacingAndGlyphs">{cleaned.slice(3)}</text>
-          </> : <text x="500" y={373 - (330 - size) * 0.35} textAnchor="middle"
-            textLength={Math.min(900, cleaned.length * 126) || undefined} lengthAdjust="spacingAndGlyphs">{cleaned}</text>}
+            <Registration face={BEBAS_NEUE_400} text={cleaned.slice(0, 3)} x={433} y={373} fontSize={size} strokeWidth={3} textAnchor="end" width={380} />
+            <Registration face={BEBAS_NEUE_400} text={cleaned.slice(3)} x={550} y={373} fontSize={size} strokeWidth={3} width={397} />
+          </> : <Registration face={BEBAS_NEUE_400} text={cleaned} x={500} y={373 - (330 - size) * 0.35} fontSize={size} strokeWidth={3} textAnchor="middle"
+            width={Math.min(900, cleaned.length * 126)} />}
         </g>
       </PlateSvg>
     </PlateFrame>

@@ -4,12 +4,14 @@ import PlateFrame from "../internal/PlateFrame.js";
 import PlateSvg, { PLATE_INSET_RADIUS, PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import type { PlateProps } from "../types.js";
+import Registration, { cleanRegistration } from "../internal/Registration.js";
+import { BARLOW_CONDENSED_500 } from "../internal/registrationGlyphs.js";
 
 /** Sunrise over the Badlands, wheat heads and a shaggy plains bison. */
 export default function NorthDakotaPlate({ plate, state = "North Dakota", className, style, registrationStickerAreas = false, ...rest }: PlateProps) {
   const id = useId();
   const paint = (name: string) => `url(#nd-${name}-${id})`;
-  const cleaned = plate.replace(/[\s\-–—]/g, "").toUpperCase();
+  const cleaned = cleanRegistration(plate);
   const size = Math.min(281, 1967 / Math.max(7, cleaned.length));
   return (
     <PlateFrame className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }} aria-label={`License plate ${plate} from ${state}`} {...rest}>
@@ -82,7 +84,7 @@ export default function NorthDakotaPlate({ plate, state = "North Dakota", classN
           {registrationStickerAreas && <g data-plate-registration-sticker-area=""><rect x="847" y="30" width="96" height="62" fill="#10272b" /><text x="895" y="49" textAnchor="middle" fill="#99c2c9" fontFamily="Arial, sans-serif" fontSize="15"><tspan x="895">PLACE</tspan><tspan x="895" dy="18">STICKER</tspan><tspan x="895" dy="18">HERE</tspan></text></g>}
           <text x="503" y="52" textAnchor="middle" fill="#243b3b" fontFamily='Georgia, "Times New Roman", serif' fontWeight="700" fontSize="22" letterSpacing="16">LEGENDARY</text>
           <text x="507" y="112" textAnchor="middle" fill="#93532f" stroke="#1d231f" strokeWidth="4" paintOrder="stroke" fontFamily="var(--font-geist-sans, Arial, sans-serif), Arial, sans-serif" fontWeight="800" fontSize="68" textLength="535" lengthAdjust="spacingAndGlyphs">NORTH DAKOTA</text>
-          <text x="500" y={339 - (281 - size) * .35} textAnchor="middle" fill="#061b1d" fontFamily="var(--font-plate-ny, sans-serif)" fontSize={size} textLength={Math.min(873, cleaned.length * 123)} lengthAdjust="spacingAndGlyphs">{cleaned}</text>
+          <Registration face={BARLOW_CONDENSED_500} text={cleaned} x={500} y={339 - (281 - size) * .35} textAnchor="middle" fill="#061b1d" fontSize={size} width={Math.min(873, cleaned.length * 123)} />
           <text x="158" y="470" textAnchor="middle" fill="#efe9dc" fontFamily='Rockwell, Georgia, serif' fontWeight="900" fontSize="24" textLength="220" lengthAdjust="spacingAndGlyphs">PEACE GARDEN STATE</text>
         </g>
       </PlateSvg>

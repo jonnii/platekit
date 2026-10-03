@@ -4,10 +4,14 @@ import PlateFrame from "../internal/PlateFrame.js";
 import PlateSvg, { PLATE_INSET_RADIUS, PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import type { PlateProps } from "../types.js";
+import Registration, { cleanRegistration } from "../internal/Registration.js";
+import Lettering from "../internal/Lettering.js";
+import { LA_NAME } from "../internal/wordmarks.js";
+import { BEBAS_NEUE_400 } from "../internal/registrationGlyphs.js";
 
 export default function LouisianaPlate({ plate, state = "Louisiana", className, style, registrationStickerAreas = false, ...rest }: PlateProps) {
   const id = useId().replace(/:/g, "");
-  const cleaned = plate.replace(/[\s\-–—]/g, "").toUpperCase();
+  const cleaned = cleanRegistration(plate);
   const split = /^[A-Z0-9*]{6}$/.test(cleaned);
   return (
     <PlateFrame className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }} aria-label={`License plate ${plate} from ${state}`} {...rest}>
@@ -66,13 +70,13 @@ export default function LouisianaPlate({ plate, state = "Louisiana", className, 
         <rect x="14" y="12" width="972" height="475" rx={PLATE_INSET_RADIUS} fill="none" stroke="#171b17" strokeWidth="5" />
         <rect x="18" y="17" width="964" height="465" rx={PLATE_INSET_RADIUS} fill="none" stroke="#b9bcb1" strokeWidth="1.3" />
         {registrationStickerAreas && <g data-plate-registration-sticker-area=""><rect x="853" y="380" width="113" height="84" rx="3" fill="none" stroke={`url(#laWell-${id})`} strokeWidth="2" opacity="0.75" /></g>}
-        <text x="516" y="110" textAnchor="middle" fill="#b41516" fontFamily="var(--font-plate-script, cursive)" fontSize="108" textLength="442" lengthAdjust="spacingAndGlyphs">Louisiana</text>
+        <Lettering run={LA_NAME} x={516} y={110} textAnchor="middle" fill="#b41516" fontSize={97} textLength={442} />
         <path d="M720 103 Q737 100 757 103 L753 107 L718 110 Z" fill="#b41516" />
-        <g fill="#080c09" fontFamily="var(--font-plate-ny, sans-serif)" fontSize="291">
+        <g fill="#080c09">
           {split ? <>
-            <text x="387" y="352" textAnchor="end" textLength="316" lengthAdjust="spacingAndGlyphs">{cleaned.slice(0, 3)}</text>
-            <text x="556" y="352" textLength="372" lengthAdjust="spacingAndGlyphs">{cleaned.slice(3)}</text>
-          </> : <text x="500" y="352" textAnchor="middle" fontSize={Math.min(291, 2050 / Math.max(cleaned.length, 1))} letterSpacing="5">{cleaned}</text>}
+            <Registration face={BEBAS_NEUE_400} text={cleaned.slice(0, 3)} x={387} y={352} fontSize={291} textAnchor="end" width={316} />
+            <Registration face={BEBAS_NEUE_400} text={cleaned.slice(3)} x={556} y={352} fontSize={291} width={372} />
+          </> : <Registration face={BEBAS_NEUE_400} text={cleaned} x={500} y={352} textAnchor="middle" fontSize={Math.min(291, 2050 / Math.max(cleaned.length, 1))} letterSpacing={5} width={900} />}
         </g>
         <text x="64" y="405" fill="#b21b19" fontFamily="Georgia, serif" fontWeight="700" fontSize="44" textLength="421" lengthAdjust="spacingAndGlyphs">Sportsman’s Paradise</text>
       </PlateSvg>

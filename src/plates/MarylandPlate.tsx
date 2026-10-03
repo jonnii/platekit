@@ -4,6 +4,10 @@ import PlateFrame from "../internal/PlateFrame.js";
 import PlateSvg, { PLATE_INSET_RADIUS, PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import { PlateProps } from "../types.js";
+import Registration, { cleanRegistration } from "../internal/Registration.js";
+import Lettering from "../internal/Lettering.js";
+import { MD_NAME } from "../internal/wordmarks.js";
+import { TEKO_500 } from "../internal/registrationGlyphs.js";
 
 const GOLD = "#f4cd1a";
 const BLACK = "#202222";
@@ -92,7 +96,7 @@ function Crossland({ x, y, id }: { x: number; y: number; id: string }) {
 
 export default function MarylandPlate({ plate, state = "Maryland", className, style, ...rest }: PlateProps) {
   const id = useId();
-  const cleaned = plate.replace(/[\s\-–—]/g, "").toUpperCase();
+  const cleaned = cleanRegistration(plate);
   return (
     <PlateFrame className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }}
       aria-label={`License plate ${plate} from ${state}`} {...rest}>
@@ -143,12 +147,11 @@ export default function MarylandPlate({ plate, state = "Maryland", className, st
           {/* The calligraphic M has a curled entry stroke and upright hairlines. */}
           <path d="M365 48 C350 33 324 49 335 67 C343 79 363 72 375 54 L395 22 H407 L400 67 L434 22 H447 L426 78 H413 L432 29 L397 78 H386 L391 33 L376 60 C360 89 332 84 326 66 C317 41 349 29 365 43Z" />
           <path d="M365 47 C375 38 354 33 368 26 C380 20 393 24 405 22" fill="none" stroke="#951c24" strokeWidth="6" strokeLinecap="round" />
-          <text x="442" y="78" fontFamily='"Times New Roman", Times, serif' fontWeight="700" fontStyle="italic"
-            fontSize="89" textLength="244" lengthAdjust="spacingAndGlyphs">aryland</text>
+          <Lettering run={MD_NAME} x={442} y={78} fontSize={77} textLength={244} />
         </g>
-        <text x="500" y="374" textAnchor="middle" fill="#060907" fontFamily="var(--font-plate-ny, sans-serif)"
-          fontSize={Math.min(334, 2338 / Math.max(cleaned.length, 1))} textLength={cleaned.length ? Math.min(890, cleaned.length * 127) : undefined}
-          lengthAdjust="spacingAndGlyphs" filter={`url(#mdEmboss-${id})`}>{cleaned}</text>
+        <Registration face={TEKO_500} text={cleaned} x={500} y={374} textAnchor="middle" fill="#060907"
+          fontSize={Math.min(334, 2338 / Math.max(cleaned.length, 1))} width={Math.min(890, cleaned.length * 127)}
+          filter={`url(#mdEmboss-${id})`} />
         <rect x="13" y="13" width="974" height="474" rx={PLATE_INSET_RADIUS} fill="none" stroke="#ffffff" strokeWidth="2" opacity="0.7" />
       </PlateSvg>
     </PlateFrame>

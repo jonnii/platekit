@@ -2,11 +2,12 @@
 
 import BaselinePlate, { Pine, PLATE_SERIF } from "../internal/BaselinePlate.js";
 import type { PlateProps } from "../types.js";
+import { BEBAS_NEUE_400 } from "../internal/registrationGlyphs.js";
 
 /** First artwork pass; source and design caveats are in plate-compare/references.ts. */
 export default function MinnesotaPlate(props: PlateProps) {
   return (
-    <BaselinePlate {...props} state={props.state ?? "Minnesota"}
+    <BaselinePlate {...props} registrationFace={BEBAS_NEUE_400} state={props.state ?? "Minnesota"}
       name="Minnesota"
       colors={["#8dd3e9", "#8dd3e9", "#f6f6f4", "#f6f6f4", "#8dd2f0"]}
       stops={[0, 0.21, 0.235, 0.75, 1]}

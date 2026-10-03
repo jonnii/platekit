@@ -3,11 +3,12 @@
 import { PLATE_INSET_RADIUS } from "../internal/PlateSvg.js";
 import BaselinePlate, { PLATE_SANS } from "../internal/BaselinePlate.js";
 import type { PlateProps } from "../types.js";
+import { BARLOW_CONDENSED_500 } from "../internal/registrationGlyphs.js";
 
 /** First artwork pass; source and design caveats are in plate-compare/references.ts. */
 export default function NewMexicoPlate(props: PlateProps) {
   return (
-    <BaselinePlate {...props} state={props.state ?? "New Mexico"}
+    <BaselinePlate {...props} registrationFace={BARLOW_CONDENSED_500} state={props.state ?? "New Mexico"}
       name="New Mexico"
       colors={["#239bb6", "#2595b7", "#0086aa", "#008db5", "#0083ac"]}
       stops={[0, 0.16, 0.19, 0.72, 1]}

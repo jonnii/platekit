@@ -3,11 +3,12 @@
 import { PLATE_INSET_RADIUS } from "../internal/PlateSvg.js";
 import BaselinePlate, { PLATE_SANS } from "../internal/BaselinePlate.js";
 import type { PlateProps } from "../types.js";
+import { TEKO_500 } from "../internal/registrationGlyphs.js";
 
 /** First artwork pass; source and design caveats are in plate-compare/references.ts. */
 export default function IowaPlate(props: PlateProps) {
   return (
-    <BaselinePlate {...props} state={props.state ?? "Iowa"}
+    <BaselinePlate {...props} registrationFace={TEKO_500} state={props.state ?? "Iowa"}
       rim={true}
       rimWidth={11}
       name="Iowa"

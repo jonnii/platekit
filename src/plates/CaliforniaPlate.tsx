@@ -4,6 +4,10 @@ import PlateFrame from "../internal/PlateFrame.js";
 import PlateSvg, { PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import { PlateProps } from "../types.js";
+import Registration, { cleanRegistration } from "../internal/Registration.js";
+import { TEKO_500 } from "../internal/registrationGlyphs.js";
+import { TracedLettering } from "../internal/Lettering.js";
+import { CA_NAME, CA_URL } from "../internal/traces/ca.js";
 
 export default function CaliforniaPlate({ plate, state = "California", className, style, ...rest }: PlateProps) {
   const id = useId().replace(/:/g, "");
@@ -36,67 +40,18 @@ export default function CaliforniaPlate({ plate, state = "California", className
         <rect {...PLATE_OUTLINE} fill="#fff" />
         <path d="M1 30 Q1 1 30 1 H970 Q999 1 999 30 M1 470 Q1 499 30 499 H970 Q999 499 999 470" fill="none" stroke={`url(#caRim-${id})`} strokeWidth="2.5" />
 
-        {/* Brush script with the wide proportions and trailing swash of the white base */}
-        <text
-          x={500}
-          y={109}
-          textAnchor="middle"
-          fill={red}
-          fontFamily={"var(--font-plate-script, cursive)"}
-          fontWeight={400}
-          fontSize={118}
-          textLength="500"
-          lengthAdjust="spacingAndGlyphs"
-        >
-          California
-        </text>
-
-        <path d="M744 99 C747 111 779 113 808 111 L804 115 C777 118 742 116 739 108 Z" fill={red} />
+        {/* Traced script, including its trailing swash. The source plate's serial sits lower than this taller
+            registration, so the script is raised to its top-rim position and the "f" clears the digits. */}
+        <TracedLettering text="California" fill={red} transform="translate(0 -25)" paths={[{ d: CA_NAME }]} />
 
         {/* A single fitted run keeps canonical groups within the pressed rim. */}
         {ca.isCanonical ? (
-          <text
-            id={`registration-${id}`}
-            x={500}
-            y={401}
-            textAnchor="middle"
-            fill={blue}
-            fontFamily={"var(--font-plate-ny, sans-serif)"}
-            fontSize={332}
-            textLength="820"
-            lengthAdjust="spacingAndGlyphs"
-            letterSpacing={2}
-          >
-            {`${ca.leftDigit} ${ca.midLetters} ${ca.rightDigits}`}
-          </text>
+          <Registration face={TEKO_500} text={`${ca.leftDigit} ${ca.midLetters} ${ca.rightDigits}`} id={`registration-${id}`} x={500} y={401} textAnchor="middle" fill={blue} fontSize={332} width={820} letterSpacing={2} />
         ) : (
-          <text
-            x={500}
-            y={401}
-            textAnchor="middle"
-            fill={blue}
-            fontFamily={"var(--font-plate-ny, sans-serif)"}
-            fontSize={Math.min(332, 2150 / Math.max(ca.centered.length, 1))}
-            letterSpacing={6}
-          >
-            {ca.centered}
-          </text>
+          <Registration face={TEKO_500} text={ca.centered} x={500} y={401} textAnchor="middle" fill={blue} fontSize={Math.min(332, 2150 / Math.max(ca.centered.length, 1))} letterSpacing={6} width={900} />
         )}
 
-        <text
-          x={500}
-          y={462}
-          textAnchor="middle"
-          fill={red}
-          fontFamily={'var(--font-geist-sans, Arial, sans-serif), ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial'}
-          fontWeight={600}
-          fontSize={42}
-          textLength="470"
-          lengthAdjust="spacingAndGlyphs"
-          letterSpacing={1}
-        >
-          dmv.ca.gov
-        </text>
+        <TracedLettering text="dmv.ca.gov" fill={red} paths={[{ d: CA_URL }]} />
       </PlateSvg>
     </PlateFrame>
   );
@@ -109,7 +64,7 @@ function formatCaPlate(input: string): {
   midLetters: string;
   rightDigits: string;
 } {
-  const cleaned = input.replace(/[\s\-\u2013\u2014]/g, "").toUpperCase();
+  const cleaned = cleanRegistration(input);
   // Match canonical format: 1 digit + 3 letters/asterisks + 3 digits
   const m = cleaned.match(/^([0-9*])([A-Z*]{3})([0-9*]{3})$/);
   if (m) {

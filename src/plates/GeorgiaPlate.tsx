@@ -4,6 +4,10 @@ import PlateFrame from "../internal/PlateFrame.js";
 import PlateSvg, { PLATE_INSET_RADIUS, PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import { PlateProps } from "../types.js";
+import Registration, { cleanRegistration } from "../internal/Registration.js";
+import Lettering from "../internal/Lettering.js";
+import { GA_MOTTO, GA_NAME } from "../internal/wordmarks.js";
+import { BARLOW_CONDENSED_500 } from "../internal/registrationGlyphs.js";
 
 const INK = "#080b09";
 const BARK = "#885540";
@@ -50,7 +54,7 @@ function peach(x: number, y: number, radius: number, rotation: number, id: strin
 /** Georgia's illustrated Peach Orchard base, with an unassigned county decal. */
 export default function GeorgiaPlate({ plate, state = "Georgia", className, style, registrationStickerAreas = false, ...rest }: PlateProps) {
   const id = useId();
-  const cleaned = plate.replace(/[\s\-–—]/g, "").toUpperCase();
+  const cleaned = cleanRegistration(plate);
   const serialSize = Math.min(310, Math.round(2170 / Math.max(cleaned.length, 1)));
 
   return (
@@ -193,18 +197,10 @@ export default function GeorgiaPlate({ plate, state = "Georgia", className, styl
         </g>
 
         <g fill={INK}>
-          <text x="70" y="122" fill="#fffefa" stroke={INK} strokeWidth="7" strokeLinejoin="round" paintOrder="stroke"
-            fontFamily="var(--font-plate-script, cursive)" fontSize="96" textLength="325" lengthAdjust="spacingAndGlyphs">
-            Peach State
-          </text>
-          <text x="663" y="123" textAnchor="middle" fontFamily='Georgia, "Times New Roman", serif'
-            fontWeight={400} fontSize="92" textLength="530" lengthAdjust="spacingAndGlyphs">
-            GEORGIA
-          </text>
-          <text x="500" y="374" textAnchor="middle" fontFamily="var(--font-plate-ny, sans-serif)" fontSize={serialSize}
-            textLength={cleaned.length ? Math.min(886, cleaned.length * 126) : undefined} lengthAdjust="spacingAndGlyphs">
-            {cleaned}
-          </text>
+          <Lettering run={GA_MOTTO} x={70} y={122} fill="#fffefa" stroke={INK} strokeWidth={7} strokeLinejoin="round" paintOrder="stroke"
+            fontSize={98} textLength={325} />
+          <Lettering run={GA_NAME} x={663} y={123} textAnchor="middle" fontSize={92} textLength={530} />
+          <Registration face={BARLOW_CONDENSED_500} text={cleaned} x={500} y={374} textAnchor="middle" fontSize={serialSize} width={Math.min(886, cleaned.length * 126)} />
         </g>
         <rect x="18" y="18" width="964" height="464" rx={PLATE_INSET_RADIUS} fill="none" stroke="#ffffff" strokeWidth="1.5" opacity="0.75" />
       </PlateSvg>

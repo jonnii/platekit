@@ -4,6 +4,10 @@ import PlateFrame from "../internal/PlateFrame.js";
 import PlateSvg, { PLATE_INSET_RADIUS, PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import { PlateProps } from "../types.js";
+import Registration, { cleanRegistration } from "../internal/Registration.js";
+import { BEBAS_NEUE_400 } from "../internal/registrationGlyphs.js";
+import { TracedLettering } from "../internal/Lettering.js";
+import { NJ_MOTTO, NJ_NAME, NJ_STATE } from "../internal/traces/nj.js";
 
 export default function NewJerseyPlate({ plate, state = "New Jersey", className, style, ...rest }: PlateProps) {
   const id = useId();
@@ -36,27 +40,10 @@ export default function NewJerseyPlate({ plate, state = "New Jersey", className,
             <stop offset="73%" stopColor="#ffffff" />
             <stop offset="100%" stopColor="#ffffff" />
           </linearGradient>
-          {/* New Jersey, traced from the reference by measuring the ink span of
-              every fourth scanline through the silhouette and joining the left
-              and right edges. That is more faithful here than projecting lon/lat,
-              because the plate carries a stylised outline rather than a survey —
-              and it captures the features that make the shape readable: the
-              narrow northern nub, the Hudson bulge, the waist around Trenton, the
-              Delaware Bay flare, and the taper to Cape May.
-
-              viewBox is 52x88, the shape's true measured proportions. */}
-          <symbol id={`${id}-njState`} viewBox="0 0 52 88">
-            <path
-              d="M21 2 L27 2
-                 L34 6 L41 10 L46 14 L45 18 L43 22 L41 26 L43 30 L44 34 L44 38
-                 L43 42 L42 46 L42 50 L41 54 L40 58 L38 62 L35 66 L31 70 L27 74
-                 L25 78 L22 82
-                 L15 82
-                 L16 78 L11 74 L6 70 L2 66 L1 62 L0 58 L3 54 L6 50 L12 46 L18 42
-                 L17 38 L13 34 L11 30 L10 26 L10 22 L12 18 L12 14 L15 10 L18 6
-                 Z"
-              fill={textColor}
-            />
+          {/* The source's separator is larger and further right than this layout's, so its traced bounds are
+              refitted to the existing 88-unit-tall slot centred at x 434. */}
+          <symbol id={`${id}-njState`} viewBox="463.8 177.7 68 128.7">
+            <path d={NJ_STATE} fill={textColor} fillRule="evenodd" />
           </symbol>
         </defs>
 
@@ -67,79 +54,21 @@ export default function NewJerseyPlate({ plate, state = "New Jersey", className,
           <rect x="12" y="12" width="976" height="476" rx={PLATE_INSET_RADIUS} fill={`url(#${id}-njBg)`} />
         </g>
 
-        {/* Sizes and baselines measured off the reference rather than guessed:
-            wordmark spans y20..113, serial y144..379, motto y413..489. All three
-            were undersized and sitting high. */}
-        <text
-          x={500}
-          y={108}
-          textAnchor="middle"
-          fill={textColor}
-          fontFamily={'ui-serif, Georgia, Cambria, "Times New Roman", Times, serif'}
-          fontWeight={700}
-          fontSize={104}
-          letterSpacing={1}
-        >
-          New Jersey
-        </text>
+        <TracedLettering text="New Jersey" fill={textColor} paths={[{ d: NJ_NAME }]} />
 
         <g>
           {nj.isCanonical ? (
             <>
-              <text
-                x={380}
-                y={379}
-                textAnchor="end"
-                fill={textColor}
-                fontFamily={'var(--font-plate-ny, sans-serif)'}
-                fontSize={324}
-                letterSpacing={2}
-              >
-                {nj.leadingLetters}
-              </text>
-              <use href={`#${id}-njState`} x={408} y={226} width={52} height={88} />
-              <text
-                x={520}
-                y={379}
-                textAnchor="start"
-                fill={textColor}
-                fontFamily={'var(--font-plate-ny, sans-serif)'}
-                fontSize={324}
-                letterSpacing={2}
-              >
-                {rightChunk}
-              </text>
+              <Registration face={BEBAS_NEUE_400} text={nj.leadingLetters} x={380} y={379} textAnchor="end" fill={textColor} fontSize={324} letterSpacing={2} width={340} />
+              <use href={`#${id}-njState`} x={410.75} y={226} width={46.5} height={88} />
+              <Registration face={BEBAS_NEUE_400} text={rightChunk} x={520} y={379} textAnchor="start" fill={textColor} fontSize={324} letterSpacing={2} width={440} />
             </>
           ) : (
-            <text
-              x={500}
-              y={379}
-              textAnchor="middle"
-              fill={textColor}
-              fontFamily={'var(--font-plate-ny, sans-serif)'}
-              fontSize={324}
-              letterSpacing={4}
-              textLength={Math.min(880, plate.replace(/[\s\-–—]/g, "").length * 116)}
-              lengthAdjust="spacingAndGlyphs"
-            >
-              {plate.replace(/[\s\-–—]/g, "").toUpperCase()}
-            </text>
+            <Registration face={BEBAS_NEUE_400} text={cleanRegistration(plate)} x={500} y={379} textAnchor="middle" fill={textColor} fontSize={324} letterSpacing={4} width={Math.min(880, cleanRegistration(plate).length * 116)} />
           )}
         </g>
 
-        {/* Garden State footer */}
-        <text
-          x={500}
-          y={486}
-          textAnchor="middle"
-          fill={textColor}
-          fontFamily={'var(--font-geist-sans, Arial, sans-serif), ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial'}
-          fontWeight={800}
-          fontSize={86}
-          letterSpacing={0}
-        >
-          Garden State
-        </text>
+        <TracedLettering text="Garden State" fill={textColor} paths={[{ d: NJ_MOTTO }]} />
       </PlateSvg>
     </PlateFrame>
   );
@@ -151,7 +80,7 @@ function formatNjPlate(input: string): {
   trailingLetter: string;
   isCanonical: boolean;
 } {
-  const cleaned = input.replace(/[\s\-\u2013\u2014]/g, "").toUpperCase();
+  const cleaned = cleanRegistration(input);
   const canonical = cleaned.match(/^[A-Z0-9*]{6}$/);
   if (canonical) {
     return {

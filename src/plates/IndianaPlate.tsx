@@ -2,6 +2,7 @@
 
 import BaselinePlate from "../internal/BaselinePlate.js";
 import type { PlateProps } from "../types.js";
+import { BEBAS_NEUE_400 } from "../internal/registrationGlyphs.js";
 
 // Disjoint board strokes share one path without changing their geometry or paint.
 const BRIDGE_BOARDS = Array.from({ length: 37 }, (_, i) => `M${304 + i * 9} 433 V451`).join(" ");
@@ -9,7 +10,7 @@ const BRIDGE_BOARDS = Array.from({ length: 37 }, (_, i) => `M${304 + i * 9} 433 
 /** Reference-guided artwork; source and design caveats are in plate-compare/references.ts. */
 export default function IndianaPlate(props: PlateProps) {
   return (
-    <BaselinePlate {...props} state={props.state ?? "Indiana"}
+    <BaselinePlate {...props} registrationFace={BEBAS_NEUE_400} state={props.state ?? "Indiana"}
       rim={true}
       rimWidth={11}
       name="Indiana"

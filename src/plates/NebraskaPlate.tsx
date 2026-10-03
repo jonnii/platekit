@@ -1,20 +1,17 @@
 "use client";
 
-import BaselinePlate, { PLATE_SANS } from "../internal/BaselinePlate.js";
+import BaselinePlate from "../internal/BaselinePlate.js";
 import type { PlateProps } from "../types.js";
+import { BEBAS_NEUE_400 } from "../internal/registrationGlyphs.js";
+import { NE_NAME } from "../internal/traces/ne.js";
 
 /** Reference-guided artwork; source and design caveats are in plate-compare/references.ts. */
 export default function NebraskaPlate(props: PlateProps) {
   return (
-    <BaselinePlate {...props} state={props.state ?? "Nebraska"}
+    <BaselinePlate {...props} registrationFace={BEBAS_NEUE_400} state={props.state ?? "Nebraska"}
       name="Nebraska"
       colors={["#ededed"]}
-      heading="NEBRASKA"
-      headingFont={PLATE_SANS}
-      headingSize={88}
-      headingWidth={518}
-      headingY={110}
-      headingWeight={900}
+      heading={{ text: "NEBRASKA", paths: [{ d: NE_NAME }] }}
       ink="#19385c"
       frame={false}
 

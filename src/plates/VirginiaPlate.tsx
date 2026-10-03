@@ -2,11 +2,12 @@
 
 import BaselinePlate from "../internal/BaselinePlate.js";
 import type { PlateProps } from "../types.js";
+import { ROBOTO_CONDENSED_700 } from "../internal/registrationGlyphs.js";
 
 /** Reference-guided artwork; source and design caveats are in plate-compare/references.ts. */
 export default function VirginiaPlate(props: PlateProps) {
   return (
-    <BaselinePlate {...props} state={props.state ?? "Virginia"}
+    <BaselinePlate {...props} registrationFace={ROBOTO_CONDENSED_700} state={props.state ?? "Virginia"}
       name="Virginia"
       colors={["#eeeeec"]}
       heading="VIRGINIA"

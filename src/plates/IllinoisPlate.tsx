@@ -4,6 +4,10 @@ import PlateFrame from "../internal/PlateFrame.js";
 import PlateSvg, { PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import { PlateProps } from "../types.js";
+import Registration, { cleanRegistration } from "../internal/Registration.js";
+import { BARLOW_CONDENSED_500 } from "../internal/registrationGlyphs.js";
+import { TracedLettering } from "../internal/Lettering.js";
+import { IL_MOTTO, IL_NAME } from "../internal/traces/il.js";
 
 /** Illinois' Land of Lincoln base: cropped portrait, white landmarks, blue sky. */
 export default function IllinoisPlate({ plate, state = "Illinois", className, style, ...rest }: PlateProps) {
@@ -12,7 +16,7 @@ export default function IllinoisPlate({ plate, state = "Illinois", className, st
   const clip = `${id}-clip`;
   const face = `${id}-face`;
   const coat = `${id}-coat`;
-  const cleaned = plate.replace(/[\s\-–—]/g, "").toUpperCase();
+  const cleaned = cleanRegistration(plate);
   const serialWidth = Math.min(860, cleaned.length * 112);
 
   return (
@@ -113,22 +117,14 @@ export default function IllinoisPlate({ plate, state = "Illinois", className, st
           <rect {...PLATE_OUTLINE} fill="none" stroke="#d2d6d5" strokeWidth="2" />
         </g>
 
-        <text x="506" y="85" textAnchor="middle" fill="#101412"
-          fontFamily='"Times New Roman", Times, serif' fontWeight={400} fontSize="82"
-          textLength="481" lengthAdjust="spacingAndGlyphs">ILLINOIS</text>
+        <TracedLettering text="ILLINOIS" fill="#101412" paths={[{ d: IL_NAME }]} />
 
-        <g fontFamily="var(--font-plate-ny, sans-serif)" fontSize="325" textAnchor="middle">
-          <text x="525" y="371" fill="#707571" stroke="#707571" strokeWidth="4" opacity="0.5"
-            textLength={serialWidth || undefined} lengthAdjust="spacingAndGlyphs">{cleaned}</text>
-          <text x="522" y="368" fill="#aa252c" stroke="#f8f8f3" strokeWidth="3" paintOrder="stroke"
-            textLength={serialWidth || undefined} lengthAdjust="spacingAndGlyphs">{cleaned}</text>
+        <g>
+          <Registration face={BARLOW_CONDENSED_500} text={cleaned} x={525} y={371} fontSize={325} textAnchor="middle" fill="#707571" stroke="#707571" strokeWidth={4} opacity="0.5" width={serialWidth} />
+          <Registration face={BARLOW_CONDENSED_500} text={cleaned} x={522} y={368} fontSize={325} textAnchor="middle" fill="#aa252c" stroke="#f8f8f3" strokeWidth={3} paintOrder="stroke" width={serialWidth} />
         </g>
 
-        <text x="504" y="461" textAnchor="middle" fill="#111613"
-          fontFamily='"Times New Roman", Times, serif' fontSize="62"
-          style={{ fontVariant: "small-caps" }} textLength="438" lengthAdjust="spacingAndGlyphs">
-          Land of Lincoln
-        </text>
+        <TracedLettering text="Land of Lincoln" fill="#111613" paths={[{ d: IL_MOTTO }]} />
       </PlateSvg>
     </PlateFrame>
   );

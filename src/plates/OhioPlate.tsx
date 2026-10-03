@@ -4,9 +4,15 @@ import PlateFrame from "../internal/PlateFrame.js";
 import PlateSvg, { PLATE_INSET_RADIUS, PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import { PlateProps } from "../types.js";
+import Registration, { cleanRegistration } from "../internal/Registration.js";
+import { BARLOW_CONDENSED_500 } from "../internal/registrationGlyphs.js";
+import { TracedLettering } from "../internal/Lettering.js";
+import { OH_NAME, OH_RIBBON_AVIATION, OH_RIBBON_BIRTHPLACE, OH_STATE } from "../internal/traces/oh.js";
 
 const SERIAL = "#25274f";
 const RIBBON = "#9d484b";
+// The traced outline's outer contour comes first; alone it is the state's filled silhouette.
+const OH_SILHOUETTE = OH_STATE.slice(0, OH_STATE.indexOf("M", 1));
 
 /** Repeatable irregularity keeps the illustration stable across server/client renders. */
 function variation(n: number) {
@@ -35,7 +41,7 @@ const canopy = Array.from({ length: 5 }, (_, shade) =>
 /** The illustrated Sunrise in Ohio base, retaining its skyline, river and farm scene. */
 export default function OhioPlate({ plate, state = "Ohio", className, style, ...rest }: PlateProps) {
   const id = useId();
-  const cleaned = plate.replace(/[\s\-–—]/g, "").toUpperCase();
+  const cleaned = cleanRegistration(plate);
   return (
     <PlateFrame className={className} style={{ userSelect: "none", display: "flex", position: "relative", alignItems: "stretch", justifyContent: "center", ...style }}
       aria-label={`License plate ${plate} from ${state}`} {...rest}>
@@ -152,18 +158,13 @@ export default function OhioPlate({ plate, state = "Ohio", className, style, ...
           <path d="M496 49 Q562 30 596 27 Q621 25 628 34 L610 51 Q569 52 497 76 Z" fill={RIBBON} />
           <path d="M608 43 Q629 42 626 34 L608 51 L609 65 L625 59 Z" fill="#713a40" />
           <path d="M608 50 Q654 36 711 27 L747 34 L730 48 L751 67 Q704 56 648 76 Q615 85 608 71 Z" fill={RIBBON} />
-          <path d="M392 28 L426 28 L432 33 L438 31 L444 38 L454 40 L471 36 L484 27 L505 21 L504 65 L500 79 L498 98 L493 111 L481 112 L477 122 L469 120 L463 126 L460 139 L452 143 L443 134 L436 132 L431 127 L423 134 L416 130 L407 131 L401 124 L394 124 L391 113 Z"
-            fill="#fffdf0" stroke={RIBBON} strokeWidth="4" strokeLinejoin="round" />
+          <path d={OH_SILHOUETTE} fill="#fffdf0" />
+          <path d={OH_STATE} fill="#bc343b" fillRule="evenodd" />
         </g>
-        <text x="447" y="107" textAnchor="middle" fill="#434745" fontFamily="var(--font-plate-ny, sans-serif)" fontSize="86"
-          textLength="96" lengthAdjust="spacingAndGlyphs">OhiO</text>
-        <text x="570" y="53" textAnchor="middle" fill="#fff3df" fontFamily="var(--font-plate-ny, sans-serif)" fontSize="28"
-          textLength="77" lengthAdjust="spacingAndGlyphs" transform="rotate(-11 570 53)">Birthplace</text>
-        <text x="676" y="61" textAnchor="middle" fill="#fff3df" fontFamily="var(--font-plate-ny, sans-serif)" fontSize="28"
-          textLength="99" lengthAdjust="spacingAndGlyphs" transform="rotate(-11 676 61)">of Aviation</text>
-        <text x="500" y="400" textAnchor="middle" fill={SERIAL} fontFamily="var(--font-plate-ny, sans-serif)"
-          fontSize={Math.min(331, 2317 / Math.max(cleaned.length, 1))}
-          textLength={cleaned.length ? Math.min(886, cleaned.length * 126) : undefined} lengthAdjust="spacingAndGlyphs">{cleaned}</text>
+        <TracedLettering text="OhiO" fill="#434745" paths={[{ d: OH_NAME }]} />
+        <TracedLettering text="Birthplace of Aviation" fill="#fff3df" paths={[{ d: OH_RIBBON_BIRTHPLACE }, { d: OH_RIBBON_AVIATION }]} />
+        <Registration face={BARLOW_CONDENSED_500} text={cleaned} x={500} y={400} textAnchor="middle" fill={SERIAL}
+          fontSize={Math.min(331, 2317 / Math.max(cleaned.length, 1))} width={Math.min(886, cleaned.length * 126)} />
         <rect x="13" y="13" width="974" height="474" rx={PLATE_INSET_RADIUS} fill="none" stroke={RIBBON} strokeWidth="3.5" />
       </PlateSvg>
     </PlateFrame>

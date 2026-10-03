@@ -4,6 +4,10 @@ import PlateFrame from "../internal/PlateFrame.js";
 import PlateSvg, { PLATE_INSET_RADIUS, PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import { PlateProps } from "../types.js";
+import Registration, { cleanRegistration } from "../internal/Registration.js";
+import { TracedLettering } from "../internal/Lettering.js";
+import { NY_MOTTO_FILL, NY_MOTTO_OUTLINE, NY_NAME, NY_STATE } from "../internal/traces/ny.js";
+import { ANTONIO_600 } from "../internal/registrationGlyphs.js";
 
 /** An irregular, tiered conifer silhouette that stays legible at card size. */
 function fir(x: number, base: number, h: number, w: number, key: string) {
@@ -73,13 +77,6 @@ export default function NewYorkPlate({ plate, state = "New York", className, sty
           <clipPath id={`plateClip-${id}`}>
             <rect x="24" y="24" width="952" height="454" rx={PLATE_INSET_RADIUS} />
           </clipPath>
-          {/* State outline and Long Island, in a shared 100 × 78 coordinate space. */}
-          <symbol id={`nyState-${id}`} viewBox="0 0 100 78">
-            <path
-              d="M0 47.3 L11.1 36.6 L8.9 30.2 L20 30.8 L27.3 29.8 L36 28 L41.3 26.7 L43.4 15.1 L54 5 L63.4 0 L81.1 0 L80.1 24.6 L82 39 L79.3 51.1 L77.2 66 L74.2 72.8 L70.4 78 L64.1 63 L55.7 52 L0 52 Z M74 70.5 L84 70 L92 66.5 L100 65 L96 70 L86 73 L74 75 Z"
-              fill={navy}
-            />
-          </symbol>
         </defs>
 
         {/* Rolled aluminum edge around the inset printed face. */}
@@ -166,39 +163,24 @@ export default function NewYorkPlate({ plate, state = "New York", className, sty
         </g>
 
         <g id={`wordmark-${id}`}>
-          <text x="500" y="116" textAnchor="middle" fill={navy}
-            fontFamily="var(--font-plate-place, Georgia, serif)" fontWeight={700} fontSize={86}
-            textLength={488} lengthAdjust="spacingAndGlyphs">
-            NEW YORK
-          </text>
+          <TracedLettering text="NEW YORK" fill={navy} paths={[{ d: NY_NAME }]} />
         </g>
 
-        <g id={`registration-${id}`} fill={navy} fontFamily="var(--font-plate-ny, sans-serif)" filter={`url(#emboss-${id})`}>
+        <g id={`registration-${id}`} fill={navy} filter={`url(#emboss-${id})`}>
           {formatted.isCanonical ? (
             <>
-              <text x={382} y={382} textAnchor="end" fontSize={310} textLength={284} lengthAdjust="spacingAndGlyphs">
-                {formatted.left}
-              </text>
-              <use href={`#nyState-${id}`} x={405} y={236} width={96} height={75} />
-              <text x={524} y={382} textAnchor="start" fontSize={310} textLength={374} lengthAdjust="spacingAndGlyphs">
-                {formatted.right}
-              </text>
+              <Registration face={ANTONIO_600} text={formatted.left} x={382} y={382} textAnchor="end" fontSize={310} width={284} />
+              <path d={NY_STATE} />
+              <Registration face={ANTONIO_600} text={formatted.right} x={524} y={382} fontSize={310} width={374} />
             </>
           ) : (
-            <text x={500} y={382} textAnchor="middle"
-              fontSize={Math.min(310, 2200 / Math.max(combinedReg.length, 1))} letterSpacing={2}>
-              {combinedReg}
-            </text>
+            <Registration face={ANTONIO_600} text={combinedReg} x={500} y={382} textAnchor="middle"
+              fontSize={Math.min(310, 2200 / Math.max(combinedReg.length, 1))} letterSpacing={2} width={900} />
           )}
         </g>
 
         <g id={`motto-${id}`}>
-          <text x={500} y={457} textAnchor="middle" fill={gold} stroke={navy}
-            strokeWidth={3.5} strokeLinejoin="round" paintOrder="stroke"
-            fontFamily="var(--font-plate-motto, Georgia, serif)" fontWeight={700} fontSize={68}
-            textLength={440} lengthAdjust="spacingAndGlyphs">
-            EXCELSIOR
-          </text>
+          <TracedLettering text="EXCELSIOR" paths={[{ d: NY_MOTTO_OUTLINE, fill: navy }, { d: NY_MOTTO_FILL, fill: gold }]} />
         </g>
 
         <rect x="24" y="24" width="952" height="454" rx={PLATE_INSET_RADIUS} fill="none" stroke={navy} strokeWidth="3" />
@@ -208,7 +190,7 @@ export default function NewYorkPlate({ plate, state = "New York", className, sty
 }
 
 function formatNyPlate(input: string): { left: string; right: string; isCanonical: boolean } {
-  const cleaned = input.replace(/[\s\-\u2013\u2014]/g, "").toUpperCase();
+  const cleaned = cleanRegistration(input);
   const letters = cleaned.replace(/[^A-Z*]/g, "").slice(0, 3);
   const digits = cleaned.replace(/[^0-9*]/g, "").slice(-4);
   if (letters.length === 3 && digits.length === 4) {

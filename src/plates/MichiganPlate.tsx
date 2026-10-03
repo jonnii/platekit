@@ -4,14 +4,17 @@ import PlateFrame from "../internal/PlateFrame.js";
 import PlateSvg, { PLATE_INSET_RADIUS, PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import { PlateProps } from "../types.js";
+import Registration, { cleanRegistration } from "../internal/Registration.js";
+import { TEKO_500 } from "../internal/registrationGlyphs.js";
+import { TracedLettering } from "../internal/Lettering.js";
+import { MI_NAME, MI_URL } from "../internal/traces/mi.js";
 
 /** Pure Michigan's open brush M, white reflective field, and curved blue footer. */
 const BLUE = "#193f97";
-const SANS = 'var(--font-geist-sans, Arial, sans-serif), ui-sans-serif, system-ui, sans-serif';
 
 export default function MichiganPlate({ plate, state = "Michigan", className, style, ...rest }: PlateProps) {
   const id = useId().replace(/:/g, "");
-  const cleaned = plate.replace(/[\s\-–—]/g, "").toUpperCase();
+  const cleaned = cleanRegistration(plate);
   const serialSize = cleaned.length <= 7 ? 300 : Math.round((300 * 7) / cleaned.length);
 
   return (
@@ -39,67 +42,11 @@ export default function MichiganPlate({ plate, state = "Michigan", className, st
         </g>
         <rect x="18" y="19" width="964" height="465" rx={PLATE_INSET_RADIUS} fill="none" stroke={`url(#miRim-${id})`} strokeWidth="2.7" />
 
-        {/* Wordmark: PURE, the script M, then ICHIGAN. The three are positioned
-            rather than set as one string so the M can overlap and oversail. */}
-        <text
-          x="411"
-          y="94"
-          textAnchor="end"
-          fill={BLUE}
-          fontFamily={SANS}
-          fontWeight={400}
-          fontSize="40"
-          letterSpacing="6"
-        >
-          PURE
-        </text>
-        {/* The long hairline entrance and open, rising M are drawn as the logo's brush strokes. */}
-        <path d="M374 129 C397 94 422 53 443 38 Q457 30 465 32
-          C461 53 448 86 440 106 C458 91 478 54 494 46 L500 45
-          C489 78 486 105 505 111 L495 115 C477 114 477 94 484 68
-          C469 87 450 113 435 113 C431 111 434 103 437 96 L457 40
-          C431 51 405 94 379 132 Z" fill={BLUE} />
-        <text
-          x="503"
-          y="94"
-          textAnchor="start"
-          fill={BLUE}
-          fontFamily={SANS}
-          fontWeight={400}
-          fontSize="40"
-          letterSpacing="6"
-          textLength="218" lengthAdjust="spacingAndGlyphs"
-        >
-          ICHIGAN
-        </text>
+        <TracedLettering text="PURE MICHIGAN" fill={BLUE} paths={[{ d: MI_NAME }]} />
 
-        <text
-          x="500"
-          y="368"
-          textAnchor="middle"
-          fill={BLUE}
-          fontFamily="var(--font-plate-ny, sans-serif)"
-          fontSize={serialSize}
-          filter={`url(#miEmboss-${id})`}
-          letterSpacing="5"
-        >
-          {cleaned}
-        </text>
+        <Registration face={TEKO_500} text={cleaned} x={500} y={368} textAnchor="middle" fill={BLUE} fontSize={serialSize} filter={`url(#miEmboss-${id})`} letterSpacing={5} width={900} />
 
-        {/* michigan.org reversed out of the band, and set at the size the plate
-            uses — it is a full line of type, not a footnote. */}
-        <text
-          x="500"
-          y="462"
-          textAnchor="middle"
-          fill="#ffffff"
-          fontFamily={SANS}
-          fontWeight={400}
-          fontSize="54"
-          textLength="299" lengthAdjust="spacingAndGlyphs"
-        >
-          michigan.org
-        </text>
+        <TracedLettering text="michigan.org" fill="#ffffff" paths={[{ d: MI_URL }]} />
       </PlateSvg>
     </PlateFrame>
   );

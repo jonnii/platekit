@@ -1,22 +1,22 @@
 "use client";
 
-import BaselinePlate, { PLATE_SCRIPT } from "../internal/BaselinePlate.js";
+import BaselinePlate from "../internal/BaselinePlate.js";
 import type { PlateProps } from "../types.js";
+import { SD_NAME } from "../internal/wordmarks.js";
+import { BARLOW_CONDENSED_700 } from "../internal/registrationGlyphs.js";
 
 /** Reference-guided artwork; source and design caveats are in plate-compare/references.ts. */
 export default function SouthDakotaPlate(props: PlateProps) {
   return (
-    <BaselinePlate {...props} state={props.state ?? "South Dakota"}
+    <BaselinePlate {...props} registrationFace={BARLOW_CONDENSED_700} state={props.state ?? "South Dakota"}
       rim={true}
       rimWidth={11}
       name="South Dakota"
       colors={["#45b9d9", "#c7dce0", "#c8beab"]}
       stops={[0, 0.3, 1]}
-      heading="South Dakota"
-      headingFont={PLATE_SCRIPT}
+      heading={SD_NAME}
       headingColor="#284f8a"
-      headingSize={125}
-      headingWeight={400}
+      headingSize={102}
       headingWidth={420}
       headingY={99}
       ink="#16160e"
