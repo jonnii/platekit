@@ -191,11 +191,8 @@ export default function NewYorkPlate({ plate, state = "New York", className, sty
 
 function formatNyPlate(input: string): { left: string; right: string; isCanonical: boolean } {
   const cleaned = cleanRegistration(input);
-  const letters = cleaned.replace(/[^A-Z*]/g, "").slice(0, 3);
-  const digits = cleaned.replace(/[^0-9*]/g, "").slice(-4);
-  if (letters.length === 3 && digits.length === 4) {
-    return { left: letters, right: digits, isCanonical: true };
-  }
+  // Only standard three-letter, four-digit registrations split around the state outline; anything else is drawn whole.
+  if (/^[A-Z*]{3}[0-9*]{4}$/.test(cleaned)) return { left: cleaned.slice(0, 3), right: cleaned.slice(3), isCanonical: true };
   const mid = Math.ceil(cleaned.length / 2);
   return { left: cleaned.slice(0, mid), right: cleaned.slice(mid), isCanonical: false };
 }

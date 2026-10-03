@@ -8,6 +8,9 @@ import { BEBAS_NEUE_400, type RegistrationFace } from "./registrationGlyphs.js";
 import { useId, type ReactNode } from "react";
 import type { PlateProps } from "../types.js";
 
+/** Registration glyphs stay this far inside the plate edge, clear of every design's inset frame. */
+const SERIAL_EDGE = 48;
+
 export const PLATE_SERIF = 'Georgia, "Times New Roman", serif';
 export const PLATE_SANS = 'var(--font-geist-sans, Arial, sans-serif), Arial, sans-serif';
 export const PLATE_SCRIPT = 'var(--font-plate-script, cursive), cursive';
@@ -70,10 +73,12 @@ export default function BaselinePlate({
   // Keep long registrations clear of fixed state symbols too.
   const split = separator && cleaned.length >= 5;
   const cut = Math.ceil(cleaned.length / 2);
-  const leftCenter = separatorWidth ? (separatorX - separatorWidth / 2) / 2 : 269;
-  const rightCenter = separatorWidth ? (1000 + separatorX + separatorWidth / 2) / 2 : 740;
-  const leftGroupWidth = separatorWidth ? separatorX - separatorWidth / 2 - serialInset * 2 : 390;
-  const rightGroupWidth = separatorWidth ? 1000 - separatorX - separatorWidth / 2 - serialInset * 2 : 390;
+  // Split groups sit between the plate frame (SERIAL_EDGE) and the separator symbol (serialInset clear of it).
+  const leftEdge = separatorX - (separatorWidth ?? 0) / 2 - serialInset, rightEdge = separatorX + (separatorWidth ?? 0) / 2 + serialInset;
+  const leftCenter = separatorWidth ? (SERIAL_EDGE + leftEdge) / 2 : 269;
+  const rightCenter = separatorWidth ? (rightEdge + 1000 - SERIAL_EDGE) / 2 : 740;
+  const leftGroupWidth = separatorWidth ? leftEdge - SERIAL_EDGE : 390;
+  const rightGroupWidth = separatorWidth ? 1000 - SERIAL_EDGE - rightEdge : 390;
   const size = Math.min(316, 316 * 7 / Math.max(7, cleaned.length));
   const baselineY = serialY - (316 - size) * .35;
   const textWidth = Math.min(serialWidth, cleaned.length * 122);

@@ -2,6 +2,7 @@ import { describe, expect, it } from "bun:test";
 import { renderToString } from "react-dom/server";
 import LicensePlate from "../../src/LicensePlate.js";
 import { registrationRuns } from "./registration.js";
+import { PLATE_STATES } from "../../src/registry.js";
 
 // Helper function to extract formatting results from rendered components
 function getPlateFormatting(plate: string, state: string) {
@@ -383,5 +384,23 @@ describe("License Plate Formatting Functions", () => {
         expect(html).toContain("svg");
       });
     });
+  });
+
+  it.each(PLATE_STATES)("draws every character of %s registrations once, in order", (state) => {
+    for (const plate of ["CUSTOM12345", "AB***34", "A1B2C3D", "1ABC234", "ABC1234", "X"]) {
+      // Spaces are decorative grouping; Illinois layers a shadow copy under each registration.
+      const runs = registrationRuns(renderToString(<LicensePlate state={state} plate={plate} />)).map((run) => run.text.replace(/ /g, ""));
+      const layered = runs.length > 1 && runs.every((text) => text === plate);
+      expect(layered ? plate : runs.join("")).toBe(plate);
+    }
+  });
+
+  it.each(PLATE_STATES)("keeps %s registrations inside the plate frame", (state) => {
+    for (const plate of ["ABC123", "ABC1234", "CUSTOM12345", "1ABC234"]) {
+      for (const { left, right } of registrationRuns(renderToString(<LicensePlate state={state} plate={plate} />))) {
+        expect(left).toBeGreaterThanOrEqual(40);
+        expect(right).toBeLessThanOrEqual(960);
+      }
+    }
   });
 });
