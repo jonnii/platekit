@@ -51,6 +51,76 @@
       "path": "bebas-neue/OFL.txt",
       "upstream": "ofl/bebasneue/OFL.txt",
       "sha256": "72082f6cb4d04be2ecf7cc7d9e1e7d73787f0af8a5a278a47cade70c16b78341"
+    },
+    {
+      "path": "barlow-condensed/OFL.txt",
+      "upstream": "ofl/barlowcondensed/OFL.txt",
+      "sha256": "186d750eb496a4c17a76385f82be6aea2ac1cf2de074a811d63786cf374ea73f"
+    },
+    {
+      "path": "mr-dafoe/OFL.txt",
+      "upstream": "ofl/mrdafoe/OFL.txt",
+      "sha256": "0da6a3e5b24a9fa04085c20a2a1d3101eeb1e0bff56a2291f407187e1b2adcf2"
+    },
+    {
+      "path": "satisfy/LICENSE.txt",
+      "upstream": "apache/satisfy/LICENSE.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "grand-hotel/OFL.txt",
+      "upstream": "ofl/grandhotel/OFL.txt",
+      "sha256": "4c0a1150a363b42bd8681ff4a00315ac49510a944c4c9978237ff8b90a8920a5"
+    },
+    {
+      "path": "marcellus/OFL.txt",
+      "upstream": "ofl/marcellus/OFL.txt",
+      "sha256": "715ba72697e14daa9b29a333545f69bde7c497b9f77d0a2a4c4a5a752d961801"
+    },
+    {
+      "path": "lora/OFL.txt",
+      "upstream": "ofl/lora/OFL.txt",
+      "sha256": "1d9a970809ac804b582a6ce7f0ebc4e7fefcbfd7ff6299cad35ee656a21be716"
+    },
+    {
+      "path": "merriweather/OFL.txt",
+      "upstream": "ofl/merriweather/OFL.txt",
+      "sha256": "715bd349bfa6116f99e351e1548321dcfa25b91df65502d22ca8d624557697d2"
+    },
+    {
+      "path": "bevan/OFL.txt",
+      "upstream": "ofl/bevan/OFL.txt",
+      "sha256": "578f12281f17e7dd88c9e553240243b29f4240043eef22093d32c043c4ab6dc0"
+    },
+    {
+      "path": "roboto-slab/LICENSE.txt",
+      "upstream": "apache/robotoslab/LICENSE.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "kaushan-script/OFL.txt",
+      "upstream": "ofl/kaushanscript/OFL.txt",
+      "sha256": "3336bf5d4e7eedba48ecb831f37bf676e901c39f2e6a422cceadd9d2ffa55be8"
+    },
+    {
+      "path": "pt-serif/OFL.txt",
+      "upstream": "ofl/ptserif/OFL.txt",
+      "sha256": "ddf311c28ddf5a5ad9747649837346b67bed9d356789c3072bb27dbce49e514d"
+    },
+    {
+      "path": "teko/OFL.txt",
+      "upstream": "ofl/teko/OFL.txt",
+      "sha256": "4a193c54e911c1e8194d4db657423f2527f54a1239f24cb67ecb09128dc9f065"
+    },
+    {
+      "path": "antonio/OFL.txt",
+      "upstream": "ofl/antonio/OFL.txt",
+      "sha256": "ae9a754b006df720bb6721e7b78c04990df734f87195c6033140fceab60bebf6"
+    },
+    {
+      "path": "roboto-condensed/OFL.txt",
+      "upstream": "ofl/robotocondensed/OFL.txt",
+      "sha256": "0e4cc6ece88573545be2ed25835363662a6182ba4a4c1b5c8feda52add30e8a6"
     }
   ]
 }

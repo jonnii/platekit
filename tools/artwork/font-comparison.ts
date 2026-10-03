@@ -6,10 +6,11 @@ import { PLATE_REFERENCES } from "./references";
 import { originalReference } from "./reference-assets";
 import { referencePath } from "./paths";
 import type { FontProbe } from "./font-probes";
+import { components, type Bitmap, type Component } from "./bitmap";
+
+export type { Bitmap };
 
 export const FONT_COMPARISON_SETTINGS = { version: 1, glyphWidth: 64, glyphHeight: 128, wordWidth: 640, wordHeight: 128, edgeTolerance: 1, inkWeight: .65, edgeWeight: .35 } as const;
-export type Bitmap = { pixels: Uint8Array; width: number; height: number };
-type Component = Rect & { points: number[] };
 export type BrowserGlyphs = { id: string; font: string; images: { text: string; png: string }[]; whole?: string };
 type Ink = "dark" | "blue" | "green" | "red" | "white" | "gold";
 const inks: Partial<Record<string, Ink>> = {
@@ -31,27 +32,6 @@ function inkPixel(r: number, g: number, b: number, ink: Ink) {
     case "gold": return r > 150 && g > 90 && g < 235 && b < 150 && b < g * .8;
     default: return Math.max(r, g, b) < 105;
   }
-}
-
-export function components(bitmap: Bitmap): Component[] {
-  const { width, height, pixels } = bitmap;
-  const seen = new Uint8Array(pixels.length), output: Component[] = [];
-  for (let start = 0; start < pixels.length; start++) {
-    if (!pixels[start] || seen[start]) continue;
-    const points = [start]; seen[start] = 1;
-    let x0 = start % width, x1 = x0, y0 = Math.floor(start / width), y1 = y0;
-    for (let cursor = 0; cursor < points.length; cursor++) {
-      const i = points[cursor], x = i % width, y = Math.floor(i / width);
-      x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y);
-      for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) {
-        const nx = x + dx, ny = y + dy, next = ny * width + nx;
-        if (nx < 0 || ny < 0 || nx >= width || ny >= height || seen[next] || !pixels[next]) continue;
-        seen[next] = 1; points.push(next);
-      }
-    }
-    output.push({ x: x0, y: y0, width: x1 - x0 + 1, height: y1 - y0 + 1, points });
-  }
-  return output;
 }
 
 function cropComponents(bitmap: Bitmap, selected: Component[]): Bitmap {

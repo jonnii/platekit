@@ -689,8 +689,8 @@ export async function main() {
   if (!options.withText) {
     // Drop <text> so unresolvable fonts can't overflow and bleed into artwork.
     const before = svg.length;
-    svg = svg.replace(/<text\b[\s\S]*?<\/text>/g, "");
-    console.log(`Artwork-only: stripped ${before - svg.length} bytes of <text>.`);
+    svg = svg.replace(/<text\b[\s\S]*?<\/text>/g, "").replace(/<g data-(?:registration|lettering)="[^"]*"[^>]*><g [^>]*>[\s\S]*?<\/g><\/g>/g, "");
+    console.log(`Artwork-only: stripped ${before - svg.length} bytes of <text> and lettering outlines.`);
   }
 
   console.log(`Rasterizing component to ${WIDTH}x${HEIGHT}...`);

@@ -33,7 +33,7 @@ const metrics = (svg: string) => ({
 });
 async function raster(svg: string, width: number) {
   // Match the repository's artwork-only approach; browser captures validate fonts.
-  return sharp(Buffer.from(svg.replace(/<text\b[\s\S]*?<\/text>/g, "")), { density: 200 })
+  return sharp(Buffer.from(svg.replace(/<text\b[\s\S]*?<\/text>/g, "").replace(/<g data-(?:registration|lettering)="[^"]*"[^>]*><g [^>]*>[\s\S]*?<\/g><\/g>/g, "")), { density: 200 })
     .resize(width, width / 2, { fit: "fill" }).flatten({ background: "#fff" }).removeAlpha().raw().toBuffer();
 }
 const results = [];
