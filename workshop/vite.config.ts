@@ -3,10 +3,11 @@ import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import { fileURLToPath } from "node:url";
 import { workshopApi } from "./server/api.ts";
+import { componentSizes } from "./server/component-sizes.ts";
 
 export default defineConfig({
   root: fileURLToPath(new URL(".", import.meta.url)),
-  plugins: [react(), tailwindcss(), workshopApi()],
+  plugins: [react(), tailwindcss(), workshopApi(), componentSizes()],
   server: {
     host: "127.0.0.1",
     port: Number(process.env.PORT ?? 3002),
