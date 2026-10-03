@@ -75,7 +75,14 @@
     "license-plate",
     "svg",
     "components",
-    "typescript"
+    "typescript",
+    "license-plates",
+    "license-plate-generator",
+    "us-states",
+    "usa",
+    "react-component",
+    "svg-components",
+    "dmv"
   ],
   "publishConfig": {
     "access": "public",
