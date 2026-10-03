@@ -26,11 +26,12 @@ import { PNG } from "pngjs";
  * to do with type. Scored that way, a good plate reads as ~58% structural
  * similarity and 0.05 SSIM, and a baseline would bake the artifact in.
  *
- * So by default we strip <text> from the render and mask the text regions out of
- * the reference, and score artwork only: frame, rules, scenery, graphics. That is
- * the part a pixel diff can actually judge, and the part worth iterating on.
- * Typography is chosen visually instead, against a cropped wordmark — see
- * dev/plate-compare/font-probe.
+ * So by default we strip live <text> and the registration from the render and mask
+ * those text regions out of the reference. Fixed lettering drawn as outlines
+ * (traced words and font-probe wordmarks) renders exactly, so text regions where
+ * it dominates are scored with the artwork; registrations never are, since a
+ * reference's sample serial is not ours. Live-text typography is still chosen
+ * visually, against a cropped wordmark — see the workshop's font probes.
  *
  * `--with-text` restores the old behaviour. Do not trust its numbers unless the
  * fonts genuinely resolve; switching to @resvg/resvg-js, which accepts explicit
@@ -663,11 +664,59 @@ export async function main() {
     masks[key] = subtractMask(masks[key], optionalMask);
   }
 
-  // Artwork-only: drop every text region from every scored mask, so the
-  // reference's lettering can't register as mismatch against our text-free
-  // render. whitePatches is left alone — it samples blank areas for calibration.
+  console.log(`Rendering ${profile.label} plate component...`);
+  const html = renderToString(profile.render(options.plateText));
+  const svgMatch = html.match(/<svg[\s\S]*<\/svg>/);
+  if (!svgMatch) {
+    throw new Error("Failed to extract SVG from rendered HTML");
+  }
+  let svg = svgMatch[0];
+  let scoredTextRects: Rect[] = [];
   if (!options.withText) {
-    const textMask = createMaskFromRects(profile.textRects);
+    // Score fixed lettering that is drawn as outlines (traced words, font-probe wordmarks): it renders
+    // exactly here. Registrations never match a reference's sample serial, and live <text> cannot resolve
+    // the app's font variables in this rasteriser, so both are removed and their regions stay masked.
+    const liveText = /<text\b[\s\S]*?<\/text>/g;
+    const outlined = (kind: string) => new RegExp(`<g data-${kind}="[^"]*"[^>]*><g [^>]*>[\\s\\S]*?<\\/g><\\/g>`, "g");
+    const before = svg.length;
+    const scored = svg.replace(liveText, "").replace(outlined("registration"), "");
+    // A text rect is scored when outlined lettering dominates it in our render; decal, sticker and
+    // registration rects (no lettering of ours) stay masked. Registration and live text pixels themselves,
+    // plus a margin, are masked even inside scored rects.
+    const [blank, lettering, other] = await Promise.all([
+      scored.replace(outlined("lettering"), ""), scored, svg.replace(outlined("lettering"), ""),
+    ].map(async (variant) => sharp(await rasterizePlate(variant, WIDTH, HEIGHT)).ensureAlpha().raw().toBuffer()));
+    const inked = (layer: Buffer, x: number, y: number) => {
+      const i = (y * WIDTH + x) * 4;
+      return Math.max(Math.abs(layer[i]! - blank[i]!), Math.abs(layer[i + 1]! - blank[i + 1]!), Math.abs(layer[i + 2]! - blank[i + 2]!)) > 24;
+    };
+    const maskedTextRects = profile.textRects.filter((rect) => {
+      let letters = 0, others = 0;
+      for (let y = Math.max(0, rect.y); y < Math.min(HEIGHT, rect.y + rect.height); y++)
+        for (let x = Math.max(0, rect.x); x < Math.min(WIDTH, rect.x + rect.width); x++) {
+          if (inked(lettering, x, y)) letters++;
+          if (inked(other, x, y)) others++;
+        }
+      const score = letters > rect.width * rect.height * .005 && others < letters;
+      if (score) scoredTextRects.push(rect);
+      return !score;
+    });
+    svg = scored;
+    console.log(`Artwork and outlined lettering: stripped ${before - svg.length} bytes of registration and live <text>; `
+      + `scoring ${scoredTextRects.length} of ${profile.textRects.length} text regions.`);
+    // Drop the remaining text regions from every scored mask, so the reference's registration and live
+    // lettering can't register as mismatch. whitePatches is left alone — it samples blank areas for calibration.
+    const textMask = createMaskFromRects(maskedTextRects);
+    const MARGIN = 8;
+    const nearOther = createMaskFromPredicate((x, y) => {
+      if (!scoredTextRects.some((rect) => x >= rect.x && x < rect.x + rect.width && y >= rect.y && y < rect.y + rect.height)) return false;
+      for (let dy = -MARGIN; dy <= MARGIN; dy += 2) for (let dx = -MARGIN; dx <= MARGIN; dx += 2) {
+        const nx = x + dx, ny = y + dy;
+        if (nx >= 0 && ny >= 0 && nx < WIDTH && ny < HEIGHT && inked(other, nx, ny)) return true;
+      }
+      return false;
+    });
+    for (let i = 0; i < textMask.length; i++) if (nearOther[i]) textMask[i] = 1;
     for (const key of Object.keys(masks) as Array<keyof typeof masks>) {
       if (key === "whitePatches") continue;
       masks[key] = subtractMask(masks[key], textMask);
@@ -678,20 +727,6 @@ export async function main() {
   // into the regional diagnostics and regression gate.
   const bottomColumnMasks = partitionColumns(masks.bottomBand, WIDTH, 5);
   const bottomColumnLabels = ["far-left", "center-left", "center", "center-right", "far-right"];
-
-  console.log(`Rendering ${profile.label} plate component...`);
-  const html = renderToString(profile.render(options.plateText));
-  const svgMatch = html.match(/<svg[\s\S]*<\/svg>/);
-  if (!svgMatch) {
-    throw new Error("Failed to extract SVG from rendered HTML");
-  }
-  let svg = svgMatch[0];
-  if (!options.withText) {
-    // Drop <text> so unresolvable fonts can't overflow and bleed into artwork.
-    const before = svg.length;
-    svg = svg.replace(/<text\b[\s\S]*?<\/text>/g, "").replace(/<g data-(?:registration|lettering)="[^"]*"[^>]*><g [^>]*>[\s\S]*?<\/g><\/g>/g, "");
-    console.log(`Artwork-only: stripped ${before - svg.length} bytes of <text> and lettering outlines.`);
-  }
 
   console.log(`Rasterizing component to ${WIDTH}x${HEIGHT}...`);
   const renderedPng = await rasterizePlate(svg, WIDTH, HEIGHT);
@@ -858,6 +893,7 @@ export async function main() {
       agreementSettings: AGREEMENT_SETTINGS,
       agreementCalibration: false,
       textRects: profile.textRects,
+      scoredTextRects,
       profileLabel: profile.label,
       width: WIDTH,
       height: HEIGHT,

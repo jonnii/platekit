@@ -56,7 +56,7 @@ bun run compare-plate:check --baseline=/path/to/saved-baseline.json --candidate=
 
 Replace GA and its paths for the selected state. If a gate fails, inspect the affected region and reference/profile assumptions before retaining the change. Only compare reports produced under identical settings.
 
-The default rasterizer strips SVG `<text>` because Sharp/librsvg cannot resolve the app's CSS font variables. Consequently, artwork scores do **not** validate lettering; even a metric named “wordmark” can measure surrounding pixels after masking. `--with-text` does not fix missing fonts.
+The default rasterizer strips live SVG `<text>` and the registration, because Sharp/librsvg cannot resolve the app's CSS font variables and a reference's sample serial is not ours. Fixed lettering drawn as outlines (traced words, font-probe wordmarks) is kept and scored: text regions where it dominates are unmasked (`scoredTextRects` in the report). Live-text lettering therefore stays unvalidated by artwork scores; even a metric named “wordmark” can measure surrounding pixels after masking. `--with-text` does not fix missing fonts.
 
 Inspect the actual local `/compare?state=GA` page with its fonts loaded. Check the reference/SVG pairs at both display sizes, canonical and anonymized samples, and any long/custom serial affected by layout changes. When no browser tool is available, headless Chrome/CDP with an isolated temporary profile can capture the running app. Avoid recreating its typography in an unrelated HTML mockup or treating a text-free PNG as the final plate preview.
 
