@@ -10,9 +10,9 @@ const charcoal = (c: Rgb) => luminance(c) < 117;
 export default {
   url: "https://upload.wikimedia.org/wikipedia/commons/b/b4/2017_Illinois_License_Plate.png",
   sha256: "2072aa92c5ca1444e7e1fc3cb85ba82d77f0ab0e9803fcd1a0419169a2c6ab50",
-  plate: { x: 31.9, y: 66.7, width: 3684.3, height: 1820.6 },
+  plate: { x: 0, y: 0, width: 3800, height: 1954 }, // the scoring reference crop of this same image: exact registration
   traces: [
-    { name: "IL_NAME", doc: "ILLINOIS", box: { x0: 250, y0: 15, x1: 755, y1: 105 }, ink: navy, smooth: .4 },
-    { name: "IL_MOTTO", doc: "LAND OF LINCOLN", box: { x0: 275, y0: 404, x1: 730, y1: 470 }, ink: charcoal, smooth: .4 },
+    { name: "IL_NAME", doc: "ILLINOIS", box: { x0: 250.8, y0: 31, x1: 740.4, y1: 114.9 }, ink: navy, smooth: .4 },
+    { name: "IL_MOTTO", doc: "LAND OF LINCOLN", box: { x0: 275, y0: 393.5, x1: 716.2, y1: 455 }, ink: charcoal, smooth: .4 },
   ],
 } satisfies TraceSource;

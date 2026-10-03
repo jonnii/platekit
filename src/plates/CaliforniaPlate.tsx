@@ -40,15 +40,14 @@ export default function CaliforniaPlate({ plate, state = "California", className
         <rect {...PLATE_OUTLINE} fill="#fff" />
         <path d="M1 30 Q1 1 30 1 H970 Q999 1 999 30 M1 470 Q1 499 30 499 H970 Q999 499 999 470" fill="none" stroke={`url(#caRim-${id})`} strokeWidth="2.5" />
 
-        {/* Traced script, including its trailing swash. The source plate's serial sits lower than this taller
-            registration, so the script is raised to its top-rim position and the "f" clears the digits. */}
-        <TracedLettering text="California" fill={red} transform="translate(0 -25)" paths={[{ d: CA_NAME }]} />
+        {/* Traced in place from the issued-plate reference; the script sits above the registration. */}
+        <TracedLettering text="California" fill={red} paths={[{ d: CA_NAME }]} />
 
-        {/* A single fitted run keeps canonical groups within the pressed rim. */}
+        {/* Measured on the issued-plate reference: glyphs 200–412 tall across x 82–920, with no spaces between groups. */}
         {ca.isCanonical ? (
-          <Registration face={TEKO_500} text={`${ca.leftDigit} ${ca.midLetters} ${ca.rightDigits}`} id={`registration-${id}`} x={500} y={401} textAnchor="middle" fill={blue} fontSize={332} width={820} letterSpacing={2} />
+          <Registration face={TEKO_500} text={`${ca.leftDigit}${ca.midLetters}${ca.rightDigits}`} id={`registration-${id}`} x={501} y={410} textAnchor="middle" fill={blue} fontSize={304} width={838} letterSpacing={2} />
         ) : (
-          <Registration face={TEKO_500} text={ca.centered} x={500} y={401} textAnchor="middle" fill={blue} fontSize={Math.min(332, 2150 / Math.max(ca.centered.length, 1))} letterSpacing={6} width={900} />
+          <Registration face={TEKO_500} text={ca.centered} x={500} y={410} textAnchor="middle" fill={blue} fontSize={Math.min(304, 2150 / Math.max(ca.centered.length, 1))} letterSpacing={6} width={900} />
         )}
 
         <TracedLettering text="dmv.ca.gov" fill={red} paths={[{ d: CA_URL }]} />

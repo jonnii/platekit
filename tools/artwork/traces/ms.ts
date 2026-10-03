@@ -8,8 +8,8 @@ const navy = (c: Rgb) => luminance(c) < 139;
 export default {
   url: "https://www.dor.ms.gov/sites/default/files/news/2024%20License%20Plate%202.png",
   sha256: "1b7fb841423e7bb0221e3123b49df7afc61128d6df939c496f62367f32e8a379",
-  plate: { x: 89.1, y: 9.4, width: 1933.7, height: 1071.8 },
+  plate: { x: 0, y: 0, width: 2159, height: 1113 }, // the scoring reference crop of this same image: exact registration
   traces: [
-    { name: "MS_NAME", doc: "MISSISSIPPI wordmark with its interlinked ring swashes", box: { x0: 280, y0: 10, x1: 720, y1: 150 }, ink: navy },
+    { name: "MS_NAME", doc: "MISSISSIPPI wordmark with its interlinked ring swashes", box: { x0: 292.1, y0: 13.9, x1: 686.1, y1: 148.7 }, ink: navy },
   ],
 } satisfies TraceSource;

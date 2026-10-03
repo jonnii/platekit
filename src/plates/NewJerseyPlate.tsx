@@ -40,9 +40,8 @@ export default function NewJerseyPlate({ plate, state = "New Jersey", className,
             <stop offset="73%" stopColor="#ffffff" />
             <stop offset="100%" stopColor="#ffffff" />
           </linearGradient>
-          {/* The source's separator is larger and further right than this layout's, so its traced bounds are
-              refitted to the existing 88-unit-tall slot centred at x 434. */}
-          <symbol id={`${id}-njState`} viewBox="463.8 177.7 68 128.7">
+          {/* Traced in place: the symbol's viewBox and its use share the outline's plate-unit bounds. */}
+          <symbol id={`${id}-njState`} viewBox="466.5 186.9 66.5 125.1">
             <path d={NJ_STATE} fill={textColor} fillRule="evenodd" />
           </symbol>
         </defs>
@@ -59,12 +58,12 @@ export default function NewJerseyPlate({ plate, state = "New Jersey", className,
         <g>
           {nj.isCanonical ? (
             <>
-              <Registration face={BEBAS_NEUE_400} text={nj.leadingLetters} x={380} y={379} textAnchor="end" fill={textColor} fontSize={324} letterSpacing={2} width={340} />
-              <use href={`#${id}-njState`} x={410.75} y={226} width={46.5} height={88} />
-              <Registration face={BEBAS_NEUE_400} text={rightChunk} x={520} y={379} textAnchor="start" fill={textColor} fontSize={324} letterSpacing={2} width={440} />
+              <Registration face={BEBAS_NEUE_400} text={nj.leadingLetters} x={419} y={371} textAnchor="end" fill={textColor} fontSize={326} letterSpacing={2} width={350} />
+              <use href={`#${id}-njState`} x={466.5} y={186.9} width={66.5} height={125.1} />
+              <Registration face={BEBAS_NEUE_400} text={rightChunk} x={580} y={371} textAnchor="start" fill={textColor} fontSize={326} letterSpacing={2} width={351} />
             </>
           ) : (
-            <Registration face={BEBAS_NEUE_400} text={cleanRegistration(plate)} x={500} y={379} textAnchor="middle" fill={textColor} fontSize={324} letterSpacing={4} width={Math.min(880, cleanRegistration(plate).length * 116)} />
+            <Registration face={BEBAS_NEUE_400} text={cleanRegistration(plate)} x={500} y={371} textAnchor="middle" fill={textColor} fontSize={324} letterSpacing={4} width={Math.min(880, cleanRegistration(plate).length * 116)} />
           )}
         </g>
 

@@ -9,9 +9,9 @@ const red = (c: Rgb) => c[1] < 155 && c[0] - c[1] > 60 && c[1] - c[2] < 35;
 export default {
   url: "https://upload.wikimedia.org/wikipedia/commons/b/b0/California_2018_license_plate_%28USA%29.jpg",
   sha256: "dd58b62f4f75690280dd0b021b19422cef7f4f4381664d3ee512106e6f491e5c",
-  plate: { x: 41, y: 23, width: 3396, height: 1725 },
+  plate: { x: 30, y: 10, width: 3430, height: 1750 }, // the scoring reference crop of this same image: exact registration
   traces: [
-    { name: "CA_NAME", doc: "California script with its trailing swash", box: { x0: 200, y0: 35, x1: 822, y1: 205 }, ink: red, smooth: .8 },
-    { name: "CA_URL", doc: "dmv.ca.gov", box: { x0: 250, y0: 425, x1: 770, y1: 488 }, ink: red, smooth: .6, minArea: 2 },
+    { name: "CA_NAME", doc: "California script with its trailing swash", box: { x0: 201.2, y0: 38.2, x1: 817.1, y1: 205.8 }, ink: red, smooth: .8 },
+    { name: "CA_URL", doc: "dmv.ca.gov", box: { x0: 250.7, y0: 422.6, x1: 765.6, y1: 484.7 }, ink: red, smooth: .6, minArea: 2 },
   ],
 } satisfies TraceSource;

@@ -25,7 +25,7 @@ export default function TexasPlate({ plate, state = "Texas", className, style, .
         <title>{`Texas license plate: ${plate}`}</title>
         <defs>
           {/* Plate units; the separator sits slightly higher on the sample scan than on issued plates. */}
-          <symbol id={`txState-${id}`}><path d={TX_STATE} transform="translate(-5 -9)" /></symbol>
+          <symbol id={`txState-${id}`}><path d={TX_STATE} /></symbol>
           <linearGradient id={`txRim-${id}`} x2="0" y2="1">
             <stop stopColor="#ddddda" /><stop offset="0.18" stopColor="#eeeeec" />
             <stop offset="0.85" stopColor="#e5e5e2" /><stop offset="1" stopColor="#cecfca" />

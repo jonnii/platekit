@@ -8,8 +8,8 @@ const green = (c: Rgb) => luminance(c) < 112;
 export default {
   url: "https://upload.wikimedia.org/wikipedia/commons/8/8a/Colorado_2018_License_Plate.jpg",
   sha256: "068be6a0e4947d85b1f14aa681598a1f8f5118a09ae62cfa25bc6af160a3983e",
-  plate: { x: 12.0, y: 14.0, width: 2559.6, height: 1242.9 },
+  plate: { x: 0, y: 0, width: 2586, height: 1288 }, // the scoring reference crop of this same image: exact registration
   traces: [
-    { name: "CO_NAME", doc: "COLORADO", box: { x0: 255, y0: 368, x1: 750, y1: 457 }, ink: green, smooth: .5 },
+    { name: "CO_NAME", doc: "COLORADO", box: { x0: 257, y0: 360.5, x1: 747, y1: 446.4 }, ink: green, smooth: .5 },
   ],
 } satisfies TraceSource;

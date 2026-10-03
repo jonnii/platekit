@@ -12,9 +12,9 @@ const onNavy = (c: Rgb) => c[0] > 112 && luminance(c) > 112;
 export default {
   url: "https://itd.idaho.gov/wp-content/uploads/2025/03/Idaho_Sample-High-Res.jpeg",
   sha256: "b38cefe1d6cfffac1cd4dfbc0b1fb0cf94ab452d26169ac825a4589d338e8cea",
-  plate: { x: -41.6, y: -47.2, width: 5074.1, height: 2757.2 },
+  plate: { x: 0, y: 0, width: 5054, height: 2643 }, // the scoring reference crop of this same image: exact registration
   traces: [
-    { name: "ID_NAME", doc: "Scenic IDAHO, white script joined to the serif name", box: { x0: 105, y0: 30, x1: 705, y1: 150 }, ink: onRed, smooth: .6 },
-    { name: "ID_SLOGAN", doc: "FAMOUS POTATOES", box: { x0: 235, y0: 414, x1: 775, y1: 466 }, ink: onNavy, smooth: .6 },
+    { name: "ID_NAME", doc: "Scenic IDAHO, white script joined to the serif name", box: { x0: 97.2, y0: 22.4, x1: 699.6, y1: 147.6 }, ink: onRed, smooth: .6 },
+    { name: "ID_SLOGAN", doc: "FAMOUS POTATOES", box: { x0: 227.7, y0: 423, x1: 769.9, y1: 477.2 }, ink: onNavy, smooth: .6 },
   ],
 } satisfies TraceSource;

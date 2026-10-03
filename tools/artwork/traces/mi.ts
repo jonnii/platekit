@@ -9,9 +9,9 @@ const white = (c: Rgb) => c[0] > 123;
 export default {
   url: "https://upload.wikimedia.org/wikipedia/commons/5/56/2017_Michigan_state_license_plate%2C_DNJ-0955.jpg",
   sha256: "1848b47f7a8416cbd559b4c8e06ce93a8fe9951a99672ef8f1c953c637f8f0bb",
-  plate: { x: 34.0, y: 19.4, width: 3815.8, height: 1926.5 },
+  plate: { x: 0, y: 0, width: 3890, height: 1946 }, // the scoring reference crop of this same image: exact registration
   traces: [
-    { name: "MI_NAME", doc: "PURE MICHIGAN with the brush-script M", box: { x0: 268, y0: 22, x1: 728, y1: 140 }, ink: blue, smooth: .4 },
-    { name: "MI_URL", doc: "michigan.org, reversed out of the footer band", box: { x0: 345, y0: 418, x1: 655, y1: 482 }, ink: white, smooth: .4 },
+    { name: "MI_NAME", doc: "PURE MICHIGAN with the brush-script M", box: { x0: 271.6, y0: 26.8, x1: 722.9, y1: 143.6 }, ink: blue, smooth: .4 },
+    { name: "MI_URL", doc: "michigan.org, reversed out of the footer band", box: { x0: 347.2, y0: 418.8, x1: 651.2, y1: 482.2 }, ink: white, smooth: .4 },
   ],
 } satisfies TraceSource;

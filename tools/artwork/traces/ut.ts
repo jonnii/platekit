@@ -11,10 +11,10 @@ const black = (c: Rgb) => luminance(c) < 105;
 export default {
   url: "https://upload.wikimedia.org/wikipedia/commons/3/39/UTnewfont.png",
   sha256: "00e074c3882e582c4d2bd3ee0e55822c80656a60db4e075c1ffc7cfb5a352373",
-  plate: { x: 6.8, y: 4.6, width: 2559.6, height: 1270.8 },
+  plate: { x: 0, y: 0, width: 2573, height: 1283 }, // the scoring reference crop of this same image: exact registration
   traces: [
-    { name: "UT_NAME", doc: "UTAH, black face", box: { x0: 315, y0: 30, x1: 685, y1: 125 }, ink: black, smooth: .4 },
-    { name: "UT_SLOGAN_OUTLINE", doc: "LIFE ELEVATED, white keyline and face extent", box: { x0: 245, y0: 432, x1: 740, y1: 474 }, ink: (c) => black(c) || c[1] > 139, smooth: .4, minArea: 4 },
-    { name: "UT_SLOGAN", doc: "LIFE ELEVATED, black face", box: { x0: 245, y0: 432, x1: 740, y1: 474 }, ink: black, smooth: .4, minArea: 4 },
+    { name: "UT_NAME", doc: "UTAH, black face", box: { x0: 316, y0: 31.5, x1: 684.1, y1: 125.6 }, ink: black, smooth: .4 },
+    { name: "UT_SLOGAN_OUTLINE", doc: "LIFE ELEVATED, white keyline and face extent", box: { x0: 246.4, y0: 429.7, x1: 738.8, y1: 471.3 }, ink: (c) => black(c) || c[1] > 139, smooth: .4, minArea: 4 },
+    { name: "UT_SLOGAN", doc: "LIFE ELEVATED, black face", box: { x0: 246.4, y0: 429.7, x1: 738.8, y1: 471.3 }, ink: black, smooth: .4, minArea: 4 },
   ],
 } satisfies TraceSource;

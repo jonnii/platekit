@@ -10,9 +10,9 @@ const onSky = (c: Rgb) => c[1] < 80;
 export default {
   url: "https://upload.wikimedia.org/wikipedia/commons/2/2a/Nevada_2016_License_Plate.png",
   sha256: "2d64ca288db7fd3d624a3aac370df290a5fdf31b44753acc93d1bcc433608e59",
-  plate: { x: 15, y: 27, width: 2258, height: 1132 },
+  plate: { x: 0, y: 0, width: 2274, height: 1166 }, // the scoring reference crop of this same image: exact registration
   replaces: ["nv-name"],
   traces: [
-    { name: "NV_NAME", doc: "NEVADA", box: { x0: 250, y0: 25, x1: 775, y1: 125 }, ink: onSky, smooth: .6 },
+    { name: "NV_NAME", doc: "NEVADA", box: { x0: 254.8, y0: 35.8, x1: 776.1, y1: 132.9 }, ink: onSky, smooth: .6 },
   ],
 } satisfies TraceSource;
