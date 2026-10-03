@@ -5,7 +5,7 @@ import CodeBlock from "./CodeBlock";
 const states = [...PLATE_STATES].sort((a, b) => PLATES[a].name.localeCompare(PLATES[b].name));
 const links = [["get-started", "Get started"], ["playground", "Playground"], ["usage", "Usage"], ["props", "Props"], ["fonts", "Fonts"], ["states", "All plates"]] as const;
 const variables = [
-  ["--font-plate-ny", "Registration", "sans-serif"],
+  ["--font-plate-ny", "Condensed headings", "sans-serif"],
   ["--font-plate-script", "Script headings", "cursive"],
   ["--font-plate-place", "State headings", "Georgia, serif"],
   ["--font-plate-motto", "Mottos", "Georgia, serif"],
@@ -103,11 +103,11 @@ export default function App() {
           <p className="eyebrow">05 / Typography</p><h2>Fonts</h2>
           <p>Import the optional font stylesheet once in your app to match these previews. The fonts ship with Platekit and are served by your app.</p>
           <CodeBlock label="tsx">{`import "platekit/fonts.css";`}</CodeBlock>
-          <p>The defaults are Bebas Neue for registrations, Yellowtail for script lettering, Playfair Display for state headings, Sanchez for mottos, and Geist for sans-serif lettering. The fonts retain their own open-source licenses; <a href="https://github.com/jonnii/platekit/blob/main/src/fonts/NOTICE.md">attribution and full license texts</a> are included in the package.</p>
+          <p>Registrations, and state names whose measured lettering differs from the defaults, are drawn as outlines and need no font. The defaults are Bebas Neue for condensed headings, Yellowtail for script lettering, Playfair Display for state headings, Sanchez for mottos, and Geist for sans-serif lettering. The fonts retain their own open-source licenses; <a href="https://github.com/jonnii/platekit/blob/main/src/fonts/NOTICE.md">attribution and full license texts</a> are included in the package.</p>
           <p>Without the stylesheet, plates use the platform fallbacks below. You can also supply your own fonts through these variables.</p>
           <div className="table-scroll"><table><thead><tr><th>CSS variable</th><th>Used for</th><th>Fallback</th></tr></thead><tbody>{variables.map(([variable, use, fallback]) => <tr key={variable}><th><code>{variable}</code></th><td>{use}</td><td>{fallback}</td></tr>)}</tbody></table></div>
           <p>Load your chosen font with your app’s normal font setup, then set the variables on a parent element:</p>
-          <CodeBlock label="css">{`.profile-plate {\n  --font-plate-ny: "Your Registration Font", sans-serif;\n  --font-plate-script: "Your Script Font", cursive;\n  --font-plate-place: Georgia, serif;\n}`}</CodeBlock>
+          <CodeBlock label="css">{`.profile-plate {\n  --font-plate-ny: "Your Condensed Font", sans-serif;\n  --font-plate-script: "Your Script Font", cursive;\n  --font-plate-place: Georgia, serif;\n}`}</CodeBlock>
         </section>
 
         <section id="states" className="doc-section">

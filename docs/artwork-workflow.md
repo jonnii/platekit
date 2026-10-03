@@ -63,3 +63,15 @@ Each command also has a matching mise task; pass script flags after `--`, for ex
 Source code uses the repository's MIT license. Reference photographs, reconstructed derivatives, and the preserved font retain their recorded external provenance; the source-code license does not establish their licensing. They are development material and are excluded from the npm tarball.
 
 See [contributing](contributing.md) for repository boundaries and the React development workflow. Shared display widths are in `tools/artwork/config.ts`; development samples and source filenames are in `tools/artwork/metadata.ts`.
+
+## Traced lettering
+
+Where a state publishes clean, high-resolution artwork (official state art, or public-domain/CC0 scans), its fixed lettering and small emblems are traced instead of typeset. Each state has a config in `tools/artwork/traces/<st>.ts` with the source URL, its SHA-256, where the scoring reference's plate sits in the source, and the colour test and plate-unit box for each shape. Sources are fetched and checksum-pinned at generation time; no image is committed. A config may export several sources when a state's lettering comes from different images (pass `--source=N` to the align and preview tools).
+
+```sh
+bun run tools/artwork/cli/align-source.ts --state=TX --plate=x,y,width,height --out=/tmp/tx-align.png  # refine the plate rectangle
+bun run tools/trace-lettering.ts --states=TX                                                         # writes src/internal/traces/tx.ts
+bun run tools/artwork/cli/trace-preview.tsx --state=TX --out=/tmp/tx-trace                            # source vs ours, per traced box
+```
+
+Put colour cuts at half coverage between ink and background. Use `smooth` (plate units) for photo sources with noisy edges and a lower `minArea` for small text whose dots would otherwise be dropped. A trace that replaces a font wordmark lists its probe id in `replaces`; rerun `tools/outline-glyphs.ts` afterwards. Traced lettering renders through `TracedLettering` (or a `TracedRun` heading/footer on `BaselinePlate`), so the artwork comparator strips it like text; bare traced emblem paths count as artwork and need the regression gate.

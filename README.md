@@ -37,7 +37,7 @@ import NewYorkPlate from "platekit/plates/NewYorkPlate";
 
 ## Fonts
 
-The artwork uses text as well as vector paths. Import the optional stylesheet once in your app's entry point or global layout:
+Registration numbers, and eleven state names and mottos, are drawn as vector outlines and need no font. Each registration uses the face measured closest to that state's plate. Other state names and mottos still use text; import the optional stylesheet once in your app's entry point or global layout:
 
 ```tsx
 import "platekit/fonts.css";
@@ -49,7 +49,7 @@ To manage fonts yourself, omit that import, load your chosen faces, and set thes
 
 | Variable | Purpose | With stylesheet | Without stylesheet |
 | --- | --- | --- | --- |
-| `--font-plate-ny` | Registration numbers (all states) | Bebas Neue | sans-serif |
+| `--font-plate-ny` | Condensed headings (FL, KS, OH, DC, SD, WI) | Bebas Neue | sans-serif |
 | `--font-plate-script` | Script headings | Yellowtail | cursive |
 | `--font-plate-place` | State headings | Playfair Display | Georgia, serif |
 | `--font-plate-motto` | Motto lettering | Sanchez | Georgia, serif |
