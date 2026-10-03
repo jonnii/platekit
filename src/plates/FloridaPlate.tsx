@@ -93,8 +93,8 @@ export default function FloridaPlate({ plate, state = "Florida", className, styl
         <defs>
           {/* Keep the screen in plate coordinates so the state does not enlarge its dots. */}
           <pattern id={`flHalftone-${id}`} width="3" height="3" patternUnits="userSpaceOnUse">
-            <rect width="3" height="3" fill="#d5e1d9" />
-            <path d="M-1 1 L1 -1 M0 3 L3 0 M2 4 L4 2" fill="none" stroke={green} strokeWidth="0.8" opacity="0.55" />
+            <rect width="3" height="3" fill="#a4d4c8" />
+            <path d="M-1 1 L1 -1 M0 3 L3 0 M2 4 L4 2" fill="none" stroke="#1f6b58" strokeWidth="0.8" opacity="0.6" />
           </pattern>
           <linearGradient id={`flRim-${id}`} x1="0" y1="0" x2="1" y2="1">
             <stop stopColor="#868986" /><stop offset="0.5" stopColor="#eeeeec" /><stop offset="1" stopColor="#b4b7b3" />
@@ -111,18 +111,20 @@ export default function FloridaPlate({ plate, state = "Florida", className, styl
         <TracedLettering text="MYFLORIDA.COM" fill={green} paths={[{ d: FL_URL }]} />
 
         {/* Panhandle, Atlantic coast, Everglades, and the small arc of the Keys. */}
-        <path d="M274 114 L286 108 L410 104 L416 119 L553 122 L555 134 L560 131 L558 110 L566 105 L579 110 L590 111
-          L592 130 L599 150 L605 177 L612 199 L621 219 L633 227 L628 230 L638 262 L651 287 L674 350
-          L677 399 L667 421 L657 444 L641 451 L628 448 L620 431 L613 416 L606 406 L593 402
-          L584 382 L582 369 L572 355 L565 338 L557 320 L550 297 L540 272 L533 244 L518 217
-          L504 195 L483 179 L470 171 L452 160 L438 153 L421 170 L407 182 L394 185 L378 175
-          L364 156 L350 149 L330 142 L315 146 L286 147 L284 135 Z
-          M618 462 L612 466 L605 467 L600 474 L590 477 L598 477 L610 471 L622 467 Z"
-          fill={`url(#flHalftone-${id})`} opacity="0.8" />
+        <path d="M262 110 L420 108 L424 120 L498 122 L560 130 L566 114 L575 112 L594 114 L610 124 L615 145
+          L620 165 L625 185 L633 205 L642 225 L649 245 L649 262 L653 275 L663 295 L672 315 L680 335
+          L688 355 L691 378 L687 395 L685 415 L672 428 L660 440 L656 455 L648 462 L638 456 L628 444
+          L620 434 L605 420 L596 410 L590 398 L588 382 L578 355 L571 338 L563 320 L556 297 L546 272
+          L539 244 L524 217 L505 202 L470 194 L440 192 L420 190 L393 180
+          L386 170 L376 160 L352 152 L330 150 L282 148 L280 135 L273 125 Z
+          M618 466 L612 470 L605 471 L600 478 L590 481 L598 481 L610 475 L622 471 Z"
+          fill={`url(#flHalftone-${id})`} />
 
         <g>
-          <circle cx="545" cy="218" r="60" fill={orange} stroke={green} strokeWidth="2.5" />
-          {stipple(545, 218, 60, -35, "far")}
+          <circle cx="564" cy="222" r="56" fill={orange} stroke={green} strokeWidth="2.5" />
+          {stipple(564, 222, 56, -35, "far")}
+          {/* Branch and upper leaves sit just above the lower orange. */}
+          <g transform="translate(6 12)">
           <g fill={green} stroke={green} strokeWidth="1.5">
             <path d="M400 177 Q401 164 410 170 L440 192 L483 215 L518 252 L512 261 L475 222 L433 202 Z" />
             <path d="M444 190 C436 166 448 149 468 153 C485 157 501 155 514 145 C506 165 493 185 476 193 Z" />
@@ -134,8 +136,10 @@ export default function FloridaPlate({ plate, state = "Florida", className, styl
             <path d="M454 199 C478 198 503 193 520 210" />
             <path d="M452 209 C436 226 431 249 401 257" />
           </g>
-          <ellipse cx="474" cy="319" rx="76" ry="74" fill={orange} stroke={green} strokeWidth="2.5" />
-          {stipple(474, 319, 74, -155, "near")}
+          </g>
+          <ellipse cx="474" cy="329" rx="64" ry="76" fill={orange} stroke={green} strokeWidth="2.5" />
+          {stipple(474, 329, 68, -155, "near")}
+          <g transform="translate(8 6)">
           <path d="M469 252 L463 244 L475 247 L483 239 L484 249 L497 255 L483 255 L471 266 L475 256 L458 259 Z" fill={green} />
           {/* Leaves lie behind the irregular petals, with a few white midribs. */}
           <g fill={green} stroke={green} strokeWidth="1.5">
@@ -150,6 +154,7 @@ export default function FloridaPlate({ plate, state = "Florida", className, styl
           {blossom(514, 298, 0.94, -15, green, orange, "b1")}
           {blossom(565, 309, 0.95, 24, green, orange, "b2")}
           {blossom(541, 341, 0.98, 8, green, orange, "b3")}
+          </g>
         </g>
 
         {fl.isCanonical ? (

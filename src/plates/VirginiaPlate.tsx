@@ -1,31 +1,40 @@
 "use client";
 
-import BaselinePlate from "../internal/BaselinePlate.js";
+import BaselinePlate, { PLATE_SANS } from "../internal/BaselinePlate.js";
 import type { PlateProps } from "../types.js";
 import { ROBOTO_CONDENSED_700 } from "../internal/registrationGlyphs.js";
 
-/** Reference-guided artwork; source and design caveats are in plate-compare/references.ts. */
+const BLUE = "#053bb7";
+
+/** Official Virginia DMV sample; source and design caveats are in tools/artwork/references.ts. */
 export default function VirginiaPlate(props: PlateProps) {
   return (
     <BaselinePlate {...props} registrationFace={ROBOTO_CONDENSED_700} state={props.state ?? "Virginia"}
       name="Virginia"
-      colors={["#eeeeec"]}
+      colors={["#f8fafb"]}
+      // Measured on the DMV sample: caps 28–105 across x 248–768.
       heading="VIRGINIA"
-      headingColor="#194f91"
-      headingSize={96}
-      headingWidth={470}
-      headingY={102}
+      headingColor={BLUE}
+      headingSize={111}
+      headingWidth={520}
+      headingX={508}
+      headingY={105}
       ink="#0a204e"
-
-      rim={true}
-      rimWidth={12}
       serialStroke="#fafaf8"
     >
-      <g fill="#111" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="32" aria-label="Virginia is for Lovers">
-        <text x="302" y="452" textLength="291" lengthAdjust="spacingAndGlyphs">VIRGINIA IS FOR LO</text>
-        <path d="M612 434 C601 418 584 433 595 444 L612 459 629 444 C640 431 622 418 612 434Z" fill="#c82030" transform="translate(0 -7) scale(1 1)" />
-        <text x="633" y="452" textLength="65" lengthAdjust="spacingAndGlyphs">ERS</text>
+      {/* Optional decal tabs printed in the top corners. */}
+      {props.registrationStickerAreas && <g data-plate-registration-sticker-area="" fontFamily={PLATE_SANS} fontSize="16" textAnchor="middle" fill="#fff">
+        <rect x="35" y="50" width="100" height="29" fill={BLUE} /><text x="85" y="70">MONTH</text>
+        <rect x="882" y="49" width="101" height="29" fill={BLUE} /><text x="932.5" y="69">YEAR</text>
+      </g>}
+      {/* Caps 408–442 across x 234–788; the outlined heart replaces the V of LOVERS. */}
+      <g fill="#050505" fontFamily={PLATE_SANS} fontWeight="700" fontSize="46" aria-label="Virginia is for Lovers">
+        <text x="234" y="442" textLength="436" lengthAdjust="spacingAndGlyphs">VIRGINIA IS FOR LO</text>
+        <path d="M691.5 418C688 410 676 408 676 418.5C676 427 685 433 691.5 440C698 433 707 427 707 418.5C707 408 695 410 691.5 418Z" fill="#d41a33" stroke="#050505" strokeWidth="5" strokeLinejoin="round" />
+        <text x="713" y="442" textLength="60" lengthAdjust="spacingAndGlyphs">ERS</text>
+        <text x="775" y="415" fontSize="11" fontWeight="400">®</text>
       </g>
+      <text x="605" y="474" fill="#242526" fontFamily={PLATE_SANS} fontWeight="500" fontSize="29" textLength="175" lengthAdjust="spacingAndGlyphs">Virginia.org</text>
     </BaselinePlate>
   );
 }

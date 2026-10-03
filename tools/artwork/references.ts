@@ -195,7 +195,7 @@ export const PLATE_REFERENCES: PlateReference[] = [
     image: { w: 900, h: 512 },
     plate: { x: 28, y: 43, w: 845, h: 428 },
     samples: ["AB1C2D", "MO*99X", "BICENTENNIAL"],
-    notes: "Selected target: Missouri Bicentennial (2018–), replacing the bluebird reference by user decision. State Historical Society of Missouri artwork via Wikimedia Commons. The existing SVG still needs a bicentennial redraw. Cleaned seal details behind the serial are inferred; use the original for evidence.",
+    notes: "Missouri Bicentennial (2018–), replacing the bluebird reference by user decision. State Historical Society of Missouri artwork via Wikimedia Commons. White base with a solid red wave and four thin red wave lines along the top, mirrored navy waves along the bottom, MISSOURI over BICENTENNIAL at top centre, 1821 ★ 2021 at bottom centre and a faint Great Seal (rope ring, motto band, 24 stars, helmet, bear supporters, quartered shield, scroll) behind the 3/3 serial. The printed month corner (AUG) stays an unassigned decal area; mounting holes are optional overlays. The source's blurred vertical rectangle between the serial halves is not drawn. Cleaned seal details behind the serial are inferred; use the original for evidence.",
   },
   {
     state: "MT",

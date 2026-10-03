@@ -1,7 +1,7 @@
 "use client";
 
 import PlateFrame from "../internal/PlateFrame.js";
-import PlateSvg, { PLATE_INSET_RADIUS, PLATE_OUTLINE } from "../internal/PlateSvg.js";
+import PlateSvg, { PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import { PlateProps } from "../types.js";
 import Registration, { cleanRegistration } from "../internal/Registration.js";
@@ -29,16 +29,11 @@ export default function NewJerseyPlate({ plate, state = "New Jersey", className,
       >
         <title>{`New Jersey license plate: ${plate}`}</title>
         <defs>
-          {/* Sampled down a clear column of the reference: white at the rim, then
-              strong yellow from y~30, easing lighter to y~120, and fully white by
-              y~390. The stops it replaces were a pale sand that barely changed top
-              to bottom — the plate read as cream rather than Garden State yellow. */}
-          <linearGradient id={`${id}-njBg`} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#edc83f" />
-            <stop offset="5%" stopColor="#f0c542" />
-            <stop offset="24%" stopColor="#ffd95e" />
-            <stop offset="73%" stopColor="#ffffff" />
-            <stop offset="100%" stopColor="#ffffff" />
+          {/* Sampled down clear side columns of the MVC sample: a pale lemon yellow
+              that fades almost linearly to cream at the bottom edge, never pure white. */}
+          <linearGradient id={`${id}-njBg`} gradientUnits="userSpaceOnUse" x1="0" y1="30" x2="0" y2="470">
+            <stop offset="0" stopColor="#ffe761" />
+            <stop offset="1" stopColor="#fff8d4" />
           </linearGradient>
           {/* Traced in place: the symbol's viewBox and its use share the outline's plate-unit bounds. */}
           <symbol id={`${id}-njState`} viewBox="466.5 186.9 66.5 125.1">
@@ -47,10 +42,10 @@ export default function NewJerseyPlate({ plate, state = "New Jersey", className,
         </defs>
 
         <g>
-          {/* No drawn border — the real plate's edge is just the pressed rim. */}
+          {/* A wide white rim around the printed field, which has a hairline grey edge. */}
           <rect {...PLATE_OUTLINE} fill="#868c8b" />
           <rect x="3" y="3" width="994" height="494" rx={PLATE_OUTLINE.rx} fill="#fff" />
-          <rect x="12" y="12" width="976" height="476" rx={PLATE_INSET_RADIUS} fill={`url(#${id}-njBg)`} />
+          <rect x="24" y="23" width="950" height="453" rx="18" fill={`url(#${id}-njBg)`} stroke="#8f8b7c" strokeWidth="1.2" />
         </g>
 
         <TracedLettering text="New Jersey" fill={textColor} paths={[{ d: NJ_NAME }]} />

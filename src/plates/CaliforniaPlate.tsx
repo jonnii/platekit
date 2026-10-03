@@ -31,14 +31,9 @@ export default function CaliforniaPlate({ plate, state = "California", className
         style={{ width: "100%", height: "auto" }}
       >
         <title>California</title>
-        <defs>
-          <linearGradient id={`caRim-${id}`} x1="0" y1="0" x2="0" y2="1">
-            <stop stopColor="#d8d9d7" /><stop offset="0.1" stopColor="#fff" />
-            <stop offset="0.9" stopColor="#fafafa" /><stop offset="1" stopColor="#9d9f9b" />
-          </linearGradient>
-        </defs>
-        <rect {...PLATE_OUTLINE} fill="#fff" />
-        <path d="M1 30 Q1 1 30 1 H970 Q999 1 999 30 M1 470 Q1 499 30 499 H970 Q999 499 999 470" fill="none" stroke={`url(#caRim-${id})`} strokeWidth="2.5" />
+        <rect {...PLATE_OUTLINE} fill="#fff" stroke="#c9cbcd" strokeWidth="2.5" />
+        {/* Stamped ridge about 32 units inside the edge on the issued plate. */}
+        <rect x="32" y="32" width="936" height="436" rx="22" fill="none" stroke="#d5d6d8" strokeWidth="2" />
 
         {/* Traced in place from the issued-plate reference; the script sits above the registration. */}
         <TracedLettering text="California" fill={red} paths={[{ d: CA_NAME }]} />

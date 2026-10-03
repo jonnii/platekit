@@ -14,8 +14,6 @@ export default function IllinoisPlate({ plate, state = "Illinois", className, st
   const id = useId().replace(/:/g, "");
   const sky = `${id}-sky`;
   const clip = `${id}-clip`;
-  const face = `${id}-face`;
-  const coat = `${id}-coat`;
   const cleaned = cleanRegistration(plate);
   const serialWidth = Math.min(860, cleaned.length * 112);
 
@@ -28,100 +26,71 @@ export default function IllinoisPlate({ plate, state = "Illinois", className, st
         preserveAspectRatio="xMidYMid meet" style={{ width: "100%", height: "auto" }}>
         <title>{`Illinois license plate: ${plate}`}</title>
         <defs>
-          <linearGradient id={sky} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#29abe0" />
-            <stop offset="24%" stopColor="#62bee0" />
-            <stop offset="54%" stopColor="#b8e1ee" />
-            <stop offset="80%" stopColor="#f8faf9" />
-            <stop offset="100%" stopColor="#fafafa" />
+          <linearGradient id={sky} gradientUnits="userSpaceOnUse" x1="0" y1="28" x2="0" y2="345">
+            <stop offset="0" stopColor="#309cdc" />
+            <stop offset="0.45" stopColor="#3fa4e2" />
+            <stop offset="0.63" stopColor="#80c3ef" />
+            <stop offset="0.82" stopColor="#b6daf2" />
+            <stop offset="1" stopColor="#d5e8f5" />
           </linearGradient>
-          <linearGradient id={face} x1="0" y1="0" x2="1" y2="0.4">
-            <stop stopColor="#fcfcfa" />
-            <stop offset="65%" stopColor="#f0f0ed" />
-            <stop offset="100%" stopColor="#b7b9b5" />
-          </linearGradient>
-          <linearGradient id={coat} x1="0" y1="0" x2="1" y2="1">
-            <stop stopColor="#454746" />
-            <stop offset="55%" stopColor="#555754" />
-            <stop offset="100%" stopColor="#414342" />
-          </linearGradient>
-          <clipPath id={clip}><rect {...PLATE_OUTLINE} /></clipPath>
+          {/* The printed field sits inside a broad embossed rim. */}
+          <clipPath id={clip}><rect x="28" y="28" width="943" height="438" rx="24" /></clipPath>
         </defs>
         <rect {...PLATE_OUTLINE} fill="#fafbf9" />
         <g clipPath={`url(#${clip})`}>
           <rect width="1000" height="500" fill={`url(#${sky})`} />
 
-          {/* Willis Tower and the stepped Chicago skyline. */}
-          <g fill="#fbfcfb">
-            <path d="M139 390V151H147V84H152V51H156V84H162V45H167V84H180V185H205V180H228V192H248V186H269V197H293V212H319V214H341V225H394V231H410V248H427V394Z" />
-            <path d="M177 189H201V391H177Z" fill="#e8f6f8" />
-            <path d="M316 226H341V396H316Z" fill="#edf7f8" />
-          </g>
-
-          {/* Capitol lantern, ribbed dome and low wings in Springfield. */}
-          <g fill="#fcfdfb">
-            <path d="M811 10H813V72H811Z M795 93Q796 77 808 70H817Q829 79 830 93Z" />
-            <rect x="794" y="91" width="37" height="6" rx="2" />
-            <path d="M799 96H803V129H799Z M809 96H813V129H809Z M820 96H824V129H820Z" />
-            <path d="M790 134Q791 126 801 126H825Q839 129 838 139L831 148H798Q785 145 790 134Z" />
-            <path d="M799 148H829Q856 176 873 204Q888 227 888 256V349H902V393H720V348H741V258Q742 227 759 203Q777 175 799 148Z" />
-            <path d="M746 258Q759 197 807 155Q777 197 770 258V348H746Z" fill="#e8f4f6" />
-            <path d="M808 152Q792 201 790 259M820 153Q845 201 850 259" fill="none" stroke="#eaf4f5" strokeWidth="3" />
-            <path d="M713 349H922V361H713Z M767 315H865V329H767Z" />
-            <path d="M541 319L557 306L674 294L686 338H541Z M553 337H679V385H553Z" />
-            <g aria-label="Farm windmill" fill="none" stroke="#fcfdfb" strokeWidth="2">
-              <path d="M523 281 L513 390 M528 281 L538 390 M519 314 H531 M517 340 H533 M515 368 H536 M519 314 L533 340 515 368 538 390 M531 314 L517 340 536 368 513 390 M526 281 H557" />
-              <circle cx="526" cy="279" r="22" strokeWidth="1" />
-              {Array.from({ length: 16 }, (_, i) => <path key={i} transform={`rotate(${i * 22.5} 526 279)`} d="M526 279 V260 L531 256 529 270Z" fill="#fcfdfb" strokeWidth=".6" />)}
-              <path d="M548 279 L563 271 V285Z" fill="#fcfdfb" stroke="none" />
+          <g fill="#fafbf9">
+            {/* Low ground line shared by the skyline, farm and capitol. */}
+            <path d="M0 318H440V340H1000V500H0Z" />
+            {/* Willis Tower with twin masts, then the stepped Loop blocks. */}
+            <path d="M177 75H180V106H184V75H187V106H199V165H205V218H220V268H245V330H145V290H162V218H166V165H171V106H177Z" />
+            <path d="M278 205H285V197H314V205H322V241H370V235H400V245H412V255H428V345H278Z" />
+            <path d="M565 345V320H600V298H655V345Z" />
+            {/* Farm windmill: bladed wheel, tail vane and splayed tower. */}
+            <g aria-label="Farm windmill">
+              {Array.from({ length: 16 }, (_, i) => <path key={i} transform={`rotate(${i * 22.5} 513 257)`} d="M513 250L511.7 234 L514.3 234Z M511 249L509 234H517L515 249Z" />)}
+              <circle cx="513" cy="257" r="5" />
+              <path d="M513 255H536V259H513Z M533 251L569 246V270L533 264Z" />
+              <path d="M509 266L499 342H505L512 270Z M517 266L527 342H521L514 270Z M503 300H523V304H503Z" />
+            </g>
+            {/* Springfield capitol: needle, lantern, ringed drum, dome and wings. */}
+            <g aria-label="Illinois State Capitol">
+              <path d="M781 25H783V90H781Z M767 112Q768 92 782 88Q796 92 797 112Z" />
+              <rect x="764" y="110" width="36" height="6" rx="2" />
+              <path d="M768 115H773V143H768Z M779.5 115H784.5V143H779.5Z M791 115H796V143H791Z" />
+              <path d="M757 152Q757 143 766 142H798Q807 143 807 152Q806 160 798 161H766Q758 160 757 152Z M767 160H797V174H767Z" />
+              <path d="M767 172Q742 192 730 222Q719 247 718 258H846Q845 247 834 222Q822 192 797 172Z" />
+              <path d="M712 256H848V300H712Z M697 298H860V345H697Z" />
             </g>
           </g>
 
-          {/* Lincoln's coat, shirt and overlapping lapels continue off the edge. */}
-          <path d="M-15 355L40 332L86 310L110 324L125 349L166 365L217 397Q261 405 274 447L287 500H-15Z" fill={`url(#${coat})`} />
-          <path d="M0 344L53 322L85 312L66 360L33 421L8 454L0 445Z" fill="#fafaf7" />
-          <path d="M4 356Q21 355 44 369L61 351L77 361L60 386L39 384L20 407L8 401Z" fill="#414441" />
-          <path d="M87 314L113 333L121 365L84 452L42 450L66 391Z" fill="#5b5d59" />
-          <path d="M121 347L159 373L142 392L161 407L137 481L143 500H116L111 476L95 453Z" fill="#60625e" />
-          <path d="M120 350L86 452L42 450M88 469L66 493" fill="none" stroke="#777973" strokeWidth="3" opacity="0.55" />
-          <path d="M169 435Q189 415 224 408L211 424L191 440L195 489H175Z" fill="#343735" opacity="0.65" />
-          <path d="M211 416Q185 437 186 471L193 500M174 456L165 494" fill="none" stroke="#787a73" strokeWidth="3" opacity="0.45" />
-
-          {/* The half portrait is light on the forehead and angular at the cheek. */}
-          <path d="M-18 80Q20 64 68 81L101 102L121 143L119 211L99 244L91 283L61 315L15 334L-18 339Z" fill={`url(#${face})`} />
-          <path d="M-9 43Q9 31 30 29Q45 22 58 39Q67 26 80 36Q101 45 109 65L112 81L101 89Q124 91 132 123L136 151L145 171L138 176L149 183L139 190L146 196L132 199L131 219L119 227L113 208L115 186L103 155L100 124L89 105L86 92L71 89L60 95L50 91L39 97L31 94L21 100L15 96L10 100L4 96L-9 101Z" fill="#828580" />
-          {/* Broken highlights follow swept hair, avoiding a solid cartoon outline. */}
-          <g fill="none" stroke="#f2f2ee" strokeLinecap="round" strokeWidth="3">
-            <path d="M19 40L30 51L25 39L43 52L38 38L53 57M16 54L29 65L22 51L39 69M46 43L60 65L54 46L65 56L69 74M68 48L82 67L77 51L87 62L88 76M88 43Q105 63 101 79" />
-            <path d="M105 104L116 128L111 107L121 123L124 146M103 125L112 145L110 130L120 160M119 153L129 171L124 153M129 170L139 177M116 174L128 186L139 189M127 194L134 204" />
+          {/* Lincoln's halftone portrait is printed pale, close to the plate white. */}
+          <g aria-label="Abraham Lincoln portrait">
+            <path d="M0 78Q30 71 60 73Q85 76 98 90Q110 104 112 118Q126 128 132 145Q136 162 140 182Q143 205 140 225Q136 245 130 262Q124 285 115 300L108 318L100 345L78 374L52 402L30 430L0 435Z" fill="#b4b4aa" />
+            <path d="M0 128Q40 115 80 122Q100 128 110 145Q114 165 116 190Q118 215 115 240Q112 262 104 280Q95 298 80 305Q60 310 40 305L0 300Z" fill="#d8d8d0" />
+                        <path d="M0 284Q20 296 45 300Q75 304 95 295Q105 288 110 276L115 300Q100 318 80 322Q50 326 0 320Z" fill="#c2c2ba" />
+            <g fill="#9e9e96">
+              <path d="M44 199Q60 191 78 197L77 204Q60 199 45 205Z M98 200Q110 195 123 201L121 207Q110 202 99 206Z" />
+              <ellipse cx="62" cy="214" rx="10" ry="4" />
+              <ellipse cx="110" cy="216" rx="8" ry="4" />
+              <path d="M88 212Q92 234 97 250Q90 257 81 252L86 244Z M58 268Q84 261 106 269L104 276Q85 270 60 275Z M112 214Q121 240 113 276L106 262Q112 240 107 220Z" />
+            </g>
+            <path d="M20 86Q40 96 52 112M58 80Q80 92 92 112M96 104Q116 124 122 150M118 168Q132 190 130 214" fill="none" stroke="#a2a298" strokeWidth="4" strokeLinecap="round" />
+            {/* Coat shoulders rise only to the motto line; folds stay faint. */}
+            <path d="M0 470V448Q30 412 80 397Q110 386 150 384Q195 384 225 396Q252 410 262 440L270 470Z" fill="#75766e" />
+            <path d="M60 470Q70 430 100 410M150 400Q160 430 150 470M205 400Q228 425 232 470" fill="none" stroke="#8a8b82" strokeWidth="3" strokeLinecap="round" />
+            <path d="M112 392L100 430L92 470M182 390L178 430L186 470M40 440Q60 420 84 414M246 420L238 450" fill="none" stroke="#5f6058" strokeWidth="3" strokeLinecap="round" />
           </g>
-          <g fill="#aaada7">
-            <path d="M28 173L49 169L68 161L69 172L78 185L62 180L43 188L26 186Z" />
-            <path d="M15 239L26 239L35 244L27 249L21 250L18 257L10 257L10 244Z" />
-            <path d="M39 230Q47 248 67 265L75 259L70 273L55 269Z" />
-            <path d="M10 269L23 266L35 269L51 267L58 271L44 275L25 273L10 274Z" />
-            <path d="M13 283L38 282L29 287L13 288Z" />
-          </g>
-          <path d="M32 188L43 182L57 180L67 188L58 187L52 192L43 192L38 188Z" fill="#777c75" />
-          <path d="M38 190Q48 183 58 190L53 195L44 195Z" fill="#eceee8" />
-          <ellipse cx="49" cy="191" rx="3.3" ry="3.7" fill="#676d64" />
-          <path d="M33 199L46 201L61 197M73 203L69 222L61 231" fill="none" stroke="#d3d6cf" strokeWidth="2.5" />
-          <path d="M105 204Q119 190 124 204L119 225L110 234L108 248L101 251L103 235L113 220L111 210Z" fill="#d2d5cd" />
-          <path d="M-5 297L10 291L18 299L28 293L37 299L44 290L53 298L62 288L70 282L83 258L97 244L105 246L98 277L90 291L87 310L73 324L51 336L29 341L13 350L-5 350Z" fill="#949891" />
-          <g fill="none" strokeLinecap="round">
-            <path d="M7 311L13 319L9 333M20 302L24 317L31 309L32 329M40 300L44 317L37 329M53 301L50 319L60 310L55 328M69 291L66 309L75 299L69 319M84 278L79 299L87 291M94 260L89 277" stroke="#c9cdc4" strokeWidth="3" />
-            <path d="M3 341L20 330M29 335L40 325M52 332L66 323M77 312L84 301M17 305L17 315" stroke="#6f756d" strokeWidth="3" />
-          </g>
-
-          <rect {...PLATE_OUTLINE} fill="none" stroke="#fafbf9" strokeWidth="12" />
-          <rect {...PLATE_OUTLINE} fill="none" stroke="#d2d6d5" strokeWidth="2" />
         </g>
+        <rect x="27" y="27" width="945" height="440" rx="25" fill="none" stroke="#8e9290" strokeWidth="2.5" />
+        <rect {...PLATE_OUTLINE} fill="none" stroke="#a3a7a5" strokeWidth="2" />
 
-        <TracedLettering text="ILLINOIS" fill="#101412" paths={[{ d: IL_NAME }]} />
+        <TracedLettering text="ILLINOIS" fill="#1b2f5a" paths={[{ d: IL_NAME }]} />
 
         <g>
           <Registration face={BARLOW_CONDENSED_500} text={cleaned} x={525} y={371} fontSize={325} textAnchor="middle" fill="#707571" stroke="#707571" strokeWidth={4} opacity="0.5" width={serialWidth} />
-          <Registration face={BARLOW_CONDENSED_500} text={cleaned} x={522} y={368} fontSize={325} textAnchor="middle" fill="#aa252c" stroke="#f8f8f3" strokeWidth={3} paintOrder="stroke" width={serialWidth} />
+          <Registration face={BARLOW_CONDENSED_500} text={cleaned} x={522} y={368} fontSize={325} textAnchor="middle" fill="#7a2f4f" stroke="#f8f8f3" strokeWidth={3} paintOrder="stroke" width={serialWidth} />
         </g>
 
         <TracedLettering text="Land of Lincoln" fill="#111613" paths={[{ d: IL_MOTTO }]} />

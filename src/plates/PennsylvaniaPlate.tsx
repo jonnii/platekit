@@ -10,19 +10,19 @@ import { TracedLettering } from "../internal/Lettering.js";
 import { PA_NAME, PA_URL } from "../internal/traces/pa.js";
 
 /** Pennsylvania's blue-and-yellow visitPA.com base, with a keystone separator. */
-const NAVY = "#0e2c5e";
-const YELLOW = "#dfca17";
-const SERIAL = "#0d2857";
+const NAVY = "#06104e";
+const YELLOW = "#e4ba03";
+const SERIAL = "#0b1a6b";
 
-/** The keystone: narrow flat top, flared shoulders, tapering to a flat base. */
+/** The keystone: wide flat cap, short flared shoulders, tapering to a flat base. */
 function keystone(x: number, y: number, w: number, h: number) {
   return (
     <g transform={`translate(${x} ${y}) scale(${w / 100} ${h / 100})`}>
       <path
-        d="M22 2 Q20 2 20 5 V22 H9 Q4 22 5 28 L19 92 Q20 97 25 97 H77 Q81 97 82 92 L96 28 Q97 22 92 22 H80 V5 Q80 2 77 2 Z"
-        fill="#16315f"
-        stroke="#e5e6dd"
-        strokeWidth="7"
+        d="M20 0 H80 Q83 0 83 3 V20 H97 Q100 20 100 24 V36 L83 97 Q82 100 79 100 H24 Q21 100 20 97 L0 36 V24 Q0 20 3 20 H17 V3 Q17 0 20 0 Z"
+        fill="#06136a"
+        stroke="#e2e2e6"
+        strokeWidth="5"
         paintOrder="stroke"
       />
     </g>
@@ -60,27 +60,24 @@ export default function PennsylvaniaPlate({ plate, state = "Pennsylvania", class
       >
         <title>{`Pennsylvania license plate: ${plate}`}</title>
         <defs>
-          <clipPath id={`paClip-${id}`}><rect x="15" y="13" width="970" height="475" rx={PLATE_INSET_RADIUS} /></clipPath>
-          <linearGradient id={`paTop-${id}`} x2="0" y2="1"><stop stopColor="#526b8b" /><stop offset="0.23" stopColor="#294571" /><stop offset="0.85" stopColor={NAVY} /></linearGradient>
-          <linearGradient id={`paRim-${id}`} x2="0" y2="1"><stop stopColor="#b6c2cd" /><stop offset="0.16" stopColor="#6d819f" /><stop offset="0.85" stopColor="#6d819f" /><stop offset="1" stopColor="#123265" /></linearGradient>
+          <clipPath id={`paClip-${id}`}><rect x="27" y="27" width="947" height="449" rx="18" /></clipPath>
           <filter id={`paEmboss-${id}`} x="-5%" y="-5%" width="110%" height="115%"><feDropShadow dx="1.2" dy="1.6" stdDeviation="0.5" floodColor="#a9af9a" /></filter>
         </defs>
-        <rect {...PLATE_OUTLINE} fill="#efefef" />
+        <rect {...PLATE_OUTLINE} fill="#d6d5da" />
+        <rect x="11" y="9" width="978" height="483" rx={PLATE_INSET_RADIUS} fill="none" stroke="#e8e8ec" strokeWidth="3" />
+        {/* The printed design is an inset, navy-outlined panel inside a plain embossed margin. */}
         <g clipPath={`url(#paClip-${id})`}>
-          <rect width="1000" height="500" fill="#efefee" />
-          <rect width="1000" height="118" fill={`url(#paTop-${id})`} />
-          <rect y="383" width="1000" height="117" fill={YELLOW} />
-          <path d="M15 455 V461 Q15 485 40 485 H960 Q985 485 985 461 V455" fill="none" stroke={NAVY} strokeWidth="9" />
-          <rect x="15" y="13" width="970" height="475" rx={PLATE_INSET_RADIUS} fill="none" stroke={`url(#paRim-${id})`} strokeWidth="5" />
+          <rect width="1000" height="500" fill="#dcdce0" />
+          <rect width="1000" height="122" fill={NAVY} />
+          <rect y="381" width="1000" height="119" fill={YELLOW} />
         </g>
-        <rect x="11" y="9" width="978" height="483" rx={PLATE_INSET_RADIUS} fill="none" stroke="#fafafa" strokeWidth="3" />
-
+        <rect x="27" y="27" width="947" height="449" rx="18" fill="none" stroke={NAVY} strokeWidth="6" />
         <TracedLettering text="PENNSYLVANIA" fill="#ffffff" paths={[{ d: PA_NAME }]} />
 
         {split ? (
           <>
             <Registration face={BARLOW_CONDENSED_500} text={left} x={392} y={serialY} textAnchor="end" fill={SERIAL} stroke="#c8ccc5" strokeWidth={3} paintOrder="stroke" fontSize={size} filter={`url(#paEmboss-${id})`} letterSpacing={2} width={Math.min(330, left.length * 108)} />
-            {keystone(415, 219, 64, 64)}
+            {keystone(415, 224, 56, 59)}
             <Registration face={BARLOW_CONDENSED_500} text={right} x={507} y={serialY} textAnchor="start" fill={SERIAL} stroke="#c8ccc5" strokeWidth={3} paintOrder="stroke" fontSize={size} filter={`url(#paEmboss-${id})`} letterSpacing={2} width={Math.min(425, right.length * 106)} />
           </>
         ) : (

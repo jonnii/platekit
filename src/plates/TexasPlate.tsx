@@ -1,7 +1,7 @@
 "use client";
 
 import PlateFrame from "../internal/PlateFrame.js";
-import PlateSvg, { PLATE_INSET_RADIUS, PLATE_OUTLINE } from "../internal/PlateSvg.js";
+import PlateSvg, { PLATE_OUTLINE } from "../internal/PlateSvg.js";
 import { useId } from "react";
 import { PlateProps } from "../types.js";
 import Registration, { cleanRegistration } from "../internal/Registration.js";
@@ -10,6 +10,17 @@ import { TracedLettering } from "../internal/Lettering.js";
 import { TX_MOTTO, TX_NAME, TX_STAR, TX_STATE } from "../internal/traces/tx.js";
 
 const INK = "#080808";
+
+/** Each thread is two sine strands ~98° out of phase, so they cross alternately left and right of centre. */
+function braid(cx: number, y0: number): string[] {
+  const k = (2 * Math.PI) / 113, half = (98 * Math.PI) / 360;
+  return [-half, half].map((phase) => {
+    let d = "";
+    for (let y = 0; y <= 500; y += 5) d += `${y ? "L" : "M"}${(cx + 15 * Math.sin(k * (y - y0) - Math.PI / 2 + phase)).toFixed(1)} ${y}`;
+    return d;
+  });
+}
+const BRAIDS = [...braid(187, 77), ...braid(820, 70)];
 
 /** Texas Classic: flat black printing, a beveled star and a Texas separator. */
 export default function TexasPlate({ plate, state = "Texas", className, style, ...rest }: PlateProps) {
@@ -26,17 +37,13 @@ export default function TexasPlate({ plate, state = "Texas", className, style, .
         <defs>
           {/* Plate units; the separator sits slightly higher on the sample scan than on issued plates. */}
           <symbol id={`txState-${id}`}><path d={TX_STATE} /></symbol>
-          <linearGradient id={`txRim-${id}`} x2="0" y2="1">
-            <stop stopColor="#ddddda" /><stop offset="0.18" stopColor="#eeeeec" />
-            <stop offset="0.85" stopColor="#e5e5e2" /><stop offset="1" stopColor="#cecfca" />
-          </linearGradient>
           <clipPath id={`txClip-${id}`}><rect x="7" y="7" width="986" height="486" rx={PLATE_OUTLINE.rx} /></clipPath>
         </defs>
-        <rect {...PLATE_OUTLINE} fill="#f3f3f0" />
-        <rect x="12" y="15" width="976" height="470" rx={PLATE_INSET_RADIUS} fill="#f5f5f2" stroke={`url(#txRim-${id})`} strokeWidth="9" />
-        {/* The two security threads run vertically through the reflective sheet. */}
-        <g clipPath={`url(#txClip-${id})`} fill="none" stroke="#dbdcd8" strokeWidth="1.5" opacity="0.5">
-          {[285, 715].map((x) => <path key={x} d={`M${x} 18 C${x - 28} 65 ${x + 25} 95 ${x} 142 S${x - 25} 222 ${x} 269 S${x + 25} 345 ${x} 391 S${x - 24} 454 ${x} 486`} />)}
+        {/* The sheeting runs flat to the edge (the scan clips the pressed rim); a hairline keeps the blank on light pages. */}
+        <rect {...PLATE_OUTLINE} fill="#f5f5f2" stroke="#d2d2ce" strokeWidth="3" />
+        {/* Two faint braided security threads run the full height outside the serial's centre. */}
+        <g clipPath={`url(#txClip-${id})`} fill="none" stroke="#cdcecb" strokeWidth="1.8">
+          {BRAIDS.map((d, i) => <path key={i} d={d} />)}
         </g>
         <path d={TX_STAR} fill={INK} fillRule="evenodd" />
         <TracedLettering text="TEXAS" fill={INK} paths={[{ d: TX_NAME }]} />

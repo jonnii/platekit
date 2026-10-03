@@ -652,4 +652,4 @@ PLATE_PROFILES.FL.whitePatches = [{ x: 20, y: 115, width: 90, height: 20 }, { x:
 PLATE_PROFILES.IL.whitePatches = [{ x: 440, y: 475, width: 150, height: 12 }];
 PLATE_PROFILES.MI.whitePatches = [{ x: 45, y: 80, width: 160, height: 35 }, { x: 400, y: 350, width: 45, height: 40 }];
 PLATE_PROFILES.PA.whitePatches = [{ x: 36, y: 155, width: 15, height: 180 }, { x: 950, y: 155, width: 14, height: 180 }];
-PLATE_PROFILES.MO.label = "Missouri Bicentennial target (SVG redraw pending)";
+PLATE_PROFILES.MO.label = "Missouri Bicentennial target";
