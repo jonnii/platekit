@@ -105,7 +105,7 @@ export const PLATE_REFERENCES: PlateReference[] = [
     image: {"w": 1200, "h": 1200},
     plate: {"x": 94, "y": 346, "w": 1011, "h": 505},
     samples: ["1234567", "NH*99X", "CUSTOM12345"],
-    notes: "Old Man of the Mountain base with a stepped brow, nose, lips and chin, irregular granite fissures and pale strata. The split New / Hampshire footer has broader script and taller serif lettering. The source-specific serial masks preserve the profile between groups. Fine granite texture and exact lettering remain simplified.",
+    notes: "Old Man of the Mountain base with a stepped brow, nose, lips and chin, irregular granite fissures and pale strata. The split New / Hampshire footer has broader script and taller serif lettering. The source-specific serial masks preserve the profile between groups. LIVE FREE OR DIE and the New / Hampshire lockup are traced from this reference (tools/artwork/traces/nh.ts); fine granite texture remains simplified.",
   },
   {
     state: "RI",

@@ -3,7 +3,7 @@ import { mkdir, readFile } from "node:fs/promises";
 import { renderToStaticMarkup } from "react-dom/server";
 import LicensePlate from "../../../src/LicensePlate.tsx";
 import { PLATE_REFERENCES } from "../references.ts";
-import { fetchSource, loadSources, rasterise } from "../traces/source.ts";
+import { fetchSource, loadSources, sourceImage } from "../traces/source.ts";
 
 // Side-by-side check of a state's traced lettering against its full-resolution source.
 // Usage: bun run tools/artwork/cli/trace-preview.tsx --state=TX --out=/tmp/tx-trace [--image=/local/copy.png]
@@ -12,12 +12,11 @@ const arg = (name: string) => process.argv.find((a) => a.startsWith(`--${name}=`
 const state = arg("state")!.toLowerCase(), out = arg("out")!, local = arg("image");
 // --source picks one of a config's sources when it has several (default 0).
 const source = (await loadSources(state))[Number(arg("source") ?? 0)]!;
-const bytes = await rasterise(local ? await readFile(local) : await fetchSource(source), source.render);
+const { image: bytes, plate } = await sourceImage(source, local ? await readFile(local) : await fetchSource(source));
 const sample = PLATE_REFERENCES.find((entry) => entry.state === state.toUpperCase())?.samples[0] ?? "ABC1234";
 const svg = renderToStaticMarkup(<LicensePlate state={state} plate={sample} />).match(/<svg[\s\S]*<\/svg>/)![0];
 
 const W = 1400, H = 700, k = W / 1000;
-const { plate } = source;
 const ours = await sharp(Buffer.from(svg), { density: 200 }).resize(W, H, { fit: "fill" }).flatten({ background: "#fff" }).png().toBuffer();
 // A plate rectangle may overhang the image (e.g. a cropped source); pad with white so it can still be cut out.
 const meta = await sharp(bytes).metadata();

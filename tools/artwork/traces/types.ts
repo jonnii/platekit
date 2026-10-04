@@ -6,6 +6,8 @@ export type TraceSource = {
   sha256: string;
   /** Vector sources are rasterised before tracing: an SVG at `density` dpi, or one PDF page at `dpi` (needs poppler's pdftoppm). */
   render?: { density: number } | { pdfPage: number; dpi: number };
+  /** Resample a low-resolution raster by this factor (Lanczos) before tracing; `plate` stays in source pixels. */
+  upscale?: number;
   /** Where the scoring reference's plate (1000 × 500 units) sits in the source image (rendered, for vector sources), in pixels. */
   plate: { x: number; y: number; width: number; height: number };
   /** Font-probe wordmarks (e.g. "ny-name") these traces replace; tools/outline-glyphs.ts stops generating them. */

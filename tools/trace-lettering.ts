@@ -2,7 +2,7 @@ import { readdir, writeFile } from "node:fs/promises";
 import potrace from "potrace";
 import sharp from "sharp";
 import { components } from "./artwork/bitmap.ts";
-import { fetchSource, loadSources, rasterise } from "./artwork/traces/source.ts";
+import { fetchSource, loadSources, sourceImage } from "./artwork/traces/source.ts";
 
 // Fixed lettering traced from full-resolution official artwork, where a font cannot match the plate.
 // Each state's source is configured in tools/artwork/traces/<state>.ts, fetched and checksum-pinned here; no image
@@ -16,8 +16,8 @@ for (const state of configs) {
   const exports = [];
   for (const source of sources) {
     const bytes = await fetchSource(source);
-    const { data, info } = await sharp(await rasterise(bytes, source.render)).flatten({ background: "#fff" }).removeAlpha().raw().toBuffer({ resolveWithObject: true });
-    const { plate } = source;
+    const { image, plate } = await sourceImage(source, bytes);
+    const { data, info } = await sharp(image).flatten({ background: "#fff" }).removeAlpha().raw().toBuffer({ resolveWithObject: true });
     const toPlate = (px: number, py: number) => [(px - plate.x) * 1000 / plate.width, (py - plate.y) * 500 / plate.height] as const;
     const toImage = (x: number, y: number) => [Math.round(plate.x + x * plate.width / 1000), Math.round(plate.y + y * plate.height / 500)] as const;
 
