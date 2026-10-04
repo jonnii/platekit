@@ -681,15 +681,20 @@ export async function main() {
     const before = svg.length;
     const scored = svg.replace(liveText, "").replace(outlined("registration"), "");
     // A text rect is scored when outlined lettering dominates it in our render; decal, sticker and
-    // registration rects (no lettering of ours) stay masked. Registration and live text pixels themselves,
-    // plus a margin, are masked even inside scored rects.
-    const [blank, lettering, other] = await Promise.all([
-      scored.replace(outlined("lettering"), ""), scored, svg.replace(outlined("lettering"), ""),
-    ].map(async (variant) => sharp(await rasterizePlate(variant, WIDTH, HEIGHT)).ensureAlpha().raw().toBuffer()));
-    const inked = (layer: Buffer, x: number, y: number) => {
-      const i = (y * WIDTH + x) * 4;
-      return Math.max(Math.abs(layer[i]! - blank[i]!), Math.abs(layer[i + 1]! - blank[i + 1]!), Math.abs(layer[i + 2]! - blank[i + 2]!)) > 24;
+    // registration rects (no lettering of ours) and rects dominated by live text stay masked. Masks are whole
+    // profile rects, never our own pixel positions, so layout changes stay comparable under the regression gate.
+    // Text pixels come from renders of the text layers alone on a transparent canvas, so the masks (and the
+    // comparison key) do not depend on the artwork behind the lettering.
+    const root = svg.match(/^<svg[^>]*>/)![0];
+    const layer = async (parts: string[]) => {
+      const png = await sharp(Buffer.from(`${root}${parts.join("")}</svg>`), { density: 200 }).resize(WIDTH, HEIGHT, { fit: "fill" }).ensureAlpha().raw().toBuffer();
+      return png;
     };
+    const [lettering, other] = await Promise.all([
+      layer(svg.match(outlined("lettering")) ?? []),
+      layer(svg.match(liveText) ?? []),
+    ]);
+    const inked = (layer: Buffer, x: number, y: number) => layer[(y * WIDTH + x) * 4 + 3]! > 64;
     const maskedTextRects = profile.textRects.filter((rect) => {
       let letters = 0, others = 0;
       for (let y = Math.max(0, rect.y); y < Math.min(HEIGHT, rect.y + rect.height); y++)
@@ -707,16 +712,6 @@ export async function main() {
     // Drop the remaining text regions from every scored mask, so the reference's registration and live
     // lettering can't register as mismatch. whitePatches is left alone — it samples blank areas for calibration.
     const textMask = createMaskFromRects(maskedTextRects);
-    const MARGIN = 8;
-    const nearOther = createMaskFromPredicate((x, y) => {
-      if (!scoredTextRects.some((rect) => x >= rect.x && x < rect.x + rect.width && y >= rect.y && y < rect.y + rect.height)) return false;
-      for (let dy = -MARGIN; dy <= MARGIN; dy += 2) for (let dx = -MARGIN; dx <= MARGIN; dx += 2) {
-        const nx = x + dx, ny = y + dy;
-        if (nx >= 0 && ny >= 0 && nx < WIDTH && ny < HEIGHT && inked(other, nx, ny)) return true;
-      }
-      return false;
-    });
-    for (let i = 0; i < textMask.length; i++) if (nearOther[i]) textMask[i] = 1;
     for (const key of Object.keys(masks) as Array<keyof typeof masks>) {
       if (key === "whitePatches") continue;
       masks[key] = subtractMask(masks[key], textMask);
