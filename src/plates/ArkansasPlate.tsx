@@ -1,7 +1,8 @@
 "use client";
 
 import { useId } from "react";
-import BaselinePlate, { PLATE_SANS, PLATE_SERIF } from "../internal/BaselinePlate.js";
+import BaselinePlate from "../internal/BaselinePlate.js";
+import { AR_MOTTO, AR_NAME } from "../internal/traces/ar.js";
 import type { PlateProps } from "../types.js";
 import { BEBAS_NEUE_400 } from "../internal/registrationGlyphs.js";
 
@@ -13,30 +14,25 @@ export default function ArkansasPlate(props: PlateProps) {
       name="Arkansas"
       colors={["#a4d1e4", "#eff0ef"]}
       stops={[0, 0.62]}
-      heading="Arkansas"
-      headingColor="#821710"
-      headingFont={PLATE_SANS}
-      headingSize={144}
-      headingWidth={540}
-      headingWeight={900}
-      headingY={122}
+      heading={{ text: "Arkansas", paths: [{ d: AR_NAME }] }}
+      headingColor="#69080c"
 
       rim={true}
       rimWidth={12}
       serialStroke="#f8f8f2"
       ink="#080d0b"
-      footer="The Natural State"
-      footerColor="#73140d"
-      footerFont={PLATE_SERIF}
-      footerSize={57}
-      footerTextLength={438}
+      footer={{ text: "The Natural State", paths: [{ d: AR_MOTTO }] }}
+      footerColor="#6d1416"
       separator={true}
+      separatorX={440.5}
+      separatorWidth={97}
+      serialY={384}
     >
       <defs>
         <linearGradient id={`${id}-facet-light`} x2="1" y2="1"><stop stopColor="#fafbf8" /><stop offset="1" stopColor="#babebb" /></linearGradient>
         <linearGradient id={`${id}-facet-shadow`} x2="1" y2="1"><stop stopColor="#969b98" /><stop offset="1" stopColor="#e7e9e5" /></linearGradient>
       </defs>
-      <g transform="translate(-45 -7) scale(1.18 1.03)" stroke="#aeb1af" strokeWidth="1" strokeLinejoin="round">
+      <g transform="translate(-65 -7) scale(1.18 1.03)" stroke="#aeb1af" strokeWidth="1" strokeLinejoin="round">
         <path d="M330 230 L373 178 H552 L602 230 465 365Z" fill="#e1e2df" />
         <path d="M330 230 373 178 384 222Z" fill="#c1c4c2" /><path d="M373 178 421 181 384 222Z" fill={`url(#${id}-facet-light)`} />
         <path d="M421 181 461 178 439 228 384 222Z" fill="#b2b5b3" /><path d="M461 178 501 181 483 227 439 228Z" fill={`url(#${id}-facet-light)`} />

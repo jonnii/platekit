@@ -38,3 +38,50 @@ The dashboard was refreshed successfully for all 51 states. Typecheck, edited-co
 - Repeated Pine components (for example Idaho's treeline) duplicate geometry. Symbols can reduce markup, but do not eliminate the cost of painting instances; unioning the silhouette can change antialiasing or overlaps.
 
 No runtime benchmark was performed. Report measured markup/geometry reductions separately from potential render-time benefits.
+
+## New York lossless path encoding — October 2026
+
+New York's trace configuration opts into `compactPathSyntax` in
+`tools/artwork/path-compaction.ts`. It removes redundant separators and decimal
+suffixes without changing the commands or numeric values. The glyph generator
+uses `compactIntegerPath` for Antonio 600, shared by New York and Wyoming. It
+rewrites explicit absolute integer M/L/Q/C/Z commands as exact relative commands,
+using horizontal/vertical lines where equivalent. Unsupported formats and unsafe
+integer arithmetic leave the input unchanged. There is no coordinate rounding,
+curve simplification, character removal or runtime decoding.
+
+These are standalone minified production ESM sizes, including helpers and
+excluding React and font files; gzip uses level 9. The baseline already includes
+the earlier removal of the unused shared fallback alphabet.
+
+| Component | JavaScript bytes before → after | Gzip bytes before → after | Gzip reduction |
+| --- | ---: | ---: | ---: |
+| NY | 77,389 → 69,222 | 27,527 → 25,018 | 9.11% |
+| WY | 34,740 → 30,529 | 14,959 → 13,254 | 11.40% |
+
+Canonical rendered SVG bytes fell from 75,424 to 70,828 for NY, and 14,953 to
+14,440 for WY. Element counts stayed at 145 and 36 respectively. These byte
+reductions are separate from the JavaScript bundle measurements above.
+
+Verification:
+
+- Exact artwork raster equality for NY/WY at 340, 460 and 1000px.
+- Exact decoded Chromium screenshot equality for both states, covering reference
+  pairs and canonical, anonymized and long registrations at 340px and 460px.
+  Lettering is outlined; the UI's Geist font was loaded. Unused CSS font faces
+  were unloaded and are not needed for these plate glyphs.
+- All 69 Antonio glyphs retained their advance widths and produced identical
+  filled/stroked pixels at 340px and 1000px (138 comparisons). Other alphabets
+  remained byte-identical.
+- NY/WY reference regression gates passed with unchanged metrics. Original
+  reference pixels and scoring settings were held fixed.
+- The actual font and NY trace generators reproduced the committed candidate
+  files byte-for-byte from checksum-pinned sources. Wordmarks stayed unchanged.
+- Repository tests/typechecks, public-site and workshop builds, and package
+  boundary/font-license checks passed. Fourteen compaction tests cover decimal
+  precision, subpaths, curves, implicit commands, unsafe arithmetic, unsupported
+  syntax and filled/stroked raster equality.
+
+Local evidence is in `.platekit-dev/ny-merge/`; it is ignored and not a durable
+source of baselines. Regenerate evidence for future changes. Separate Arkansas
+work occurred concurrently and is not included in this optimization's claims.

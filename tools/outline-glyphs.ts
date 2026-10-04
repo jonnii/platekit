@@ -4,6 +4,7 @@ import * as fontkit from "fontkit";
 import { FONT_PROBES } from "./artwork/font-probes.ts";
 import { FONT_PROBE_SELECTIONS } from "./artwork/font-selections.ts";
 import { loadSources } from "./artwork/traces/source.ts";
+import { compactIntegerPath } from "./artwork/path-compaction.ts";
 
 // Lettering ships as outlines, so layout never depends on a loaded font.
 const REVISION = "809e4d8b8d7e9364a914909bb777679606c178b8";
@@ -69,7 +70,9 @@ for (const id of registrationFaces) {
   const glyphs = chars.map((char) => {
     const glyph = font.glyphForCodePoint(char.codePointAt(0)!);
     const { d, advance } = outline(font, [glyph], [{ xAdvance: glyph.advanceWidth, xOffset: 0, yOffset: 0 }], size);
-    return `    ${JSON.stringify(char)}: [${advance}, ${JSON.stringify(d)}],`;
+    // Antonio is shared by NY and WY; its exact relative encoding is pixel-verified.
+    const path = id === "antonio-600" ? compactIntegerPath(d) : d;
+    return `    ${JSON.stringify(char)}: [${advance}, ${JSON.stringify(path)}],`;
   });
   faces.push(`/** ${id}, scaled ${size.toFixed(3)}× to Bebas Neue's glyph height. */
 export const ${id.toUpperCase().replace(/-/g, "_")}: RegistrationFace = { id: ${JSON.stringify(id)}, glyphs: {

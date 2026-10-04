@@ -4,7 +4,7 @@ import PlateFrame from "./PlateFrame.js";
 import PlateSvg, { PLATE_INSET_RADIUS, PLATE_OUTLINE } from "./PlateSvg.js";
 import Lettering, { TracedLettering, type LetteringRun, type TracedRun } from "./Lettering.js";
 import Registration, { cleanRegistration } from "./Registration.js";
-import { BEBAS_NEUE_400, type RegistrationFace } from "./registrationGlyphs.js";
+import type { RegistrationFace } from "./registrationGlyphs.js";
 import { useId, type ReactNode } from "react";
 import type { PlateProps } from "../types.js";
 
@@ -50,8 +50,8 @@ type Props = PlateProps & {
   footerWidth?: number;
   footerTextLength?: number;
   border?: string;
-  /** The state's measured registration face; Bebas Neue where no candidate beat it. */
-  registrationFace?: RegistrationFace;
+  /** Supplied by the caller so each plate bundles only its selected alphabet. */
+  registrationFace: RegistrationFace;
   children?: ReactNode;
   rim?: boolean;
   rimWidth?: number;
@@ -65,7 +65,7 @@ export default function BaselinePlate({
   headingColor = ink, headingX = 500, headingY = 93, headingSize = 78, headingWidth = 690,
   headingFont = PLATE_SERIF, headingWeight = 700, headingStyle, headingStroke, serialStroke, footer, footerColor = headingColor, footerY = 465,
   footerSize = 43, footerFont = PLATE_SANS, footerWeight = 600, footerStyle, footerStroke, serialX = 500, serialWidth = 880,
-  serialY = 373, serialInset = 20, separator = false, separatorWidth, separatorX = 500, footerWidth = 820, footerTextLength, border, registrationFace = BEBAS_NEUE_400, children, rim = false, rimWidth = 24, frame = true, edgeColor,
+  serialY = 373, serialInset = 20, separator = false, separatorWidth, separatorX = 500, footerWidth = 820, footerTextLength, border, registrationFace, children, rim = false, rimWidth = 24, frame = true, edgeColor,
   ...rest
 }: Props) {
   const id = useId().replace(/:/g, "");

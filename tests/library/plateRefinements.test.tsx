@@ -1,13 +1,14 @@
 import { describe, expect, it } from "bun:test";
 import { renderToString } from "react-dom/server";
 import BaselinePlate from "../../src/internal/BaselinePlate.js";
+import { BEBAS_NEUE_400 } from "../../src/internal/registrationGlyphs.js";
 import LicensePlate from "../../src/LicensePlate.js";
 import * as WORDMARKS from "../../src/internal/wordmarks.js";
 import { registrationRuns } from "./registration.js";
 
 describe("refined plate lettering", () => {
   it("allows spaced mottos without changing the existing automatic width", () => {
-    const props = { plate: "ABC123", state: "TN", name: "Tennessee", colors: ["#fff"], heading: "TENNESSEE", footer: "MOTTO", footerSize: 20 };
+    const props = { plate: "ABC123", state: "TN", name: "Tennessee", registrationFace: BEBAS_NEUE_400, colors: ["#fff"], heading: "TENNESSEE", footer: "MOTTO", footerSize: 20 };
     const automatic = renderToString(<BaselinePlate {...props} />);
     const spaced = renderToString(<BaselinePlate {...props} footerTextLength={300} />);
     expect(automatic).toMatch(/textLength="64"[^>]*>MOTTO</);

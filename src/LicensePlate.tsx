@@ -1,6 +1,7 @@
 "use client";
 
 import BaselinePlate from "./internal/BaselinePlate.js";
+import { BEBAS_NEUE_400 } from "./internal/registrationGlyphs.js";
 import { PLATES, PLATE_STATES } from "./registry.js";
 import type { LicensePlateProps } from "./types.js";
 
@@ -14,6 +15,7 @@ function GenericPlate(props: LicensePlateProps) {
   return (
     <BaselinePlate
       {...props}
+      registrationFace={BEBAS_NEUE_400}
       name={name}
       heading={name.toUpperCase()}
       colors={["#f9fbff", "#eef2f8"]}

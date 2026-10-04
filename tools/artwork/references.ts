@@ -258,7 +258,7 @@ export const PLATE_REFERENCES: PlateReference[] = [
     image: {"w": 1200, "h": 1200},
     plate: {"x": 95, "y": 347, "w": 1012, "h": 506},
     samples: ["ABC12D", "AR*99X", "CUSTOM12345"],
-    notes: "Natural State diamond base with a centered, faceted silver gem, restrained facet gradients and recessed mounting slots. The red state name is taller and narrower, and the footer uses a larger serif. Complete source wordmark and serial masks expose the gem between groups. Vehicle decals remain unassigned.",
+    notes: "Natural State diamond base with a centered, faceted silver gem, restrained facet gradients and recessed mounting slots. The Arkansas wordmark and The Natural State are traced from this reference (tools/artwork/traces/ar.ts); registration groups and the gem are placed at their measured positions. Complete source wordmark and serial masks expose the gem between groups. Vehicle decals remain unassigned.",
   },
   {
     state: "CO",

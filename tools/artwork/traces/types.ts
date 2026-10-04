@@ -12,6 +12,8 @@ export type TraceSource = {
   plate: { x: number; y: number; width: number; height: number };
   /** Font-probe wordmarks (e.g. "ny-name") these traces replace; tools/outline-glyphs.ts stops generating them. */
   replaces?: string[];
+  /** Compact generated path syntax without changing coordinates or commands. */
+  compactPaths?: boolean;
   traces: {
     /** Export name in src/internal/traces/<state>.ts. */
     name: string;

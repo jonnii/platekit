@@ -3,6 +3,7 @@ import potrace from "potrace";
 import sharp from "sharp";
 import { components } from "./artwork/bitmap.ts";
 import { fetchSource, loadSources, sourceImage } from "./artwork/traces/source.ts";
+import { compactPathSyntax } from "./artwork/path-compaction.ts";
 
 // Fixed lettering traced from full-resolution official artwork, where a font cannot match the plate.
 // Each state's source is configured in tools/artwork/traces/<state>.ts, fetched and checksum-pinned here; no image
@@ -45,12 +46,13 @@ for (const state of configs) {
         (error: Error | null, output: string) => error ? reject(error) : resolve(output)));
       // potrace emits absolute coordinate pairs; map each into plate units.
       let index = 0, pending = 0;
-      const d = svg.match(/ d="([^"]+)"/)![1]!.replace(/-?\d+(?:\.\d+)?/g, (n) => {
+      let d = svg.match(/ d="([^"]+)"/)![1]!.replace(/-?\d+(?:\.\d+)?/g, (n) => {
         if (index++ % 2 === 0) { pending = Number(n); return ""; }
         const [x, y] = toPlate(left + pending, top + Number(n));
         return `${x.toFixed(1)} ${y.toFixed(1)}`;
       }).replace(/\s+/g, " ").replace(/ ?([MCLZ]) ?/g, "$1").replace(/ ,/g, ",").trim();
       if (index % 2) throw new Error(`${state} ${name}: odd coordinate count`);
+      if (source.compactPaths) d = compactPathSyntax(d);
       console.log(`${state.toUpperCase()} ${name}: ${kept.length} components, ${d.length} bytes`);
       exports.push(`/** ${doc}. */\nexport const ${name} = ${JSON.stringify(d)};`);
     }
