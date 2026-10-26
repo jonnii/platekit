@@ -16,7 +16,7 @@ import { PNG } from "pngjs";
  * The rasterizer cannot resolve any of the plate fonts. librsvg resolves families
  * through fontconfig, so it sees neither the `var(--font-plate-*)` CSS variables
  * (those only exist on the page) nor the font files themselves — Zurich Extra
- * Condensed, Playfair Display and Sanchez all silently fall back to one default
+ * Condensed and the other plate faces all silently fall back to one default
  * serif. Embedding them as a base64 @font-face does not help; librsvg ignores
  * @font-face.
  *

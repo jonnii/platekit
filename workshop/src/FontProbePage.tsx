@@ -36,7 +36,7 @@ function useCandidateFonts(candidates: FontCandidate[]) {
         update(candidate.id, faces.length && faces.every((font) => font.status === "loaded") ? "loaded" : "unavailable");
       } catch { update(candidate.id, "unavailable"); }
     };
-    Promise.all(["Bebas Neue", "Yellowtail", "Playfair Display", "Sanchez", "Geist"].map((family) =>
+    Promise.all(["Bebas Neue", "Yellowtail", "Geist"].map((family) =>
       document.fonts.load(`400 64px "${family}"`))).then((groups) => update("current", groups.every((faces) => faces.length && faces.every((font) => font.status === "loaded")) ? "loaded" : "unavailable"), () => update("current", "unavailable"));
     for (const candidate of candidates.filter((font) => !font.remote)) void load(candidate);
     const url = candidateStylesheet(candidates);

@@ -37,7 +37,7 @@ import NewYorkPlate from "platekit/plates/NewYorkPlate";
 
 ## Fonts
 
-Registration numbers, and eleven state names and mottos, are drawn as vector outlines and need no font. Each registration uses the face measured closest to that state's plate. Other state names and mottos still use text; import the optional stylesheet once in your app's entry point or global layout:
+Registration numbers, and the state names and mottos on most plates, are drawn as vector outlines and need no font. Each registration uses the face measured closest to that state's plate. The remaining headings use Georgia or the faces below; import the optional stylesheet once in your app's entry point or global layout:
 
 ```tsx
 import "platekit/fonts.css";
@@ -51,8 +51,6 @@ To manage fonts yourself, omit that import, load your chosen faces, and set thes
 | --- | --- | --- | --- |
 | `--font-plate-ny` | Condensed headings (FL, KS, OH, DC, SD, WI) | Bebas Neue | sans-serif |
 | `--font-plate-script` | Script headings | Yellowtail | cursive |
-| `--font-plate-place` | State headings | Playfair Display | Georgia, serif |
-| `--font-plate-motto` | Motto lettering | Sanchez | Georgia, serif |
 | `--font-geist-sans` | Sans-serif text | Geist | Arial, sans-serif |
 
 Bebas Neue replaces the earlier previews' Zurich Extra Condensed, for which we could not establish font-file redistribution rights. The bundled fonts retain their own SIL OFL 1.1 or Apache 2.0 licenses. Full attribution, licenses, and pinned source checksums ship in `dist/fonts/`; see [font notices](src/fonts/NOTICE.md).

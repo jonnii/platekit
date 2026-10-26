@@ -14,20 +14,6 @@
   font-display: swap;
 }
 @font-face {
-  font-family: "Playfair Display";
-  src: url("./fonts/playfair-display/PlayfairDisplay[wght].ttf") format("truetype");
-  font-style: normal;
-  font-weight: 400 900;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Sanchez";
-  src: url("./fonts/sanchez/Sanchez-Regular.ttf") format("truetype");
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-}
-@font-face {
   font-family: "Yellowtail";
   src: url("./fonts/yellowtail/Yellowtail-Regular.ttf") format("truetype");
   font-style: normal;
@@ -39,7 +25,5 @@
 :where(:root) {
   --font-plate-ny: "Bebas Neue", "Arial Narrow", sans-serif;
   --font-plate-script: "Yellowtail", cursive;
-  --font-plate-place: "Playfair Display", Georgia, serif;
-  --font-plate-motto: "Sanchez", Georgia, serif;
   --font-geist-sans: "Geist", Arial, sans-serif;
 }
