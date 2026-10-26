@@ -14,15 +14,11 @@ export default function UtahPlate(props: PlateProps) {
       colors={["#9dd5e8"]}
       frame={false}
       heading={{ text: "UTAH", paths: [{ d: UT_NAME }] }}
-      headingColor="#23271f"
-      serialY={400}
-      serialStroke="#b4cbd5"
+      headingStyle={{ color: "#23271f" }}
+      serial={{ y: 400, stroke: "#b4cbd5", separator: { x: 488, width: 80 } }}
       ink="#0e395c"
-      separator={true}
-      separatorX={488}
-      separatorWidth={80}
       footer={{ text: "LIFE ELEVATED", paths: [{ d: UT_SLOGAN_OUTLINE, fill: "#fff" }, { d: UT_SLOGAN }] }}
-      footerColor="#242c2d"
+      footerStyle={{ color: "#242c2d" }}
     >
       {/* Stacked colour layers traced from the issued plate in plate units (each covers every layer above it, so
           no seams); the white layer also forms the plate border. Art behind the lettering and sticker is inferred. */}

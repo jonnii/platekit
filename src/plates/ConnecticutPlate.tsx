@@ -15,10 +15,7 @@ export default function ConnecticutPlate(props: PlateProps) {
       heading={{ text: "Connecticut", paths: [{ d: CT_NAME }] }}
       ink="#10175e"
       footer="Constitution State"
-      footerFont='"Times New Roman", Times, serif'
-      footerWeight={400}
-      footerSize={70}
-      footerTextLength={500}
+      footerStyle={{ font: '"Times New Roman", Times, serif', weight: 400, size: 70, length: 500 }}
       border="#15266e"
       edgeColor="#e4e6e1"
     >

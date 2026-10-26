@@ -13,12 +13,10 @@ export default function HawaiiPlate(props: PlateProps) {
       name="Hawaii"
       colors={["#f4f5f2"]}
       heading="HAWAII"
-      headingFont={PLATE_SANS}
-      headingY={107}
-      headingSize={76}
+      headingStyle={{ font: PLATE_SANS, y: 107, size: 76 }}
       ink="#080a09"
       footer="ALOHA STATE"
-      footerSize={57}
+      footerStyle={{ size: 57 }}
     >
       <defs><filter id={`${id}-rainbow`} x="-10%" y="-30%" width="120%" height="160%"><feGaussianBlur stdDeviation="3.5" /></filter></defs>
       <g transform="translate(4 2)" fill="none" filter={`url(#${id}-rainbow)`}>

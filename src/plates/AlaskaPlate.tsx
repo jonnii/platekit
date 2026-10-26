@@ -14,9 +14,7 @@ export default function AlaskaPlate(props: PlateProps) {
       heading="ALASKA"
       ink="#12356c"
       footer="THE LAST FRONTIER"
-      separator={true}
-      separatorX={460}
-      separatorWidth={180}
+      serial={{ separator: { x: 460, width: 180 } }}
       frame={false}
     >
       <rect x="16" y="15" width="968" height="470" rx={PLATE_INSET_RADIUS} fill="none" stroke="#f5d86a" strokeWidth="7" />

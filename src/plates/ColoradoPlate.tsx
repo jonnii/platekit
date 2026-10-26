@@ -16,13 +16,9 @@ export default function ColoradoPlate(props: PlateProps) {
       colors={["#f4f5f1"]}
       heading={{ text: "COLORADO", paths: [{ d: CO_NAME }] }}
       frame={false}
-      rim={true}
-      rimWidth={19}
+      rim={19}
       ink="#043f2e"
-      serialY={356}
-      separator={true}
-      separatorWidth={34}
-      serialInset={31}
+      serial={{ y: 356, inset: 31, separator: { width: 34 } }}
     >
       {/* Band and rock texture traced from the issued 2018 plate in plate units; registration-covered rock is inferred. */}
       <path aria-label="Mountain skyline band" d="M0 0H1000V141.5L970 133.5 936 106.5 918 95 906 89 892 85 870 84 862 82 846 73 838 72.5 832 75 828 79 820 92 812 102 806 106 798 107 790 105 766 91.5 758 89.5 718 90 710 88.5 702 85.5 690 78.5 682 72.5 662 55.5 656 53.5 650 53.5 634 61 624 68.5 614 74.5 604 76 596 75 588 76 576 81 532 116.5 526 118.5 518 117.5 478 103.5 464 103 446 106 428 110.5 420 113.5 412 118 404 118.5 398 116 380 100.5 362 88 354 85 326 78.5 318 75.5 302 64 298 62 290 60.5 282 62 278 64.5 274 68 254 91 250 94 242 97.5 188 105.5 178 110.5 164 113 156 111.5 140 102.5 128 97 120 95 108 94.5 78 112 58 119.5 50 123.5 36 133 0 141Z" fill="#073c2e" />

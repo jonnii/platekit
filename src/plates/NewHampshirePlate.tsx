@@ -16,9 +16,9 @@ export default function NewHampshirePlate(props: PlateProps) {
       colors={["#c7d8e7", "#b8c8ce", "#cbd8d6"]}
       stops={[0, 0.5, 1]}
       heading={{ text: "LIVE FREE OR DIE", paths: [{ d: NH_MOTTO }] }}
-      headingColor="#155142"
+      headingStyle={{ color: "#155142" }}
       ink="#07513d"
-      serialY={332}
+      serial={{ y: 332 }}
       footer={{ text: "New Hampshire", paths: [{ d: NH_NAME }] }}
     >
       <defs><filter id={`${id}-cloud`} x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="16" /></filter></defs>

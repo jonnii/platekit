@@ -11,16 +11,13 @@ const BRIDGE_BOARDS = Array.from({ length: 37 }, (_, i) => `M${304 + i * 9} 433 
 export default function IndianaPlate(props: PlateProps) {
   return (
     <BaselinePlate {...props} registrationFace={BEBAS_NEUE_400} state={props.state ?? "Indiana"}
-      rim={true}
-      rimWidth={11}
+      rim={11}
       name="Indiana"
       colors={["#9cd4e6", "#f6f7ed"]}
       stops={[0, 0.61]}
       heading="INDIANA"
-      headingSize={88}
-      headingWidth={464}
-      headingY={100}
-      serialY={350}
+      headingStyle={{ size: 88, width: 464, y: 100 }}
+      serial={{ y: 350 }}
       ink="#25296c"
     >
       <path d="M0 459 Q160 448 246 469 T480 474 Q713 443 1000 450 V500 H0Z" fill="#61a650" />

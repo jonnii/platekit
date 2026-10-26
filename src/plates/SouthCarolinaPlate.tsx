@@ -12,20 +12,14 @@ export default function SouthCarolinaPlate(props: PlateProps) {
       name="South Carolina"
       colors={["#fff"]}
       heading="Where the Revolutionary War Was Won"
-      headingSize={33}
-      headingY={85}
-      headingWidth={840}
+      headingStyle={{ size: 33, y: 85, width: 840 }}
       ink="#030303"
       footer="South Carolina"
-      footerFont={PLATE_SERIF}
-      footerSize={76}
-      footerY={459}
-      serialX={627}
-      serialWidth={650}
+      footerStyle={{ font: PLATE_SERIF, size: 76, y: 459 }}
+      serial={{ x: 627, width: 650 }}
       frame={false}
 
-      rim={true}
-      rimWidth={10}
+      rim={10}
     >
       <rect x="12" y="12" width="976" height="476" rx={PLATE_INSET_RADIUS} fill="none" stroke="#a4edf0" strokeWidth="3" />
       <path d="M24 20 H976" stroke="#205c97" strokeWidth="7" />

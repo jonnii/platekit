@@ -17,8 +17,7 @@ export default function OregonPlate(props: PlateProps) {
       colors={["#b3d7f1"]}
       heading={{ text: "Oregon", paths: [{ d: OR_NAME }] }}
       ink="#182b69"
-      separator={true}
-      separatorWidth={250}
+      serial={{ separator: { width: 250 } }}
       frame={false}
     >
       <path d="M0 221 21 211 40 178 60 159 80 134 100 119 120 93 140 86 160 69 180 51 200 35 212 28 225 31 250 44 270 55 300 73 330 93 360 102 390 124 430 157 480 206 500 214 530 218 578 211 640 173 700 152 770 126 810 114 830 117 845 124 890 158 950 180 1000 194 V500 H0Z" fill="#cbd3ef" stroke="#fff" strokeWidth="12" strokeLinejoin="round" />

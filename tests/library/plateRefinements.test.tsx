@@ -8,9 +8,9 @@ import { registrationRuns } from "./registration.js";
 
 describe("refined plate lettering", () => {
   it("allows spaced mottos without changing the existing automatic width", () => {
-    const props = { plate: "ABC123", state: "TN", name: "Tennessee", registrationFace: BEBAS_NEUE_400, colors: ["#fff"], heading: "TENNESSEE", footer: "MOTTO", footerSize: 20 };
+    const props = { plate: "ABC123", state: "TN", name: "Tennessee", registrationFace: BEBAS_NEUE_400, colors: ["#fff"], heading: "TENNESSEE", footer: "MOTTO", footerStyle: { size: 20 } };
     const automatic = renderToString(<BaselinePlate {...props} />);
-    const spaced = renderToString(<BaselinePlate {...props} footerTextLength={300} />);
+    const spaced = renderToString(<BaselinePlate {...props} footerStyle={{ size: 20, length: 300 }} />);
     expect(automatic).toMatch(/textLength="64"[^>]*>MOTTO</);
     expect(spaced).toMatch(/textLength="300"[^>]*>MOTTO</);
   });

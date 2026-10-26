@@ -16,9 +16,7 @@ export default function KentuckyPlate(props: PlateProps) {
       colors={["#5291a7", "#c4d4de", "#d7e6e8"]}
       stops={[0, 0.48, 1]}
       heading="Kentucky"
-      headingY={90}
-      headingSize={88}
-      headingColor="#101a21"
+      headingStyle={{ y: 90, size: 88, color: "#101a21" }}
       ink="#142853"
     >
       <defs><filter id={`ky-hills-${id}`} x="-1%" y="-3%" width="102%" height="106%"><feGaussianBlur stdDeviation=".8" /></filter></defs>

@@ -11,22 +11,10 @@ export default function WisconsinPlate(props: PlateProps) {
       name="Wisconsin"
       colors={["#f5f5ef"]}
       heading="WISCONSIN"
-      headingFont={PLATE_SANS}
-      headingColor="#9c202c"
-      headingSize={98}
-      headingStyle="italic"
-      headingWeight={800}
-      headingWidth={520}
-      headingX={302}
-      headingY={93}
+      headingStyle={{ font: PLATE_SANS, color: "#9c202c", size: 98, italic: true, weight: 800, width: 520, x: 302, y: 93 }}
       ink="#080b08"
       footer="America's Dairyland"
-      footerColor="#a3232d"
-      footerSize={62}
-      footerTextLength={522}
-      footerFont="var(--font-plate-ny, sans-serif)"
-      footerStyle="italic"
-      footerWeight={400}
+      footerStyle={{ color: "#a3232d", size: 62, length: 522, font: "var(--font-plate-ny, sans-serif)", italic: true, weight: 400 }}
     >
       <path d="M26 109 H972" stroke="#193961" strokeWidth="5" />
       <path transform="translate(3 -6)" aria-label="Dairyland hills" fill="#34816c" fillRule="evenodd" d="M977,98 979,99 979,97Z M936,98 948,99 949,100 967,99 967,97 964,96 963,97 953,94 942,95Z M688,89 688,98 691,100 694,99 727,99 728,100 733,100 734,99 737,100 740,99 742,100 744,99 745,100 749,99 750,100 756,100 757,99 764,99 765,100 775,100 776,99 787,99 788,100 798,100 799,99 801,100 802,99 803,100 804,99 805,100 806,99 850,99 851,100 856,100 857,99 859,100 860,99 868,99 869,100 875,100 876,99 905,99 906,100 907,99 908,100 909,99 932,99 932,98 926,97 916,91 910,92 904,96 898,96 895,92 889,89 884,89 877,92 870,93 865,89 860,88 847,93 841,89 836,89 832,91 825,91 819,88 811,88 805,91 801,91 798,89 790,87 780,91 773,84 762,80 748,80 740,83 733,89 730,89 725,86 718,86 715,89 712,88 712,84 718,77 725,77 736,69 743,70 747,66 754,62 761,62 767,64 771,69 776,72 785,72 790,74 795,68 801,68 809,60 809,58 807,57 805,58 802,57 799,58 798,57 797,58 768,57 763,51 763,40 756,41 753,44 750,45 742,54 729,54 726,55 721,60 719,65 716,68 715,67 704,67 699,69 692,75 689,81 689,88Z" />

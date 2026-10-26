@@ -15,13 +15,9 @@ export default function MississippiPlate(props: PlateProps) {
       name="Mississippi"
       colors={["#ffffff"]}
       heading={{ text: "MISSISSIPPI", paths: [{ d: MS_NAME }] }}
-      headingColor={NAVY}
+      headingStyle={{ color: NAVY }}
       ink={NAVY}
-      separator={true}
-      separatorX={489}
-      separatorWidth={214}
-      serialInset={26}
-      serialY={356}
+      serial={{ inset: 26, y: 356, separator: { x: 489, width: 214 } }}
       frame={false}
     >
       {/* The DOR flat art has a thin navy keyline at the plate edge. */}

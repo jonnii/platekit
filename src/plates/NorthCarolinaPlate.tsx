@@ -10,25 +10,14 @@ export default function NorthCarolinaPlate(props: PlateProps) {
     <BaselinePlate {...props} registrationFace={BARLOW_CONDENSED_500} state={props.state ?? "North Carolina"}
       name="North Carolina"
 
-      rim={true}
-      rimWidth={7}
+      rim={7}
       colors={["#f6f6f3"]}
       heading="First in Flight"
-      headingColor="#b5221c"
-      headingFont={PLATE_SANS}
-      headingSize={68}
-      headingWidth={529}
-      headingWeight={700}
-      headingY={99}
-      serialY={383}
-      serialStroke="#d6d9ca"
+      headingStyle={{ color: "#b5221c", font: PLATE_SANS, size: 68, width: 529, weight: 700, y: 99 }}
+      serial={{ y: 383, stroke: "#d6d9ca" }}
       ink="#154781"
       footer="NORTH CAROLINA"
-      footerColor="#b31c13"
-      footerSize={85}
-      footerTextLength={836}
-      footerWeight={800}
-      footerY={474}
+      footerStyle={{ color: "#b31c13", size: 85, length: 836, weight: 800, y: 474 }}
     >
       <g fill="none" stroke="#1e70a3" strokeWidth="2.5" strokeLinejoin="round">
         <path d="M343 92 L552 32 559 45 350 107Z" stroke="#2773a3" strokeWidth="4" />
