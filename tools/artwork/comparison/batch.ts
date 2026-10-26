@@ -55,7 +55,7 @@ export async function compareStates(
   compare: (state: string) => Promise<ComparisonEntry> = compareState,
   limit = Math.max(2, cpus().length - 2),
 ): Promise<ComparisonEntry[]> {
-  const entries: ComparisonEntry[] = new Array(states.length);
+  const entries = Array.from<ComparisonEntry>({ length: states.length });
   let next = 0;
   const worker = async () => {
     while (next < states.length) {
