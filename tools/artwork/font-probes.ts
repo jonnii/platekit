@@ -24,9 +24,9 @@ const face = (family: string, weight = 400, remote = true, style?: "italic"): Fo
   family, weight, remote, style,
 });
 const scripts = [face("Yellowtail", 400, false), ...["Kaushan Script", "Satisfy", "Damion", "Courgette", "Grand Hotel", "Mr Dafoe", "Lobster"].map((name) => face(name))];
-const serifs = [face("Playfair Display", 700, false), face("Bodoni Moda", 700), face("Libre Bodoni", 700), face("Source Serif 4", 700), face("PT Serif", 700)];
+const serifs = [face("Playfair Display", 700), face("Bodoni Moda", 700), face("Libre Bodoni", 700), face("Source Serif 4", 700), face("PT Serif", 700)];
 const italics = [face("Source Serif 4", 700, true, "italic"), face("PT Serif", 700, true, "italic"), face("Libre Bodoni", 700, true, "italic"), face("Lora", 700, true, "italic"), face("Merriweather", 700, true, "italic")];
-const slabs = [face("Sanchez", 400, false), face("Bitter", 800), face("Zilla Slab", 700), face("Roboto Slab", 800), face("Aleo", 800), face("Bevan"), face("Alfa Slab One")];
+const slabs = [face("Sanchez", 400), face("Bitter", 800), face("Zilla Slab", 700), face("Roboto Slab", 800), face("Aleo", 800), face("Bevan"), face("Alfa Slab One")];
 export const REGISTRATION_CANDIDATES = [face("Bebas Neue", 400, false), face("Barlow Condensed", 500), face("Barlow Condensed", 700), face("Oswald", 500), face("Roboto Condensed", 700), face("Teko", 500), face("Antonio", 600)];
 
 const wordmark = (state: PlateState, suffix: string, text: string, crop: FontProbe["crop"], candidates: FontCandidate[], note: string): FontProbe => ({
