@@ -1,4 +1,5 @@
 import type { ComponentPropsWithRef } from "react";
+import type { PlateState } from "./registry.js";
 
 /** Props for an individual state plate. DOM props target the wrapping div. */
 export type PlateProps = Omit<ComponentPropsWithRef<"div">, "children"> & {
@@ -11,5 +12,5 @@ export type PlateProps = Omit<ComponentPropsWithRef<"div">, "children"> & {
   registrationStickerAreas?: boolean;
 };
 
-/** The dispatcher requires a state code or full state name. */
-export type LicensePlateProps = PlateProps & { state: string };
+/** The dispatcher requires a state code or full state name. Codes autocomplete; any string renders. */
+export type LicensePlateProps = PlateProps & { state: PlateState | (string & {}) };

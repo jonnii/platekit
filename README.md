@@ -33,7 +33,19 @@ import NewYorkPlate from "platekit/plates/NewYorkPlate";
 <NewYorkPlate plate="ABC1234" style={{ width: 340 }} />
 ```
 
-`LicensePlateProps`, `PlateProps`, `PlateState`, `PLATES`, and `PLATE_STATES` are also exported from the package root. Individual components infer their state; an optional `state` overrides the accessible state label. The dispatcher includes all states; individual imports avoid loading the full registry. Components support server rendering and carry Next.js client boundaries for their React hooks.
+To pick the state at runtime without bundling all 51 designs, `PLATE_LOADERS` maps each state code to a dynamic import of its component. Importing the map loads no artwork, so bundlers emit one chunk per plate:
+
+```tsx
+import { lazy, Suspense } from "react";
+import { PLATE_LOADERS, type PlateState } from "platekit";
+
+const Plate = lazy(PLATE_LOADERS[state as PlateState]);
+
+<Suspense fallback={null}><Plate plate="ABC1234" /></Suspense>
+```
+
+
+`LicensePlateProps`, `PlateProps`, `PlateState`, `PlateLoader`, `PLATES`, `PLATE_STATES`, and `PLATE_LOADERS` are also exported from the package root. The dispatcher's `state` prop autocompletes the 51 codes and still accepts any string. Individual components infer their state; an optional `state` overrides the accessible state label. The dispatcher includes all states; individual imports avoid loading the full registry. Components support server rendering and carry Next.js client boundaries for their React hooks.
 
 ## Fonts
 

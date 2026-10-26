@@ -78,6 +78,9 @@ export default function App() {
           <h3>Import just the plate you need</h3>
           <p>Individual imports avoid the full registry. A state component already knows its state, so only the registration is required.</p>
           <CodeBlock>{`import NewYorkPlate from "platekit/plates/NewYorkPlate";\n\n<NewYorkPlate plate="ABC1234" />`}</CodeBlock>
+          <h3>Load plates on demand</h3>
+          <p><code>PLATE_LOADERS</code> maps each state code to a dynamic import of its component for <code>React.lazy</code>. Importing the map loads no artwork, so bundlers emit one chunk per plate.</p>
+          <CodeBlock>{`import { lazy, Suspense } from "react";\nimport { PLATE_LOADERS } from "platekit";\n\nconst Plate = lazy(PLATE_LOADERS[state]);\n\n<Suspense fallback={null}><Plate plate="ABC1234" /></Suspense>`}</CodeBlock>
           <h3>Fit it into your layout</h3>
           <p>Plates fill their container width and retain their aspect ratio. Standard div props—including styles, accessible labels, event handlers, and refs—apply to the wrapping div.</p>
           <CodeBlock>{`<LicensePlate\n  state="GA"\n  plate="PEACH123"\n  className="profile-plate"\n  style={{ width: "100%", maxWidth: 460 }}\n  aria-label="Your Georgia license plate"\n/>`}</CodeBlock>
