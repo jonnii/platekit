@@ -15,18 +15,13 @@ export default function ArkansasPlate(props: PlateProps) {
       colors={["#a4d1e4", "#eff0ef"]}
       stops={[0, 0.62]}
       heading={{ text: "Arkansas", paths: [{ d: AR_NAME }] }}
-      headingColor="#69080c"
+      headingStyle={{ color: "#69080c" }}
 
-      rim={true}
-      rimWidth={12}
-      serialStroke="#f8f8f2"
+      rim={12}
+      serial={{ stroke: "#f8f8f2", y: 384, separator: { x: 440.5, width: 97 } }}
       ink="#080d0b"
       footer={{ text: "The Natural State", paths: [{ d: AR_MOTTO }] }}
-      footerColor="#6d1416"
-      separator={true}
-      separatorX={440.5}
-      separatorWidth={97}
-      serialY={384}
+      footerStyle={{ color: "#6d1416" }}
     >
       <defs>
         <linearGradient id={`${id}-facet-light`} x2="1" y2="1"><stop stopColor="#fafbf8" /><stop offset="1" stopColor="#babebb" /></linearGradient>

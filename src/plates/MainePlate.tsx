@@ -12,19 +12,15 @@ export default function MainePlate(props: PlateProps) {
   const id = useId();
   return (
     <BaselinePlate {...props} registrationFace={BEBAS_NEUE_400} state={props.state ?? "Maine"}
-      rim={true}
-      rimWidth={5}
+      rim={5}
       name="Maine"
       colors={["#f7f8f4"]}
       heading="MAINE"
-      headingSize={88}
+      headingStyle={{ size: 88 }}
       ink="#080c09"
       footer="Vacationland"
-      footerColor="#061b14"
-      footerFont={PLATE_SERIF}
-      footerSize={59}
-      serialX={570}
-      serialWidth={730}
+      footerStyle={{ color: "#061b14", font: PLATE_SERIF, size: 59 }}
+      serial={{ x: 570, width: 730 }}
       frame={false}
     >
       <defs><linearGradient id={`me-rim-${id}`} x2="0" y2="1"><stop stopColor="#eef0ec" /><stop offset=".9" stopColor="#eef0ec" /><stop offset="1" stopColor="#999d9a" /></linearGradient></defs>

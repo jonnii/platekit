@@ -13,18 +13,11 @@ export default function NewMexicoPlate(props: PlateProps) {
       colors={["#239bb6", "#2595b7", "#0086aa", "#008db5", "#0083ac"]}
       stops={[0, 0.16, 0.19, 0.72, 1]}
       heading="LAND OF ENCHANTMENT"
-      headingColor="#f9d32c"
-      headingFont={PLATE_SANS}
-      headingSize={40}
-      headingWidth={520}
-      headingY={77}
+      headingStyle={{ color: "#f9d32c", font: PLATE_SANS, size: 40, width: 520, y: 77 }}
       ink="#ffdb24"
       footer="NEW MEXICO USA"
-      footerColor="#fff"
-      footerSize={55}
-      footerY={418}
-      separator={true}
-      separatorWidth={230}
+      footerStyle={{ color: "#fff", size: 55, y: 418 }}
+      serial={{ separator: { width: 230 } }}
       frame={false}
       edgeColor="#168caa"
     >

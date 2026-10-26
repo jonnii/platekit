@@ -14,13 +14,9 @@ export default function VirginiaPlate(props: PlateProps) {
       colors={["#f8fafb"]}
       // Measured on the DMV sample: caps 28–105 across x 248–768.
       heading="VIRGINIA"
-      headingColor={BLUE}
-      headingSize={111}
-      headingWidth={520}
-      headingX={508}
-      headingY={105}
+      headingStyle={{ color: BLUE, size: 111, width: 520, x: 508, y: 105 }}
       ink="#0a204e"
-      serialStroke="#fafaf8"
+      serial={{ stroke: "#fafaf8" }}
     >
       {/* Optional decal tabs printed in the top corners. */}
       {props.registrationStickerAreas && <g data-plate-registration-sticker-area="" fontFamily={PLATE_SANS} fontSize="16" textAnchor="middle" fill="#fff">

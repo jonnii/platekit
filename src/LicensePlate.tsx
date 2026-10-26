@@ -20,7 +20,7 @@ function GenericPlate(props: LicensePlateProps) {
       heading={name.toUpperCase()}
       colors={["#f9fbff", "#eef2f8"]}
       ink="#1b2a41"
-      headingColor="#0b3b6f"
+      headingStyle={{ color: "#0b3b6f" }}
     />
   );
 }

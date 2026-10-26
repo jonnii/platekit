@@ -9,17 +9,13 @@ import { TEKO_500 } from "../internal/registrationGlyphs.js";
 export default function IowaPlate(props: PlateProps) {
   return (
     <BaselinePlate {...props} registrationFace={TEKO_500} state={props.state ?? "Iowa"}
-      rim={true}
-      rimWidth={11}
+      rim={11}
       name="Iowa"
       colors={["#e8eaeb"]}
       stops={[0, 0.25]}
       heading="IOWA"
       ink="#070b09"
-      headingFont={PLATE_SANS}
-      headingColor="#efeeeb"
-      headingSize={90}
-      headingY={128}
+      headingStyle={{ font: PLATE_SANS, color: "#efeeeb", size: 90, y: 128 }}
     >
       <rect x="28" y="28" width="944" height="445" rx={PLATE_INSET_RADIUS} fill="#426837" />
       <path d="M53 28 H947 Q972 28 972 53 V246 H28 V53 Q28 28 53 28Z" fill="#8bc4d1" />

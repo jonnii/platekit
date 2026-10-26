@@ -14,16 +14,11 @@ export default function WyomingPlate(props: PlateProps) {
 
       frame={false}
       heading="WYOMING"
-      headingColor="#19294c"
-      headingStroke="#fff"
-      serialStroke="#19294c"
-      headingSize={83}
-      headingY={89}
+      headingStyle={{ color: "#19294c", stroke: "#fff", size: 83, y: 89 }}
+      serial={{ stroke: "#19294c" }}
       ink="#fff"
       footer="TRAVELWYOMING.COM"
-      footerColor="#172238"
-      footerSize={27}
-      footerY={477}
+      footerStyle={{ color: "#172238", size: 27, y: 477 }}
     >
       <rect x="14" y="14" width="972" height="472" rx={PLATE_INSET_RADIUS} fill="none" stroke="#ba2045" strokeWidth="28" /><path d="M30 442 H970 V466 H30Z" fill="#fff" />
       <rect x="34" y="42" width="932" height="419" fill="none" stroke="#fff" strokeWidth="9" />

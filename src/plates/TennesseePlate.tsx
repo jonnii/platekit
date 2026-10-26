@@ -14,17 +14,11 @@ export default function TennesseePlate(props: PlateProps) {
       name="Tennessee"
       colors={["#172652"]}
       heading={{ text: "TENNESSEE", paths: [{ d: TN_NAME }] }}
-      headingColor="#fff"
+      headingStyle={{ color: "#fff" }}
       ink="#fff"
       footer="TNVACATION.COM"
-      footerSize={32}
-      footerTextLength={446}
-      footerWeight={500}
-      footerY={400}
-      separator={true}
-      separatorWidth={135}
-      serialInset={48}
-      separatorX={436}
+      footerStyle={{ size: 32, length: 446, weight: 500, y: 400 }}
+      serial={{ inset: 48, separator: { width: 135, x: 436 } }}
       frame={false}
 
     >

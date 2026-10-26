@@ -12,15 +12,14 @@ export default function OklahomaPlate(props: PlateProps) {
     <BaselinePlate {...props} registrationFace={BEBAS_NEUE_400} state={props.state ?? "Oklahoma"}
       name="Oklahoma"
       colors={["#ab1d24"]}
-      rim={true}
+      rim
 
       heading={{ text: "OKLAHOMA", paths: [{ d: OK_NAME }] }}
-      headingColor="#fff"
+      headingStyle={{ color: "#fff" }}
       ink="#fff"
       footer={{ text: "IMAGINE THAT", paths: [{ d: OK_MOTTO }] }}
-      footerColor="#fff"
-      separator={true}
-      separatorWidth={230}
+      footerStyle={{ color: "#fff" }}
+      serial={{ separator: { width: 230 } }}
       border="#1a2459"
     >
       <rect x="27" y="27" width="946" height="449" rx={PLATE_INSET_RADIUS} stroke="#1b2455" strokeWidth="9" fill="none" />

@@ -14,13 +14,12 @@ export default function IdahoPlate(props: PlateProps) {
     <BaselinePlate {...props} registrationFace={BEBAS_NEUE_400} state={props.state ?? "Idaho"}
       name="Idaho"
 
-      rim={true}
-      rimWidth={11}
+      rim={11}
       colors={["#a30000", "#b00000", "#e2040a", "#e8282e", "#ee8580", "#f1efed", "#f1efed"]}
       stops={[0, 0.19, 0.25, 0.28, 0.32, 0.36, 1]}
       heading={{ text: "Scenic IDAHO", paths: [{ d: ID_NAME }] }}
-      headingColor="#fff8ee"
-      serialY={360}
+      headingStyle={{ color: "#fff8ee" }}
+      serial={{ y: 360 }}
       ink="#060707"
     >
       <defs>

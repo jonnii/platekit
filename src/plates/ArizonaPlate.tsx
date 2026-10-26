@@ -8,22 +8,16 @@ import { ROBOTO_CONDENSED_700 } from "../internal/registrationGlyphs.js";
 export default function ArizonaPlate(props: PlateProps) {
   return (
     <BaselinePlate {...props} registrationFace={ROBOTO_CONDENSED_700} state={props.state ?? "Arizona"}
-      rim={true}
-      rimWidth={11}
+      rim={11}
       name="Arizona"
       colors={["#349fbb", "#f6f9f4", "#fffff9", "#e89943"]}
       stops={[0, 0.34, 0.60, 0.9]}
       heading="ARIZONA"
-      headingColor="#e4f5f7"
-      headingFont={PLATE_SANS}
-      headingSize={66}
+      headingStyle={{ color: "#e4f5f7", font: PLATE_SANS, size: 66 }}
       ink="#053e27"
-      serialX={560}
-      serialWidth={790}
+      serial={{ x: 560, width: 790 }}
       footer=""
-      footerColor="#063a25"
-      footerY={423}
-      footerSize={32}
+      footerStyle={{ color: "#063a25", y: 423, size: 32 }}
     >
       <text x="735" y="423" textAnchor="middle" fontSize="33" fontFamily={PLATE_SANS} fill="#063a25">GRAND CANYON STATE</text>
       <circle cx="398" cy="433" r="46" fill="#fffbe3" />
