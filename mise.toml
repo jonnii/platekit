@@ -32,6 +32,10 @@ run = "bun test"
 description = "Check TypeScript types"
 run = "bun run typecheck"
 
+[tasks.lint]
+description = "Lint package code and development tools"
+run = "bun run lint"
+
 [tasks.compare-plates]
 description = "Refresh artwork scores for all plates"
 run = "bun run compare-plates"
@@ -57,5 +61,5 @@ description = "Measure SVG complexity; pass --output-dir=... and optionally --st
 run = "bun run audit-plates"
 
 [tasks.check]
-description = "Typecheck the package and development tools, then run tests"
+description = "Typecheck and lint the package and development tools, then run tests"
 run = "bun run check"

@@ -2,7 +2,6 @@ import { referencePath } from "../../tools/artwork/paths";
 import { describe, expect, it } from "bun:test";
 import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
-import path from "node:path";
 import sharp from "sharp";
 import { PLATE_REFERENCES } from "../../tools/artwork/references";
 import { originalReference } from "../../tools/artwork/reference-assets";

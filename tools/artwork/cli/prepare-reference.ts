@@ -15,7 +15,6 @@ import { referencePath } from "../paths.ts";
  */
 import { readFile, writeFile } from "node:fs/promises";
 import { createHash } from "node:crypto";
-import path from "node:path";
 import sharp from "sharp";
 import { PLATE_REFERENCES } from "../references.ts";
 import { originalReference } from "../reference-assets.ts";
