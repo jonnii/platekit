@@ -1,6 +1,6 @@
 # Contributing
 
-Run commands from the repository root. Install Bun 1.3.14, then:
+Run commands from the repository root. Install Bun 1.3.14 and [Git LFS](https://git-lfs.com), which stores the reference images and archived comparison photos (`git lfs install` once per machine), then:
 
 ```sh
 bun install --frozen-lockfile

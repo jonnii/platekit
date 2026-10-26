@@ -20,6 +20,8 @@ jobs:
       pages: read
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          lfs: true
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version-file: package.json
