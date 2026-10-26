@@ -1,0 +1,4 @@
+references/**/*.jpg filter=lfs diff=lfs merge=lfs -text
+references/**/*.webp filter=lfs diff=lfs merge=lfs -text
+references/**/*.png filter=lfs diff=lfs merge=lfs -text
+docs/history/**/*.jpg filter=lfs diff=lfs merge=lfs -text

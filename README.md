@@ -64,7 +64,7 @@ bun install --frozen-lockfile
 bun run dev
 ```
 
-Use Bun 1.3.14. Alternatively, `mise trust` followed by `mise run dev` installs dependencies and starts the same workflow with pinned tools.
+Use Bun 1.3.14. Reference images under `references/` and `docs/history/` are Git LFS objects, so install Git LFS before cloning. Alternatively, `mise trust` followed by `mise run dev` installs dependencies and starts the same workflow with pinned tools.
 
 Open http://localhost:3001 for the public documentation site: setup, live examples, API reference, fonts, and a searchable gallery. Build it with `bun run build:site`; the static output is in `site/dist/`.
 
