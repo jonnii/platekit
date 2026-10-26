@@ -44,7 +44,6 @@ const Plate = lazy(PLATE_LOADERS[state as PlateState]);
 <Suspense fallback={null}><Plate plate="ABC1234" /></Suspense>
 ```
 
-
 `LicensePlateProps`, `PlateProps`, `PlateState`, `PlateLoader`, `PLATES`, `PLATE_STATES`, and `PLATE_LOADERS` are also exported from the package root. The dispatcher's `state` prop autocompletes the 51 codes and still accepts any string. Individual components infer their state; an optional `state` overrides the accessible state label. The dispatcher includes all states; individual imports avoid loading the full registry. Components support server rendering and carry Next.js client boundaries for their React hooks.
 
 ## Fonts
